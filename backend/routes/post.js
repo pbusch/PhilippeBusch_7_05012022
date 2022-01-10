@@ -6,6 +6,6 @@ const isMod = require("../middleware/isMod");
 const postCtrl = require("../controllers/post");
 
 router.get("/", postCtrl.listPosts);
-router.post("/add", postCtrl.addPost);
+router.post("/add", auth, postCtrl.addPost);
 
 module.exports = router;

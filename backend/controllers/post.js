@@ -16,7 +16,7 @@ exports.listPosts = (req, res) => {
 
 exports.addPost = (req, res) => {
   const post = {
-    users_id: req.body.id,
+    users_id: req.token.userId,
     title: req.body.title,
     imgUrl: req.body.imgUrl,
   };
