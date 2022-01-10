@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 //const Pool = require("pg").Pool;
 const userRoutes = require("./routes/user");
-//const sauceRoutes = require("./routes/sauce");
+const postRoutes = require("./routes/post");
 const path = require("path");
 require("dotenv").config();
 const db = require("./models");
@@ -51,5 +51,6 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 // routes d'authentification
 app.use("/api/auth", userRoutes);
+app.use("/api/post", postRoutes);
 
 module.exports = app;
