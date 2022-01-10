@@ -28,7 +28,6 @@ exports.signup = (req, res) => {
       password: hash,
       level: "1",
     };
-    console.log(user);
     Users.create(user)
       .then((data) => {
         res.send(data);
@@ -101,12 +100,27 @@ exports.delUser = (req, res) => {
   Users.destroy({
     where: { id: req.params.id },
   })
-    .then(() => res.status(200).json({ message: "User removed by Admin" }))
+    //.then(() => res.status(200).json({ message: "User removed by Admin" }))
+    .then((data) => {
+      console.log(data);
+      if (data !== 0) {
+        res.status(200).json({ message: "User removed by Admin" });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    })
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.changeLevel = (req, res) => {
   Users.update({ level: req.body.level }, { where: { id: req.params.id } })
-    .then(() => res.status(200).json({ message: "User modified" }))
+    //.then(() => res.status(200).json({ message: "User modified" }))
+    .then((data) => {
+      if (data.includes(1)) {
+        res.status(200).json({ message: "User level changed" });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    })
     .catch((error) => res.status(400).json({ error }));
 };
