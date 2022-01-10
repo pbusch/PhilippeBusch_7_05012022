@@ -11,7 +11,5 @@ router.get("/listusers", auth, isMod, userCtrl.listUsers);
 router.delete("/remove", auth, userCtrl.delSelf);
 router.delete("/deluser/:id", auth, isAdmin, userCtrl.delUser);
 router.put("/level/:id", auth, isAdmin, userCtrl.changeLevel);
-//router.post("/signup", userCtrl.signup);
-//router.post("/login", userCtrl.login);
 
 module.exports = router;
