@@ -19,7 +19,26 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.users = require("./users.js")(sequelize, Sequelize);
-db.posts = require("./posts.js")(sequelize, Sequelize);
+db.user = require("./user")(sequelize, Sequelize);
+db.post = require("./post")(sequelize, Sequelize);
+db.comment = require("./comment")(sequelize, Sequelize);
+db.like = require("./like")(sequelize, Sequelize);
+
+db.user.hasMany(db.post);
+db.post.belongsTo(db.user);
+
+db.user.hasMany(db.comment);
+db.comment.belongsTo(db.user);
+
+db.post.hasMany(db.comment);
+db.comment.belongsTo(db.post);
+
+db.user.hasMany(db.like);
+db.like.belongsTo(db.user);
+
+db.post.hasMany(db.like);
+db.like.belongsTo(db.post);
+
+//sequelize.sync({ loggin: console.log });
 
 module.exports = db;

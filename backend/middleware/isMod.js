@@ -1,9 +1,9 @@
 const db = require("../models");
-const Users = db.users;
+const User = db.user;
 
 module.exports = (req, res, next) => {
   const userId = req.token.userId;
-  Users.findOne({ where: { id: userId } })
+  User.findOne({ where: { id: userId } })
     .then((data) => {
       if (!data) {
         return res.status(401).json({ error: { message: "Wrong user" } });

@@ -1,5 +1,5 @@
 const db = require("../models");
-const Users = db.users;
+const User = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -28,7 +28,7 @@ exports.signup = (req, res) => {
       password: hash,
       level: "1",
     };
-    Users.create(user)
+    User.create(user)
       .then((data) => {
         res.send(data);
       })
@@ -42,7 +42,7 @@ exports.signup = (req, res) => {
 
 exports.login = (req, res) => {
   const email = req.body.email;
-  Users.findOne({ where: { email: email } })
+  User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
         return res.status(401).json({ error: "User not found" });
@@ -74,8 +74,8 @@ exports.login = (req, res) => {
 };
 
 exports.listUsers = (req, res) => {
-  console.log(Users.level);
-  Users.findAll({})
+  console.log(User.level);
+  User.findAll({})
     .then((data) => {
       res.send(data);
     })
@@ -89,7 +89,7 @@ exports.listUsers = (req, res) => {
 exports.delSelf = (req, res) => {
   const userId = req.token.userId;
 
-  Users.destroy({
+  User.destroy({
     where: { id: userId },
   })
     .then(() => res.status(200).json({ message: "User self removed" }))
@@ -97,12 +97,11 @@ exports.delSelf = (req, res) => {
 };
 
 exports.delUser = (req, res) => {
-  Users.destroy({
+  User.destroy({
     where: { id: req.params.id },
   })
     //.then(() => res.status(200).json({ message: "User removed by Admin" }))
     .then((data) => {
-      console.log(data);
       if (data !== 0) {
         res.status(200).json({ message: "User removed by Admin" });
       } else {
@@ -113,7 +112,7 @@ exports.delUser = (req, res) => {
 };
 
 exports.changeLevel = (req, res) => {
-  Users.update({ level: req.body.level }, { where: { id: req.params.id } })
+  User.update({ level: req.body.level }, { where: { id: req.params.id } })
     //.then(() => res.status(200).json({ message: "User modified" }))
     .then((data) => {
       if (data.includes(1)) {
