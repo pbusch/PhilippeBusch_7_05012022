@@ -25,7 +25,14 @@ exports.getOnePost = (req, res) => {
   Post.findOne({
     attributes: ["title"],
     where: { id: req.params.id },
-    include: [{ model: db.user, attributes: ["name"] }, { model: db.comment }],
+    include: [
+      { model: db.user, attributes: ["name"] },
+      {
+        model: db.comment,
+        attributes: ["commentText"],
+        include: [{ model: db.user, attributes: ["name"] }],
+      },
+    ],
   })
     .then((data) => {
       res.send(data);
