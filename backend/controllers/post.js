@@ -1,3 +1,4 @@
+const { Sequelize } = require("../models");
 const db = require("../models");
 const users = require("../models/user");
 const Comment = db.comment;
@@ -9,7 +10,17 @@ exports.listPosts = (req, res) => {
   Post.findAll({
     limit: 10,
     order: [["createdAt", "DESC"]],
-    include: [{ model: db.user }],
+    include: [
+      { model: db.user, attributes: ["name"] },
+      {
+        model: db.comment,
+        attributes: [
+          "commentText",
+          //  [Sequelize.fn("COUNT", "postId"), "Commentaires"],
+        ],
+        //include: [db.user],
+      },
+    ],
   })
     .then((data) => {
       res.send(data);
@@ -76,4 +87,32 @@ exports.addComment = (req, res) => {
         message: err.message || "error ",
       });
     });
+};
+
+exports.delPost = (req, res) => {
+  Post.destroy({
+    where: { id: req.params.id },
+  })
+    .then((data) => {
+      if (data !== 0) {
+        res.status(200).json({ message: "Post removed by Admin" });
+      } else {
+        res.status(404).json({ message: "Post not found" });
+      }
+    })
+    .catch((error) => res.status(400).json({ error }));
+};
+
+exports.delComment = (req, res) => {
+  Comment.destroy({
+    where: { id: req.params.id },
+  })
+    .then((data) => {
+      if (data !== 0) {
+        res.status(200).json({ message: "Comment removed by Admin" });
+      } else {
+        res.status(404).json({ message: "Comment not found" });
+      }
+    })
+    .catch((error) => res.status(400).json({ error }));
 };

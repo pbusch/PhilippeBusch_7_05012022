@@ -30,7 +30,7 @@ db.post.belongsTo(db.user);
 db.user.hasMany(db.comment);
 db.comment.belongsTo(db.user);
 
-db.post.hasMany(db.comment);
+db.post.hasMany(db.comment, { onDelete: "cascade" });
 db.comment.belongsTo(db.post);
 
 db.user.hasMany(db.like);

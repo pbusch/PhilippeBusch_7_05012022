@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   User.findOne({ where: { id: userId } })
     .then((data) => {
       if (!data) {
-        return res.status(401).json({ error: { message: "Wrong user" } });
+        return res.status(404).json({ error: { message: "User not found" } });
       }
 
       if (data.level < 3) {
