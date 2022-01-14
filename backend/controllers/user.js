@@ -19,6 +19,20 @@ exports.listUsers = (req, res) => {
     });
 };
 
+exports.userInfo = (req, res) => {
+  if (req.token.userId != req.params.id && req.token.level < 3) {
+    return res.status(401).json({ error: { message: "Admin level required" } });
+  }
+  User.findOne({ where: { id: req.params.id } })
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ error: { message: "User not found" } });
+      }
+      res.send(data);
+    })
+    .catch((error) => res.status(400).json({ error }));
+};
+
 exports.delUser = (req, res) => {
   if (req.token.userId != req.params.id && req.token.level < 3) {
     return res.status(401).json({ error: { message: "Admin level required" } });
@@ -37,14 +51,61 @@ exports.delUser = (req, res) => {
 };
 
 exports.modUser = (req, res) => {
-  User.update({ level: req.body.level }, { where: { id: req.params.id } })
-    //.then(() => res.status(200).json({ message: "User modified" }))
-    .then((data) => {
-      if (data.includes(1)) {
-        res.status(200).json({ message: "User level changed" });
-      } else {
-        res.status(404).json({ message: "User not found" });
-      }
-    })
-    .catch((error) => res.status(400).json({ error }));
+  if (req.token.userId != req.params.id && req.token.level < 3) {
+    return res.status(401).json({ error: { message: "Admin level required" } });
+  }
+
+  if (req.token.level < 3 && req.body.level != null) {
+    return res.status(401).json({
+      error: {
+        message: "Lvl change is for Admin only - Modifications canceled",
+      },
+    });
+  }
+
+  if (req.body.password) {
+    bcrypt
+      .hash(req.body.password, 10)
+      .then((hash) => {
+        User.update(
+          {
+            level: req.body.level,
+            name: req.body.name,
+            email: req.body.email,
+            password: hash,
+          },
+          { where: { id: req.params.id } }
+        )
+          .then((data) => {
+            if (data.includes(1)) {
+              res.status(200).json({ message: "User Updated" });
+            } else {
+              res.status(404).json({ message: "User not found" });
+            }
+          })
+          .catch((error) => res.status(400).json({ error }));
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "error ",
+        });
+      });
+  } else {
+    User.update(
+      {
+        level: req.body.level,
+        name: req.body.name,
+        email: req.body.email,
+      },
+      { where: { id: req.params.id } }
+    )
+      .then((data) => {
+        if (data.includes(1)) {
+          res.status(200).json({ message: "User Updated" });
+        } else {
+          res.status(404).json({ message: "User not found" });
+        }
+      })
+      .catch((error) => res.status(400).json({ error }));
+  }
 };
