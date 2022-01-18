@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
       String(req.body.name)
     );
 
-  if (!nameFormat) {
+  if (!nameFormat || !req.body.name) {
     return res.status(400).json({ error: "invalid name" });
   }
 
@@ -24,5 +24,10 @@ module.exports = (req, res, next) => {
   if (!schema.validate(req.body.password)) {
     return res.status(400).json({ error: "invalid password" });
   }
+
+  if (!schema.validate(req.body.newPassword)) {
+    return res.status(400).json({ error: "invalid new password" });
+  }
+
   next();
 };

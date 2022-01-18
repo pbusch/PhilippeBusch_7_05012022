@@ -5,6 +5,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.signup = (req, res) => {
+  if (!req.body.password) {
+    return res.status(400).json({ error: "No password provided" });
+  }
   bcrypt.hash(req.body.password, 10).then((hash) => {
     const user = {
       name: req.body.name,
