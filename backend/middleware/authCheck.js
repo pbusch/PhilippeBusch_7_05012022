@@ -5,8 +5,6 @@ module.exports = (req, res, next) => {
     try {
       const token = req.headers.authorization.split(" ")[1];
       req.token = jwt.verify(token, process.env.APP_SECRET || "defaultSecret");
-      console.log(req.token.userId);
-      console.log(req.token.level);
       next();
     } catch {
       res.status(401).json({

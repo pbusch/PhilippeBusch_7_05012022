@@ -38,24 +38,23 @@ exports.userInfo = (req, res) => {
 };
 
 exports.delUser = (req, res) => {
-  if (isNaN(req.params.id)) {
-    return res.status(400).json({ error: { message: "invalid parameter" } });
-  }
-
-  if (req.token.userId != req.params.id && req.token.level < 3) {
-    return res.status(401).json({ error: { message: "Admin level required" } });
-  }
-  User.destroy({
-    where: { id: req.params.id },
-  })
-    .then((data) => {
-      if (data !== 0) {
-        res.status(200).json({ message: "User removed" });
-      } else {
-        res.status(404).json({ message: "User not found" });
-      }
+  if (!req.body.password && req.token.level < 3) {
+    return res
+      .status(401)
+      .json({ error: { message: "Please provide a valid password" } });
+  } else {
+    User.destroy({
+      where: { id: req.params.id },
     })
-    .catch((error) => res.status(400).json({ error }));
+      .then((data) => {
+        if (data !== 0) {
+          res.status(200).json({ message: "User removed" });
+        } else {
+          res.status(404).json({ message: "User not found" });
+        }
+      })
+      .catch((error) => res.status(400).json({ error }));
+  }
 };
 
 exports.modUser = (req, res) => {
@@ -75,9 +74,9 @@ exports.modUser = (req, res) => {
     });
   }
 
-  if (req.body.password) {
+  if (req.body.newPassword) {
     bcrypt
-      .hash(req.body.password, 10)
+      .hash(req.body.newPassword, 10)
       .then((hash) => {
         User.update(
           {

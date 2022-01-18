@@ -39,6 +39,7 @@ exports.login = (req, res) => {
               .status(401)
               .json({ error: { message: "Incorrect password" } });
           }
+
           res.status(200).json({
             userId: user.id,
             token: jwt.sign(
