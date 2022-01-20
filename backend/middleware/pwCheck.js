@@ -8,10 +8,14 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
   if (req.token.userId != req.params.id && req.token.level < 3) {
-    return res
-      .status(401)
-      .json({ error: { message: "Admin level required !" } });
+    return res.status(401).json({ error: { message: "Admin level required" } });
   }
+  if (req.body.newPassword && !req.body.password && req.token.level < 3) {
+    return res
+      .status(400)
+      .json({ error: { message: "Invalid current password" } });
+  }
+
   if (!req.body.password || req.token.level > 2) {
     next();
   } else {

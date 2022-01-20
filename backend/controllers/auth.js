@@ -18,6 +18,7 @@ exports.signup = (req, res) => {
     User.create(user)
       .then((data) => {
         res.send(data);
+        //res.status(200).json({ message: "User created" });
       })
       .catch((err) => {
         res.status(500).send({
@@ -38,13 +39,10 @@ exports.login = (req, res) => {
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res
-              .status(401)
-              .json({ error: { message: "Incorrect password" } });
+            return res.status(401).json({ error: { message: "error" } });
           }
 
           res.status(200).json({
-            userId: user.id,
             token: jwt.sign(
               { userId: user.id, level: user.level },
               process.env.APP_SECRET || "defaultSecret",
