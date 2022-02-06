@@ -7,7 +7,7 @@ const userCtrl = require("../controllers/user");
 const userCheck = require("../middleware/userCheck");
 const pwCheck = require("../middleware/pwCheck");
 
-router.get("/", auth, userCtrl.listUsers);
+router.get("/", userCtrl.listUsers);
 router.get("/:id", auth, userCtrl.userInfo);
 router.delete("/:id", auth, pwCheck, userCtrl.delUser);
 router.put("/:id", auth, userCheck, pwCheck, userCtrl.modUser);
