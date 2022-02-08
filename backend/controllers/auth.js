@@ -51,6 +51,7 @@ exports.login = (req, res) => {
               }
             ),
           });
+          //res.cookie("token", token, { httpOnly: true });
         })
         .catch((error) => res.status(500).json({ error }));
     })

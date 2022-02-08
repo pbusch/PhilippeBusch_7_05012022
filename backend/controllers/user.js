@@ -5,9 +5,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.listUsers = (req, res) => {
-  // if (req.token.level < 2) {
-  //   return res.status(401).json({ error: { message: "Mod level required" } });
-  // }
+  if (req.token.level < 2) {
+    return res.status(401).json({ error: { message: "Mod level required" } });
+  }
   User.findAll({})
     .then((data) => {
       res.send(data);
