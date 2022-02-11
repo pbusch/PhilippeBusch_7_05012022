@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +14,7 @@ export class RegisterComponent implements OnInit {
     name: ['', Validators.required],
     password: ['', Validators.required],
   });
-  public error!: string;
+  public error?: string;
 
   constructor(
     private fb: FormBuilder,

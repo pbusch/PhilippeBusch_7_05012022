@@ -24,9 +24,9 @@ exports.userInfo = (req, res) => {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
 
-  if (req.token.userId != req.params.id && req.token.level < 3) {
-    return res.status(401).json({ error: { message: "Admin level required" } });
-  }
+  // if (req.token.userId != req.params.id && req.token.level < 3) {
+  //   return res.status(401).json({ error: { message: "Admin level required" } });
+  // }
   User.findOne({ where: { id: req.params.id } })
     .then((data) => {
       if (!data) {

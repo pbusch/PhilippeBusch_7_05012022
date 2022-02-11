@@ -16,13 +16,13 @@ exports.signup = (req, res) => {
       level: "1",
     };
     User.create(user)
-      .then((data) => {
-        res.send(data);
-        //res.status(200).json({ message: "User created" });
+      .then(() => {
+        res.status(201).send();
       })
       .catch((err) => {
-        res.status(500).send({
-          message: err.message || "error ",
+        console.error(err);
+        res.status(400).json({
+          message: "error",
         });
       });
   });
@@ -51,7 +51,6 @@ exports.login = (req, res) => {
               }
             ),
           });
-          //res.cookie("token", token, { httpOnly: true });
         })
         .catch((error) => res.status(500).json({ error }));
     })

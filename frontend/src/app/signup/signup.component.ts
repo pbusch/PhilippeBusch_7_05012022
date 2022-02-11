@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   FormGroup,
   FormControl,
@@ -10,9 +9,8 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-signup',
@@ -95,7 +93,6 @@ export class SignupComponent implements OnInit {
       } else {
         control = form.get(field)!;
       }
-      //if (control && control.touched && control.invalid) {
       if (control && !control.pristine && control.invalid) {
         const messages = this.messagesErreur[field];
         for (const key in control.errors) {
@@ -111,23 +108,9 @@ export class SignupComponent implements OnInit {
         this.changementStatusForm();
       })
     );
-
-    // this.httpService
-    //   .get<User[]>('http://localhost:3000/api/users/')
-    //   .subscribe((users) => {
-    //     console.log(users);
-    //     this.users = users;
-    //   });
   }
 
   public submit(): void {
-    // let jsonObj: object;
-    // jsonObj = {
-    //   name: this.form.controls.name.value,
-    //   email: this.form.controls.email.value,
-    //   password: this.form.controls.password.value,
-    // };
-    // console.log(JSON.stringify(jsonObj));
     if (this.form.valid) {
       this.authService
         .signup(
@@ -135,14 +118,9 @@ export class SignupComponent implements OnInit {
           this.form.controls.email.value,
           this.form.controls.password.value
         )
-        //.subscribe((users) => (this.users = users));
         .subscribe((user: User) => console.log(user));
       this.router?.navigate(['login']);
     }
-
-    // this.httpService
-    //   .post<User>('http://localhost:3000/api/auth/signup', jsonObj)
-    //   .subscribe((user: User) => console.log(user));
   }
 
   ngOnDestroy() {

@@ -1,10 +1,17 @@
 <mat-toolbar color="primary">
   <a routerLink="/">Groupomania</a>
   <ul>
-    <li class="m-10">
+    <li *ngIf="isLoggedIn" class="m-10">
+      <a routerLink="posts">Posts</a>
+    </li>
+    <li *ngIf="isLoggedIn" class="m-10">
+      <a routerLink="profile">Profil</a>
+    </li>
+
+    <li *ngIf="!isLoggedIn" class="m-10">
       <a routerLink="login">Connexion</a>
     </li>
-    <li class="m-10">
+    <li *ngIf="!isLoggedIn" class="m-10">
       <a routerLink="signup">Inscription</a>
     </li>
   </ul>

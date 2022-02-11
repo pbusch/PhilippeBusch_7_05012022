@@ -4,16 +4,6 @@
       <label>Nom</label>
       <input formControlName="name" type="text" />
 
-      <!--
-      <div *ngIf="form.controls.name.errors">
-        {{ form.controls.name.errors.required }}
-      </div>
-      
-       <div *ngIf="form.get('name').errors"> 
-      {{form.get('name').errors}}
-      </div> 
-      -->
-
       <div *ngIf="erreursForm.name" class="error">
         {{ erreursForm.name }}
       </div>

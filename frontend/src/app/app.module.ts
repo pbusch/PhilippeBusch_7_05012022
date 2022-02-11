@@ -17,6 +17,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth.guard';
+import { JwtService } from './services/JwtService';
+import { DataSharingService } from './services/dataSharingService';
+import { PostListComponent } from './post-list/post-list.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,7 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
+    PostListComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,7 @@ import { RegisterComponent } from './register/register.component';
     MatCardModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [AuthGuard, JwtService, DataSharingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

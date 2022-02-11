@@ -33,10 +33,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
-  display: block;
-  margin: auto;
-  padding: 20px;
+  padding: 0 0 20px;
 }
 
 .d-flex {
@@ -156,5 +153,11 @@ body {
   border: 1px solid green;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

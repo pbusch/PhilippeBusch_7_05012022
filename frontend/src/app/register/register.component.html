@@ -27,7 +27,9 @@
         <mat-error *ngIf="error">
           {{ error }}
         </mat-error>
-        <button mat-raised-button color="primary">Inscription</button>
+        <button mat-raised-button color="primary" [disabled]="form.invalid">
+          Inscription
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

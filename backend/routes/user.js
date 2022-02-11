@@ -8,7 +8,7 @@ const userCheck = require("../middleware/userCheck");
 const pwCheck = require("../middleware/pwCheck");
 
 router.get("/", auth, userCtrl.listUsers);
-router.get("/:id", auth, userCtrl.userInfo);
+router.get("/:id", userCtrl.userInfo);
 router.delete("/:id", auth, pwCheck, userCtrl.delUser);
 router.put("/:id", auth, userCheck, pwCheck, userCtrl.modUser);
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../interfaces/user';
+import { DataSharingService } from '../services/dataSharingService';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dataSharingService: DataSharingService
   ) {}
 
   ngOnInit(): void {}
@@ -35,9 +36,10 @@ export class LoginComponent implements OnInit {
           next: (res) => {
             console.log(res);
             localStorage.setItem('token', res['token']);
+            this.dataSharingService.isUserLoggedIn.next(true);
+            console.log(this.dataSharingService.isUserLoggedIn);
           },
-          error: (err: { error: string }) =>
-            (this.error = 'Mauvais identifiants'),
+          error: () => (this.error = 'Identifiants incorrects'),
           complete: () => this.router?.navigate(['profile']),
         });
     }
