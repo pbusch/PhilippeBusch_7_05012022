@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 
 const AUTH_API = 'http://localhost:3000/';
 
@@ -38,6 +39,23 @@ export class AuthService {
   }
 
   public loggedIn() {
-    return !!localStorage.getItem('token');
+    if (localStorage.getItem('token')) {
+      return true;
+    } else {
+      return false;
+    }
+    //return !!localStorage.getItem('token');
+  }
+
+  public tokenId() {
+    let creds: any;
+    let token: any;
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token');
+      creds = jwt_decode(token);
+      return creds;
+    } else {
+      return;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/userService';
-import { JwtService } from '../services/JwtService';
+import { AuthService } from '../services/auth.service';
 import { DataSharingService } from '../services/dataSharingService';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   public email?: string;
 
   constructor(
-    private jwtService: JwtService,
+    private authService: AuthService,
     private userService: UserService,
     private dataSharingservice: DataSharingService,
     private router: Router
@@ -29,10 +29,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userToken = localStorage.getItem('token');
-    console.log(this.jwtService.DecodeToken(this.userToken));
-    this.getId = this.jwtService.DecodeToken(this.userToken);
-    console.log(this.getId.userId);
+    //this.userToken = localStorage.getItem('token');
+    //console.log(this.jwtService.DecodeToken(this.userToken));
+    this.getId = this.authService.tokenId();
 
     this.userService.getUser(this.getId.userId).subscribe({
       next: (res) => {

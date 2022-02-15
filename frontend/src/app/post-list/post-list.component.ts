@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../interfaces/post';
+import { PostComponent } from '../post/post.component';
 import { postService } from '../services/postService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
@@ -9,9 +11,8 @@ import { postService } from '../services/postService';
 })
 export class PostListComponent implements OnInit {
   posts!: [Post];
-  panelOpenState = false;
 
-  constructor(private postService: postService) {}
+  constructor(private postService: postService, public router: Router) {}
 
   ngOnInit(): void {
     this.postService.listPosts().subscribe({
@@ -23,5 +24,9 @@ export class PostListComponent implements OnInit {
       error: () => console.log('erreur'),
       complete: () => console.log('okay'),
     });
+  }
+
+  public doAdd() {
+    this.router.navigateByUrl('edit?id=new');
   }
 }

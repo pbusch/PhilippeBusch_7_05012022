@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
             console.log(this.dataSharingService.isUserLoggedIn);
           },
           error: () => (this.error = 'Identifiants incorrects'),
-          complete: () => this.router?.navigate(['profile']),
+          complete: () => this.router?.navigate(['posts']),
         });
     }
   }

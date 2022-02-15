@@ -4,4 +4,6 @@ export interface Post {
   imgUrl: string;
   userId: string;
   user: { name: string };
+  createdAt: Date;
+  //updatedAt: Date;
 }

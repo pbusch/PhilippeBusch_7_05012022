@@ -21,4 +21,16 @@ export class postService {
   public listPosts(): Observable<any> {
     return this.http.get<any>(AUTH_API + 'api/posts/');
   }
+
+  public getOnePost(param: any): Observable<any> {
+    return this.http.get<any>(AUTH_API + 'api/posts/' + param);
+  }
+
+  public updatePost(param: any, body: any): Observable<any> {
+    return this.http.put<any>(AUTH_API + 'api/posts/' + param, body);
+  }
+
+  public addPost(body: any): Observable<any> {
+    return this.http.post<any>(AUTH_API + 'api/posts/', body);
+  }
 }

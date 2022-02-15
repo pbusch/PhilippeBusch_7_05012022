@@ -1,0 +1,39 @@
+<mat-card class="example-card">
+  <form [formGroup]="form" (submit)="submit()">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-subtitle *ngIf="post">{{ post.user.name }}</mat-card-subtitle>
+
+      <mat-card-title>
+        <mat-form-field>
+          <mat-label>{{ post.title }}</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="title"
+            placeholder="Nouveau titre"
+          />
+          <!--<mat-error *ngIf="form.get('email')?.errors?.required">
+            Veuillez renseigner une adresse email.
+          </mat-error> -->
+        </mat-form-field>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field>
+      <img mat-card-image [src]="post.imgUrl" alt="Photo de Groupomania" />
+      <input
+        matInput
+        type="text"
+        formControlName="imgUrl"
+        placeholder="Nouvelle image"
+      />
+    </mat-form-field>
+    <!--<mat-card-content>
+      <p>Publié le : {{ post.createdAt | date: "dd/MM/yyyy" }}</p>
+    </mat-card-content> -->
+    <mat-card-actions>
+      <button mat-button>Valider</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

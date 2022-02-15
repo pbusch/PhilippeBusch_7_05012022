@@ -34,7 +34,7 @@ exports.listPosts = (req, res) => {
 
 exports.getOnePost = (req, res) => {
   Post.findOne({
-    attributes: ["title"],
+    attributes: ["title", "imgUrl", "createdAt"],
     where: { id: req.params.id },
     include: [
       { model: db.user, attributes: ["name"] },
@@ -45,6 +45,21 @@ exports.getOnePost = (req, res) => {
       },
     ],
   })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "error",
+      });
+    });
+};
+
+exports.updatePost = (req, res) => {
+  Post.update(
+    { title: req.body.title, imgUrl: req.body.imgUrl },
+    { where: { id: req.params.id } }
+  )
     .then((data) => {
       res.send(data);
     })

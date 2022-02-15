@@ -1,4 +1,7 @@
-<mat-card *ngFor="let post of posts" class="example-card">
+<button mat-button color="accent" (click)="doAdd()">Ajouter</button>
+<app-post *ngFor="let post of posts" [post]="post"></app-post>
+
+<!--<mat-card *ngFor="let post of posts" class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{ post.title }}</mat-card-title>
@@ -19,3 +22,4 @@
     <button mat-button>SHARE</button>
   </mat-card-actions>
 </mat-card>
+-->
