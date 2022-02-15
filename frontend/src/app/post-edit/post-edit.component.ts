@@ -4,6 +4,7 @@ import { postService } from '../services/postService';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-post-edit',
@@ -13,11 +14,14 @@ import { Router } from '@angular/router';
 export class PostEditComponent implements OnInit {
   post!: Post;
   public param!: any;
+  public file!: File;
   public form: FormGroup = this.fb.group({
     title: ['', Validators.required],
     imgUrl: ['', Validators.required],
   });
   public error?: string;
+  public title = 'fileUpload';
+  public images: any;
 
   constructor(
     public postService: postService,
@@ -61,7 +65,11 @@ export class PostEditComponent implements OnInit {
     console.log(this.form.value);
 
     if (this.param == 'new') {
-      this.postService.addPost(this.form.value).subscribe({
+      let formData: FormData = new FormData();
+      formData.append('image', this.file, this.file.name);
+      formData.append('title', this.form.value.title);
+
+      this.postService.addPost(formData).subscribe({
         next: (res) => {
           console.log(res);
         },
@@ -76,6 +84,24 @@ export class PostEditComponent implements OnInit {
         error: () => (this.error = 'Identifiants incorrects'),
         complete: () => this.router?.navigate(['posts']),
       });
+    }
+  }
+
+  fileChange(event: any) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.file = fileList[0];
+
+      // this.http
+      //   .post('http://localhost:3000/stretch/1' + token, formData, {
+      //     headers: headers,
+      //   })
+      //   .map((res) => res.json())
+      //   .catch((error) => Observable.throw(error))
+      //   .subscribe(
+      //     (data) => console.log(data),
+      //     (error) => console.log(error)
+      //   );
     }
   }
 }

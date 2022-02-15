@@ -5,6 +5,7 @@ const Comment = db.comment;
 const Post = db.post;
 const User = db.user;
 const Op = db.Sequelize.Op;
+const fs = require("fs");
 
 exports.listPosts = (req, res) => {
   Post.findAll({
@@ -74,7 +75,7 @@ exports.addPost = (req, res) => {
   const post = {
     userId: req.token.userId,
     title: req.body.title,
-    imgUrl: req.body.imgUrl,
+    imgUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
   };
   Post.create(post)
     .then((data) => {
