@@ -17,8 +17,11 @@ exports.listPosts = (req, res) => {
         model: db.comment,
         attributes: [
           "commentText",
+
           //  [Sequelize.fn("COUNT", "postId"), "Commentaires"],
         ],
+
+        include: [{ model: db.user, attributes: ["name"] }],
         //include: [db.user],
       },
     ],
@@ -57,8 +60,22 @@ exports.getOnePost = (req, res) => {
 };
 
 exports.updatePost = (req, res) => {
+  // const postObject = req.file
+  //   ? {
+  //       ...JSON.parse(req.body.title),
+  //       imageUrl: `${req.protocol}://${req.get("host")}/images/${
+  //         req.file.filename
+  //       }`,
+  //     }
+  //   : { ...req.body };
+
   Post.update(
-    { title: req.body.title, imgUrl: req.body.imgUrl },
+    {
+      title: req.body.title,
+      imgUrl: `${req.protocol}://${req.get("host")}/images/${
+        req.file.filename
+      }`,
+    },
     { where: { id: req.params.id } }
   )
     .then((data) => {
@@ -94,6 +111,7 @@ exports.addComment = (req, res) => {
     commentText: req.body.text,
     postId: req.params.id,
   };
+  console.log(req.body.text);
   Comment.create(comment)
     .then((data) => {
       res.send(data);
