@@ -5,6 +5,7 @@ import { User } from '../interfaces/user';
 import { tap } from 'rxjs/operators';
 import { retry, catchError } from 'rxjs/operators';
 import { Post } from '../interfaces/post';
+//import { stringify } from 'querystring';
 
 const AUTH_API = 'http://localhost:3000/';
 
@@ -32,5 +33,15 @@ export class postService {
 
   public addPost(body: any): Observable<any> {
     return this.http.post<any>(AUTH_API + 'api/posts/', body);
+  }
+
+  public deletePost(param: any): Observable<any> {
+    return this.http.delete<any>(AUTH_API + 'api/posts/' + param);
+  }
+
+  public addComment(param: any, text: string): Observable<any> {
+    return this.http.post<any>(AUTH_API + 'api/posts/comments/' + param, {
+      text,
+    });
   }
 }

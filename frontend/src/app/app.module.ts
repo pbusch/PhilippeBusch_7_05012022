@@ -6,7 +6,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from 'src/app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
@@ -23,6 +23,8 @@ import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
 import { authInterceptorProviders } from './services/authInterceptor';
 import { PostEditComponent } from './post-edit/post-edit.component';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { PostEditComponent } from './post-edit/post-edit.component';
     PostEditComponent,
   ],
   imports: [
+    CdkAccordionModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -48,6 +51,8 @@ import { PostEditComponent } from './post-edit/post-edit.component';
     MatFormFieldModule,
     MatCardModule,
     MatButtonModule,
+    FormsModule,
+    MatIconModule,
   ],
   providers: [
     AuthGuard,

@@ -44,7 +44,6 @@ export class AuthService {
     } else {
       return false;
     }
-    //return !!localStorage.getItem('token');
   }
 
   public tokenId() {

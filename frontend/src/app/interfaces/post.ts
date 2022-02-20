@@ -5,5 +5,8 @@ export interface Post {
   userId: string;
   user: { name: string };
   createdAt: Date;
+  comments?: any;
+
+  //comments?: [commentText: string];
   //updatedAt: Date;
 }

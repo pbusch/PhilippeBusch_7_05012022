@@ -17,7 +17,44 @@
       *ngIf="post.userId == getId.userId || getId.level > 1"
       (click)="doEdit()"
     >
-      EDIT
+      EDITER
+    </button>
+    <button
+      mat-button
+      *ngIf="post.userId == getId.userId || getId.level > 1"
+      (click)="doDelete()"
+    >
+      SUPPRIMER
+    </button>
+    <br />
+    <button mat-button (click)="showComments()">
+      Commentaires ( {{ post.comments.length }} )
+      <mat-icon>visibility</mat-icon>
     </button>
   </mat-card-actions>
+
+  <div *ngIf="commentsShow">
+    <div *ngIf="post.comments.length > 0">
+      <ul>
+        <li *ngFor="let comment of post.comments">
+          {{ comment.user.name }} : {{ comment.commentText }}
+        </li>
+      </ul>
+
+      <form [formGroup]="form" (submit)="submit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Ajoutez un commentaire</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="commentText"
+            placeholder=""
+          />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+        <button mat-raised-button color="primary">Envoyer</button>
+      </form>
+    </div>
+  </div>
 </mat-card>

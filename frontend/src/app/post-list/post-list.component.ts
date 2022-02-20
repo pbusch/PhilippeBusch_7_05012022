@@ -19,7 +19,7 @@ export class PostListComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.posts = res;
-        console.log(this.posts);
+        //console.log(this.posts);
       },
       error: () => console.log('erreur'),
       complete: () => console.log('okay'),

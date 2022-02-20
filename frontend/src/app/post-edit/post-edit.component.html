@@ -6,21 +6,20 @@
 
       <mat-card-title>
         <mat-form-field>
-          <mat-label>{{ post.title }}</mat-label>
+          <!--<mat-label></mat-label> -->
+          <mat-label *ngIf="post">{{ post.title }}</mat-label>
           <input
             matInput
             type="text"
             formControlName="title"
             placeholder="Nouveau titre"
           />
-          <!--<mat-error *ngIf="form.get('email')?.errors?.required">
-            Veuillez renseigner une adresse email.
-          </mat-error> -->
         </mat-form-field>
       </mat-card-title>
     </mat-card-header>
-
-    <img mat-card-image [src]="post.imgUrl" alt="Photo de Groupomania" />
+    <div *ngIf="post.imgUrl !== ''">
+      <img mat-card-image [src]="post.imgUrl" alt="Photo de Groupomania" />
+    </div>
     <div>
       <input
         type="file"

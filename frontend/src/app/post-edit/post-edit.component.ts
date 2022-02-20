@@ -12,12 +12,12 @@ import { ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./post-edit.component.scss'],
 })
 export class PostEditComponent implements OnInit {
-  post!: Post;
+  public post!: Post;
   public param!: any;
   public file!: File;
   public form: FormGroup = this.fb.group({
     title: ['', Validators.required],
-    imgUrl: ['', Validators.required],
+    imgUrl: [''],
   });
   public error?: string;
   public title = 'fileUpload';
@@ -37,7 +37,6 @@ export class PostEditComponent implements OnInit {
     });
 
     if (this.param == 'new') {
-      console.log('new!');
       this.post = {
         userId: '',
         title: '',
@@ -50,8 +49,8 @@ export class PostEditComponent implements OnInit {
     } else {
       this.postService.getOnePost(this.param).subscribe({
         next: (res) => {
-          console.log(res);
           this.post = res;
+          console.log(this.post);
         },
         error: (error) => {
           console.log(error.error);
@@ -77,7 +76,13 @@ export class PostEditComponent implements OnInit {
         complete: () => this.router?.navigate(['posts']),
       });
     } else {
-      this.postService.updatePost(this.param, this.form.value).subscribe({
+      let formData: FormData = new FormData();
+
+      formData.append('image', this.file, this.file.name);
+
+      formData.append('title', this.form.value.title);
+      console.log(formData);
+      this.postService.updatePost(this.param, formData).subscribe({
         next: (res) => {
           console.log(res);
         },
