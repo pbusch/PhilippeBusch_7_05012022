@@ -59,6 +59,22 @@ exports.getOnePost = (req, res) => {
     });
 };
 
+exports.getPostComments = (req, res) => {
+  Comment.findAll({
+    attributes: ["commentText", "createdAt"],
+    where: { postId: req.params.id },
+    include: [{ model: db.user, attributes: ["name"] }],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "error",
+      });
+    });
+};
+
 exports.updatePost = (req, res) => {
   // const postObject = req.file
   //   ? {

@@ -27,6 +27,10 @@ export class postService {
     return this.http.get<any>(AUTH_API + 'api/posts/' + param);
   }
 
+  public getPostComments(param: any): Observable<any> {
+    return this.http.get<any>(AUTH_API + 'api/posts/comments/' + param);
+  }
+
   public updatePost(param: any, body: any): Observable<any> {
     return this.http.put<any>(AUTH_API + 'api/posts/' + param, body);
   }

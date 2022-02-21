@@ -34,7 +34,6 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.userToken = localStorage.getItem('token');
-    //console.log(this.jwtService.DecodeToken(this.userToken));
     this.getId = this.jwtService.DecodeToken(this.userToken);
     this.commentsShow = false;
   }
@@ -52,10 +51,18 @@ export class PostComponent implements OnInit {
       error: (error) => {
         console.log(error.error);
       },
-      complete: () =>
-        this.router?.navigate(['posts']).then(() => {
-          window.location.reload();
-        }),
+      complete: () => {
+        let currentUrl = this.router.url;
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate([currentUrl]);
+          });
+      },
+
+      // this.router?.navigate(['posts']).then(() => {
+      //   window.location.reload();
+      // }),
     });
   }
 
@@ -77,10 +84,17 @@ export class PostComponent implements OnInit {
         error: (error) => {
           console.log(error.error);
         },
-        complete: () =>
-          this.router?.navigate(['posts']).then(() => {
-            window.location.reload();
-          }),
+        complete: () => {
+          let currentUrl = this.router.url;
+          this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate([currentUrl]);
+            });
+        },
+        // this.router?.navigate(['posts']).then(() => {
+        //   window.location.reload();
+        // }),
       });
   }
 }

@@ -25,6 +25,7 @@ import { authInterceptorProviders } from './services/authInterceptor';
 import { PostEditComponent } from './post-edit/post-edit.component';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { MatIconModule } from '@angular/material/icon';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MatIconModule } from '@angular/material/icon';
     PostListComponent,
     PostComponent,
     PostEditComponent,
+    CommentsComponent,
   ],
   imports: [
     CdkAccordionModule,
