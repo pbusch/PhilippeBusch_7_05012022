@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { User } from '../interfaces/user';
 import { tap } from 'rxjs/operators';
 import { retry, catchError } from 'rxjs/operators';
-import { Post } from '../interfaces/post';
-//import { stringify } from 'querystring';
 
 const AUTH_API = 'http://localhost:3000/';
 
@@ -47,5 +44,9 @@ export class postService {
     return this.http.post<any>(AUTH_API + 'api/posts/comments/' + param, {
       text,
     });
+  }
+
+  public deleteComment(param: any): Observable<any> {
+    return this.http.delete<any>(AUTH_API + 'api/posts/comments/' + param);
   }
 }

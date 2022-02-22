@@ -12,7 +12,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CommentsComponent implements OnInit {
   @Input() post!: Post;
+  @Input() getId!: any;
   public comments!: [Comment];
+
   public commentsShow = false;
   public form: FormGroup = this.fb.group({
     commentText: ['', Validators.required],
@@ -25,17 +27,27 @@ export class CommentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // (this.comments = [
+    //   {
+    //     userId: '',
+    //     commentText: '',
+    //     user: { name: '' },
+    //     createdAt: new Date(0),
+    //     id: '',
+    //   },
+    // ]),
     this.postService.getPostComments(this.post.id).subscribe({
       next: (res) => {
         this.comments = res;
       },
       error: () => console.log('erreur'),
-      complete: () => console.log(this.comments),
+      complete: () => {
+        console.log('comments récupérés');
+      },
     });
   }
 
   public showComments() {
-    console.log(this.post);
     if (this.commentsShow) {
       this.commentsShow = false;
     } else {
@@ -43,8 +55,19 @@ export class CommentsComponent implements OnInit {
     }
   }
 
+  public doDelete(commentId: any) {
+    this.postService.deleteComment(commentId).subscribe({
+      next: () => console.log('ok'),
+      error: (error) => {
+        console.log(error.error);
+      },
+      complete: () => {
+        this.ngOnInit();
+      },
+    });
+  }
+
   public submit() {
-    console.log('go');
     this.postService
       .addComment(this.post.id, this.form.controls.commentText.value)
       .subscribe({
@@ -54,16 +77,7 @@ export class CommentsComponent implements OnInit {
         },
         complete: () => {
           this.ngOnInit();
-          // let currentUrl = this.router.url;
-          // this.router
-          //   .navigateByUrl('/', { skipLocationChange: true })
-          //   .then(() => {
-          //     this.router.navigate([currentUrl]);
-          //   });
         },
-        // this.router?.navigate(['posts']).then(() => {
-        //   window.location.reload();
-        // }),
       });
   }
 }

@@ -1,11 +1,12 @@
 .example-card {
   max-width: 500px;
   margin: auto;
-  background-color: rgb(254, 255, 255);
+  background-color: rgb(251, 253, 253);
   margin-bottom: 10px;
 }
 
 .example-header-image {
+  //   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
   background-image: url("http://localhost:4200/assets/icon.png");
   background-size: cover;
 }
@@ -16,4 +17,8 @@
 
 .mat-card-image {
   margin: auto;
+}
+
+.dialog {
+  background-color: blue;
 }

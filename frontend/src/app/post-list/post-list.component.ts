@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../interfaces/post';
-import { PostComponent } from '../post/post.component';
+
+import { PostDialogComponent } from '../post-dialog/post-dialog.component';
 import { postService } from '../services/postService';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-post-list',
@@ -10,14 +12,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit {
-  posts!: [Post];
+  posts?: [Post];
 
-  constructor(private postService: postService, public router: Router) {}
+  constructor(
+    private postService: postService,
+    public router: Router,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.postService.listPosts().subscribe({
       next: (res) => {
-        console.log(res);
         this.posts = res;
       },
       error: () => console.log('erreur'),
@@ -25,7 +30,15 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  public doAdd() {
-    this.router.navigateByUrl('edit?id=new');
+  openDialog() {
+    const dialogRef = this.dialog.open(PostDialogComponent, {
+      width: '800px',
+      data: 'Add Post',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+      this.ngOnInit();
+    });
   }
 }

@@ -26,6 +26,9 @@ import { PostEditComponent } from './post-edit/post-edit.component';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { MatIconModule } from '@angular/material/icon';
 import { CommentsComponent } from './comments/comments.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PostDialogComponent } from './post-dialog/post-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { CommentsComponent } from './comments/comments.component';
     PostComponent,
     PostEditComponent,
     CommentsComponent,
+    PostDialogComponent,
   ],
   imports: [
     CdkAccordionModule,
@@ -55,6 +59,8 @@ import { CommentsComponent } from './comments/comments.component';
     MatButtonModule,
     FormsModule,
     MatIconModule,
+    MatBadgeModule,
+    MatDialogModule,
   ],
   providers: [
     AuthGuard,

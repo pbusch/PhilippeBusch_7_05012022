@@ -34,10 +34,8 @@ export class LoginComponent implements OnInit {
         )
         .subscribe({
           next: (res) => {
-            console.log(res);
             localStorage.setItem('token', res['token']);
             this.dataSharingService.isUserLoggedIn.next(true);
-            console.log(this.dataSharingService.isUserLoggedIn);
           },
           error: () => (this.error = 'Identifiants incorrects'),
           complete: () => this.router?.navigate(['posts']),

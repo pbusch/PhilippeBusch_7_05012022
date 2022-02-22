@@ -31,21 +31,20 @@ export class PostEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.post = {
+      userId: '',
+      title: '',
+      imgUrl: '',
+      createdAt: new Date(0),
+      user: {
+        name: '',
+      },
+    };
     this.route.queryParams.subscribe((params) => {
-      console.log(params);
       this.param = params.id;
     });
 
     if (this.param == 'new') {
-      this.post = {
-        userId: '',
-        title: '',
-        imgUrl: '',
-        createdAt: new Date(0),
-        user: {
-          name: '',
-        },
-      };
     } else {
       this.postService.getOnePost(this.param).subscribe({
         next: (res) => {
@@ -96,17 +95,6 @@ export class PostEditComponent implements OnInit {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       this.file = fileList[0];
-
-      // this.http
-      //   .post('http://localhost:3000/stretch/1' + token, formData, {
-      //     headers: headers,
-      //   })
-      //   .map((res) => res.json())
-      //   .catch((error) => Observable.throw(error))
-      //   .subscribe(
-      //     (data) => console.log(data),
-      //     (error) => console.log(error)
-      //   );
     }
   }
 }

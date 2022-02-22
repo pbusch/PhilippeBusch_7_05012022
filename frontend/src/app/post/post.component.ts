@@ -3,11 +3,6 @@ import { Post } from '../interfaces/post';
 import { postService } from '../services/postService';
 import { JwtService } from '../services/JwtService';
 import { Router } from '@angular/router';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { ViewChild } from '@angular/core';
-import { MatAccordion } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -17,9 +12,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
+
   posts!: [Post];
   public userToken?: any;
   public getId?: any;
+
   public commentsShow!: boolean;
   public form: FormGroup = this.fb.group({
     commentText: ['', Validators.required],
@@ -46,7 +43,6 @@ export class PostComponent implements OnInit {
     this.postService.deletePost(this.post.id).subscribe({
       next: (res) => {
         this.post = res;
-        console.log(this.post);
       },
       error: (error) => {
         console.log(error.error);
@@ -59,42 +55,6 @@ export class PostComponent implements OnInit {
             this.router.navigate([currentUrl]);
           });
       },
-
-      // this.router?.navigate(['posts']).then(() => {
-      //   window.location.reload();
-      // }),
     });
-  }
-
-  public showComments() {
-    console.log(this.post);
-    if (this.commentsShow) {
-      this.commentsShow = false;
-    } else {
-      this.commentsShow = true;
-    }
-  }
-
-  public submit() {
-    console.log('go');
-    this.postService
-      .addComment(this.post.id, this.form.controls.commentText.value)
-      .subscribe({
-        next: () => console.log('ok'),
-        error: (error) => {
-          console.log(error.error);
-        },
-        complete: () => {
-          let currentUrl = this.router.url;
-          this.router
-            .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate([currentUrl]);
-            });
-        },
-        // this.router?.navigate(['posts']).then(() => {
-        //   window.location.reload();
-        // }),
-      });
   }
 }

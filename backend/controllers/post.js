@@ -61,7 +61,7 @@ exports.getOnePost = (req, res) => {
 
 exports.getPostComments = (req, res) => {
   Comment.findAll({
-    attributes: ["commentText", "createdAt"],
+    attributes: ["commentText", "createdAt", "userId", "id"],
     where: { postId: req.params.id },
     include: [{ model: db.user, attributes: ["name"] }],
   })

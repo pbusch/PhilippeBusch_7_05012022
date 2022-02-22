@@ -1,11 +1,20 @@
 <button mat-button (click)="showComments()">
-  Commentaires ( {{ comments.length }} )
   <mat-icon>visibility</mat-icon>
+  <span matBadge="{{ comments.length }}" matBadgeOverlap="false">
+    Commentaires
+  </span>
 </button>
 <div *ngIf="commentsShow">
   <ul>
     <li *ngFor="let comment of comments">
       {{ comment.user.name }} : {{ comment.commentText }}
+      <button
+        mat-button
+        *ngIf="comment.userId == getId.userId || getId.level > 1"
+        (click)="doDelete(comment.id)"
+      >
+        <mat-icon inline="true">highlight_off</mat-icon>
+      </button>
     </li>
   </ul>
 
