@@ -24,11 +24,11 @@ db.post = require("./post")(sequelize, Sequelize);
 db.comment = require("./comment")(sequelize, Sequelize);
 db.like = require("./like")(sequelize, Sequelize);
 
-db.user.hasMany(db.post);
-db.post.belongsTo(db.user);
+//db.user.hasMany(db.post);
+db.post.belongsTo(db.user, { as: "creator" });
 
-db.user.hasMany(db.comment);
-db.comment.belongsTo(db.user);
+//db.user.hasMany(db.comment);
+db.comment.belongsTo(db.user, { as: "creator" });
 
 db.post.hasMany(db.comment, { onDelete: "cascade" });
 db.comment.belongsTo(db.post);

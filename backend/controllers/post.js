@@ -10,20 +10,33 @@ const fs = require("fs");
 exports.listPosts = (req, res) => {
   Post.findAll({
     limit: 10,
-    order: [["createdAt", "DESC"]],
+    order: [
+      ["createdAt", "DESC"],
+      [{ model: db.comment }, "id", "ASC"],
+    ],
     include: [
-      { model: db.user, attributes: ["name"] },
+      { model: db.user, attributes: ["name", "id"], as: "creator" },
+      // {
+      //   model: db.comment,
+      //   attributes: [
+      //     "commentText",
+
+      //     //  [Sequelize.fn("COUNT", "postId"), "Commentaires"],
+      //   ],
+
+      //   //include: [db.user],
+      // },
+
+      // include: [
       {
         model: db.comment,
-        attributes: [
-          "commentText",
+        attributes: ["commentText", "createdAt", "id"],
 
-          //  [Sequelize.fn("COUNT", "postId"), "Commentaires"],
+        include: [
+          { model: db.user, attributes: ["name", "id"], as: "creator" },
         ],
-
-        include: [{ model: db.user, attributes: ["name"] }],
-        //include: [db.user],
       },
+      // ],
     ],
   })
     .then((data) => {
@@ -61,9 +74,9 @@ exports.getOnePost = (req, res) => {
 
 exports.getPostComments = (req, res) => {
   Comment.findAll({
-    attributes: ["commentText", "createdAt", "userId", "id"],
+    attributes: ["commentText", "createdAt", "id"],
     where: { postId: req.params.id },
-    include: [{ model: db.user, attributes: ["name"] }],
+    include: [{ model: db.user, attributes: ["name", "id"], as: "creator" }],
   })
     .then((data) => {
       res.send(data);
@@ -106,7 +119,7 @@ exports.updatePost = (req, res) => {
 
 exports.addPost = (req, res) => {
   const post = {
-    userId: req.token.userId,
+    creatorId: req.token.userId,
     title: req.body.title,
     imgUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
   };
@@ -123,7 +136,7 @@ exports.addPost = (req, res) => {
 
 exports.addComment = (req, res) => {
   const comment = {
-    userId: req.token.userId,
+    creatorId: req.token.userId,
     commentText: req.body.text,
     postId: req.params.id,
   };
