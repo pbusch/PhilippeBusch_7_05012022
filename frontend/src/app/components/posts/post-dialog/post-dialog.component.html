@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<!-- <mat-card class="example-card">
   <form [formGroup]="form" (submit)="submit()">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
@@ -29,4 +29,64 @@
       <button mat-raised-button color="primary">Valider</button>
     </mat-card-actions>
   </form>
-</mat-card>
+</mat-card> -->
+
+<!-- <button mat-raised-button (click)="isEditable = !isEditable">
+  {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+</button> -->
+<div class="center">
+  <mat-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Indiquez un titre</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Titre</mat-label>
+          <input
+            matInput
+            formControlName="firstCtrl"
+            placeholder="Titre"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Choisissez une image</ng-template>
+        <mat-form-field>
+          <mat-label>Votre image</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="" />
+          <input
+            type="file"
+            formControlName="secondCtrl"
+            (change)="fileChange($event)"
+            placeholder="Upload file"
+          />
+        </mat-form-field>
+
+        <div>
+          <button mat-button matStepperPrevious>Retour</button>
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Validez</ng-template>
+      <p>
+        Votre image doit être conforme aux régles d'utilisation de ce site !
+      </p>
+      <div>
+        <!-- <button mat-button matStepperPrevious>Back</button> -->
+        <button mat-button (click)="submit(); stepper.reset()">
+          Mon image est conforme. Je valide !
+        </button>
+        <button mat-button (click)="stepper.reset()">
+          J'annule et en choisit une autre !
+        </button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

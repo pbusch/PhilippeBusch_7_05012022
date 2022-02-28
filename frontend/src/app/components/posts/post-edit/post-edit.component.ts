@@ -4,7 +4,6 @@ import { postService } from '../../../shared/services/postService';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-post-edit',

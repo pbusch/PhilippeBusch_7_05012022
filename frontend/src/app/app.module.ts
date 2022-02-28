@@ -17,7 +17,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthGuard } from './shared/services/authGuard';
-import { JwtService } from './shared/services/jwtService';
 import { DataSharingService } from './shared/services/dataSharingService';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
 import { PostComponent } from './components/posts/post/post.component';
@@ -29,6 +28,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PostDialogComponent } from './components/posts/post-dialog/post-dialog.component';
 import { PostContainerComponent } from './components/posts/post-container/post-container.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -61,13 +61,9 @@ import { PostContainerComponent } from './components/posts/post-container/post-c
     MatIconModule,
     MatBadgeModule,
     MatDialogModule,
+    MatStepperModule,
   ],
-  providers: [
-    AuthGuard,
-    JwtService,
-    DataSharingService,
-    authInterceptorProviders,
-  ],
+  providers: [AuthGuard, DataSharingService, authInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

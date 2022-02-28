@@ -3,36 +3,39 @@ import { Observable, Subscription, timer } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
 import { Post } from '../../../shared/interfaces/post';
 import { postService } from '../../../shared/services/postService';
+import { TimerService } from '../../../shared/services/timerService';
 
 @Component({
   selector: 'app-post-container',
   templateUrl: './post-container.component.html',
   styleUrls: ['./post-container.component.scss'],
 })
-export class PostContainerComponent implements OnInit, OnDestroy {
+export class PostContainerComponent implements OnInit {
   public posts$: Observable<Post[]> = this.postService.posts$;
   public posts!: Post[];
   subscription!: Subscription;
   statusText!: string;
 
-  constructor(private postService: postService) {}
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+  constructor(
+    private postService: postService,
+    private timerService: TimerService
+  ) {}
 
   ngOnInit(): void {
-    // this.postService.fetchPosts().subscribe({
-    //   next: (res) => {
-    //     this.posts! = res;
-    //   },
-    //   error: (error) => {
-    //     console.log(error.error);
-    //   },
-    //   complete: () => {},
-    // });
-
-    this.subscription = timer(0, 300000)
+    this.subscription = timer(0, 30000)
       .pipe(switchMap(() => this.postService.fetchPosts()))
       .subscribe();
+
+    // this.postService.fetchPosts().subscribe();
+
+    // this.timerService.startWatching(4).subscribe((isTimeOut: boolean) => {
+    //   if (isTimeOut) {
+    //     this.postService.fetchPosts().subscribe();
+    //   }
+    // });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

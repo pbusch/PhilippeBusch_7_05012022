@@ -11,9 +11,9 @@
   background-size: cover;
 }
 
-.mat-form-field + .mat-form-field {
-  margin-left: 8px;
-}
+// .mat-form-field + .mat-form-field {
+//   margin-left: 8px;
+// }
 
 .mat-card-image {
   margin: auto;
@@ -21,4 +21,20 @@
 
 .dialog {
   background-color: blue;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+.center {
+  margin: auto;
+  margin-bottom: 20px;
+  width: 50%;
+  border: 1px solid #7272749d;
+  padding: 10px;
 }

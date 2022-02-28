@@ -21,6 +21,10 @@ export class PostDialogComponent implements OnInit {
   public error?: string;
   public title = 'fileUpload';
   public images: any;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  isEditable = false;
+  stepper: any;
 
   constructor(
     public postService: postService,
@@ -30,21 +34,28 @@ export class PostDialogComponent implements OnInit {
     private dialogRef: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.firstFormGroup = this.fb.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this.fb.group({
+      secondCtrl: ['', Validators.required],
+    });
+  }
 
   public submit() {
     console.log(this.form.value);
 
     let formData: FormData = new FormData();
     formData.append('image', this.file, this.file.name);
-    formData.append('title', this.form.value.title);
+    formData.append('title', this.firstFormGroup.value.firstCtrl);
 
     this.postService.addPost(formData).subscribe({
       next: (res) => {
         console.log(res);
       },
       error: () => (this.error = 'erreur'),
-      complete: () => this.dialogRef.closeAll(),
+      complete: () => console.log('ok'),
     });
   }
 

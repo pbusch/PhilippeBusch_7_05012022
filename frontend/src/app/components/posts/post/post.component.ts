@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
 import { postService } from '../../../shared/services/postService';
-import { JwtService } from '../../../shared/services/jwtService';
 import { AuthService } from 'src/app/shared/services/authService';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,7 +26,6 @@ export class PostComponent implements OnInit {
     private fb: FormBuilder,
     private postService: postService,
     private authService: AuthService,
-    private jwtService: JwtService,
     private router: Router
   ) {}
 

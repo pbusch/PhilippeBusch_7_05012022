@@ -1,4 +1,5 @@
-<button mat-button color="accent" (click)="openDialog()">
+<!-- <button mat-button color="accent" (click)="openDialog()">
   Ajouter <mat-icon>add</mat-icon>
-</button>
+</button> -->
+<app-post-dialog></app-post-dialog>
 <app-post *ngFor="let post of posts" [post]="post"></app-post>
