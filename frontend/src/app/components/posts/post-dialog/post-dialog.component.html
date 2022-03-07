@@ -62,12 +62,13 @@
         placeholder="Upload file"
         #inputFile
       /><button mat-button (click)="inputFile.click(); goForward(stepper)">
+        <mat-icon>add_a_photo</mat-icon>
         Chargez
       </button>
 
       <div>
         <button mat-button matStepperPrevious>Retour</button>
-        <button mat-button matStepperNext>Suivant</button>
+        <!--  <button mat-button matStepperNext>Suivant</button> -->
       </div>
     </mat-step>
     <mat-step>

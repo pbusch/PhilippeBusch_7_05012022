@@ -2,17 +2,26 @@
   <a routerLink="/">Groupomania</a>
   <ul>
     <li *ngIf="isLoggedIn" class="m-10">
-      <a routerLink="posts">Posts</a>
+      <a routerLink="posts">
+        <mat-icon class="menus">perm_media</mat-icon> Posts</a
+      >
     </li>
     <li *ngIf="isLoggedIn" class="m-10">
-      <a routerLink="profile">Profil</a>
+      <a routerLink="profile">
+        <mat-icon class="menus">account_circle</mat-icon> Profil</a
+      >
     </li>
 
     <li *ngIf="!isLoggedIn" class="m-10">
-      <a routerLink="login">Connexion</a>
+      <a routerLink="login">
+        <mat-icon class="menus">how_to_reg</mat-icon> Connexion</a
+      >
     </li>
     <li *ngIf="!isLoggedIn" class="m-10">
-      <a routerLink="signup">Inscription</a>
+      <a routerLink="signup">
+        <mat-icon class="menus"><mat-icon>person_add</mat-icon></mat-icon>
+        Inscription</a
+      >
     </li>
   </ul>
 </mat-toolbar>
