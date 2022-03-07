@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataSharingService } from '../../shared/services/dataSharingService';
 
 @Component({
@@ -6,7 +6,7 @@ import { DataSharingService } from '../../shared/services/dataSharingService';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isLoggedIn?: boolean;
   public isToken?: boolean;
   authService: any;
@@ -14,5 +14,11 @@ export class HeaderComponent {
     this.dataSharingService.isUserLoggedIn$.subscribe((value) => {
       this.isLoggedIn = value;
     });
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.dataSharingService.isUserLoggedIn$.next(true);
+    }
   }
 }

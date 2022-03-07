@@ -9,9 +9,13 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DataSharingService } from './dataSharingService';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private dataSharingService: DataSharingService
+  ) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -31,6 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
             if (err.status !== 401) {
               return;
             }
+            this.dataSharingService.isUserLoggedIn$.next(false);
             this.router.navigate(['login']);
           }
         }
