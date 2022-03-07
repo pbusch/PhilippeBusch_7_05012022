@@ -21,7 +21,6 @@ import { DataSharingService } from './shared/services/dataSharingService';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
 import { PostComponent } from './components/posts/post/post.component';
 import { authInterceptorProviders } from './shared/services/authInterceptor';
-import { PostEditComponent } from './components/posts/post-edit/post-edit.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommentsComponent } from './components/posts/comments/comments.component';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -41,7 +40,6 @@ import { MatStepperModule } from '@angular/material/stepper';
     RegisterComponent,
     PostListComponent,
     PostComponent,
-    PostEditComponent,
     CommentsComponent,
     PostDialogComponent,
     PostContainerComponent,

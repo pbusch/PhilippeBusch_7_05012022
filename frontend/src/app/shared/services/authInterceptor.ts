@@ -4,11 +4,14 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private router: Router) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -20,7 +23,19 @@ export class AuthInterceptor implements HttpInterceptor {
         headers: req.headers.set('Authorization', 'Bearer ' + token),
       });
     }
-    return next.handle(authReq);
+    return next.handle(authReq).pipe(
+      tap(
+        () => {},
+        (err: any) => {
+          if (err instanceof HttpErrorResponse) {
+            if (err.status !== 401) {
+              return;
+            }
+            this.router.navigate(['login']);
+          }
+        }
+      )
+    );
   }
 }
 export const authInterceptorProviders = [

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Comment } from '../../../shared/interfaces/comment';
 import { postService } from '../../../shared/services/postService';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Post } from 'src/app/shared/interfaces/post';
 
 @Component({
   selector: 'app-comments',
@@ -10,13 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./comments.component.scss'],
 })
 export class CommentsComponent implements OnInit {
-  @Input() post!: any;
+  @Input() post?: any;
   @Input() getId!: any;
 
-  public comments!: Comment[];
   public commentsLoaded = true;
-
   public commentsShow = true;
+
   public form: FormGroup = this.fb.group({
     commentText: ['', Validators.required],
   });

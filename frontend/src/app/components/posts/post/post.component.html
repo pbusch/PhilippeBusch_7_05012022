@@ -1,7 +1,18 @@
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ post.title }}</mat-card-title>
+    <div *ngIf="!onEdit"></div>
+    <mat-card-title
+      >{{ post.title }}
+      <button
+        title="Editer"
+        mat-button
+        *ngIf="post.creator.id == getId.userId || getId.level > 1"
+        (click)="doEdit()"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-title>
     <mat-card-subtitle *ngIf="post.creator.name"
       >par {{ post.creator.name }}</mat-card-subtitle
     >
@@ -12,13 +23,13 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE <mat-icon>favorite_border</mat-icon></button>
-    <button
+    <!-- <button
       mat-button
       *ngIf="post.creator.id == getId.userId || getId.level > 1"
       (click)="doEdit()"
     >
       EDITER <mat-icon>edit</mat-icon>
-    </button>
+    </button> -->
     <button
       mat-button
       *ngIf="post.creator.id == getId.userId || getId.level > 1"

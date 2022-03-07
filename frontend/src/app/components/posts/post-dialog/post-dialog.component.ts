@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-post-dialog',
@@ -23,15 +25,18 @@ export class PostDialogComponent implements OnInit {
   public images: any;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
-  isEditable = false;
+
   stepper: any;
+  //imageSrc: string = '';
+  imageSrc: any;
 
   constructor(
     public postService: postService,
     public route: ActivatedRoute,
     private fb: FormBuilder,
     public router: Router,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private sanatizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +46,10 @@ export class PostDialogComponent implements OnInit {
     this.secondFormGroup = this.fb.group({
       secondCtrl: ['', Validators.required],
     });
+  }
+
+  goForward(stepper: MatStepper) {
+    stepper.next();
   }
 
   public submit() {
@@ -63,6 +72,12 @@ export class PostDialogComponent implements OnInit {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       this.file = fileList[0];
+      if (this.file) {
+        //this.imageSrc = URL.createObjectURL(this.file);
+        this.imageSrc = this.sanatizer.bypassSecurityTrustUrl(
+          URL.createObjectURL(this.file)
+        );
+      }
     }
   }
 }

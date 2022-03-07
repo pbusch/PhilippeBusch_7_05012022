@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
 
   deconnect() {
     localStorage.removeItem('token');
-    this.dataSharingservice.isUserLoggedIn.next(false);
+    this.dataSharingservice.isUserLoggedIn$.next(false);
     this.router?.navigate(['login']);
   }
 

@@ -9,25 +9,23 @@ const fs = require("fs");
 
 exports.listPosts = (req, res) => {
   Post.findAll({
-    limit: 10,
+    // attributes: {
+    //   include: [[Sequelize.fn("COUNT", Sequelize.col("comment.id")), "commentsCount"]
+    // },
+    // include [{
+    //   model: db.comment, attributes: []
+    // }],
+    // group: ['id']})
+
+    //limit: 10,
     order: [
       ["createdAt", "DESC"],
       [{ model: db.comment }, "id", "ASC"],
     ],
+
     include: [
       { model: db.user, attributes: ["name", "id"], as: "creator" },
-      // {
-      //   model: db.comment,
-      //   attributes: [
-      //     "commentText",
 
-      //     //  [Sequelize.fn("COUNT", "postId"), "Commentaires"],
-      //   ],
-
-      //   //include: [db.user],
-      // },
-
-      // include: [
       {
         model: db.comment,
         attributes: ["commentText", "createdAt", "id"],
@@ -36,7 +34,6 @@ exports.listPosts = (req, res) => {
           { model: db.user, attributes: ["name", "id"], as: "creator" },
         ],
       },
-      // ],
     ],
   })
     .then((data) => {

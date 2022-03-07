@@ -3,7 +3,7 @@ import { Observable, Subscription, timer } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
 import { Post } from '../../../shared/interfaces/post';
 import { postService } from '../../../shared/services/postService';
-import { TimerService } from '../../../shared/services/timerService';
+//import { TimerService } from '../../../shared/services/timerService';
 
 @Component({
   selector: 'app-post-container',
@@ -14,15 +14,13 @@ export class PostContainerComponent implements OnInit {
   public posts$: Observable<Post[]> = this.postService.posts$;
   public posts!: Post[];
   subscription!: Subscription;
-  statusText!: string;
 
   constructor(
-    private postService: postService,
-    private timerService: TimerService
+    private postService: postService //private timerService: TimerService
   ) {}
 
   ngOnInit(): void {
-    this.subscription = timer(0, 30000)
+    this.subscription = timer(0, 60000)
       .pipe(switchMap(() => this.postService.fetchPosts()))
       .subscribe();
 

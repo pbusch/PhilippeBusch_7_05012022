@@ -13,9 +13,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PostComponent implements OnInit {
   @Input() post!: Post;
 
-  posts!: [Post];
   public userToken?: any;
   public getId?: any;
+  public onEdit = false;
 
   public commentsShow!: boolean;
   public form: FormGroup = this.fb.group({
@@ -30,15 +30,13 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.userToken = localStorage.getItem('token');
-    // this.getId = this.jwtService.DecodeToken(this.userToken);
     this.getId = this.authService.tokenId();
     console.log('id du createur ' + this.getId.userId);
     this.commentsShow = false;
   }
 
   public doEdit() {
-    this.router.navigateByUrl('edit?id=' + this.post.id);
+    this.onEdit = true;
   }
 
   public doDelete() {
@@ -49,14 +47,7 @@ export class PostComponent implements OnInit {
       error: (error) => {
         console.log(error.error);
       },
-      complete: () => {
-        let currentUrl = this.router.url;
-        this.router
-          .navigateByUrl('/', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate([currentUrl]);
-          });
-      },
+      complete: () => {},
     });
   }
 }

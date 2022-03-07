@@ -36,7 +36,7 @@
 </button> -->
 <div class="center">
   <mat-stepper linear #stepper>
-    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+    <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Indiquez un titre</ng-template>
         <mat-form-field appearance="fill">
@@ -53,32 +53,31 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Choisissez une image</ng-template>
-        <mat-form-field>
-          <mat-label>Votre image</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="" />
-          <input
-            type="file"
-            formControlName="secondCtrl"
-            (change)="fileChange($event)"
-            placeholder="Upload file"
-          />
-        </mat-form-field>
+    <mat-step>
+      <ng-template matStepLabel>Choisissez une image</ng-template>
+      <input
+        type="file"
+        id="inputFile"
+        (change)="fileChange($event)"
+        placeholder="Upload file"
+        #inputFile
+      /><button mat-button (click)="inputFile.click(); goForward(stepper)">
+        Chargez
+      </button>
 
-        <div>
-          <button mat-button matStepperPrevious>Retour</button>
-          <button mat-button matStepperNext>Suivant</button>
-        </div>
-      </form>
+      <div>
+        <button mat-button matStepperPrevious>Retour</button>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Validez</ng-template>
+      <mat-label>{{ this.firstFormGroup.value.firstCtrl }}</mat-label>
       <p>
         Votre image doit être conforme aux régles d'utilisation de ce site !
       </p>
       <div>
+        <img [src]="imageSrc" />
         <!-- <button mat-button matStepperPrevious>Back</button> -->
         <button mat-button (click)="submit(); stepper.reset()">
           Mon image est conforme. Je valide !

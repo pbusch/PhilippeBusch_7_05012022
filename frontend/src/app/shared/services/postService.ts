@@ -28,13 +28,13 @@ export class postService {
     );
   }
 
-  public getOnePost(param: any): Observable<any> {
-    return this.http.get<any>(POST_API + param);
-  }
+  // public getOnePost(param: any): Observable<any> {
+  //   return this.http.get<any>(POST_API + param);
+  // }
 
-  public getPostComments(id: string): Observable<any> {
-    return this.http.get<any>(`${POST_API}${id}/comments/`);
-  }
+  // public getPostComments(id: string): Observable<any> {
+  //   return this.http.get<any>(`${POST_API}${id}/comments/`);
+  // }
 
   public updatePost(param: any, body: any): Observable<any> {
     return this.http.put<any>(POST_API + param, body);
