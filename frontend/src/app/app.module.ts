@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PostDialogComponent } from './components/posts/post-dialog/post-dialog.component';
 import { PostContainerComponent } from './components/posts/post-container/post-container.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { SplitPipe } from './components/posts/comments/firstChar.pipe';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     CommentsComponent,
     PostDialogComponent,
     PostContainerComponent,
+    SplitPipe,
   ],
   imports: [
     BrowserModule,

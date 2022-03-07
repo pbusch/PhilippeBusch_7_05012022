@@ -10,7 +10,7 @@
         *ngIf="post.creator.id == getId.userId || getId.level > 1"
         (click)="doEdit()"
       >
-        <mat-icon>edit</mat-icon>
+        <mat-icon class="icon-align">edit</mat-icon>
       </button>
     </mat-card-title>
     <mat-card-subtitle *ngIf="post.creator.name"
@@ -23,7 +23,9 @@
     <!-- <p>Publié le : {{ post.createdAt | date: "dd/MM/yyyy" }}</p> -->
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE <mat-icon>favorite_border</mat-icon></button>
+    <button mat-button>
+      LIKE <mat-icon class="icon-align">favorite_border</mat-icon>
+    </button>
     <!-- <button
       mat-button
       *ngIf="post.creator.id == getId.userId || getId.level > 1"
@@ -36,7 +38,7 @@
       *ngIf="post.creator.id == getId.userId || getId.level > 1"
       (click)="doDelete()"
     >
-      SUPPRIMER <mat-icon>delete</mat-icon>
+      SUPPRIMER <mat-icon class="icon-align">delete</mat-icon>
     </button>
   </mat-card-actions>
   <app-comments [post]="post" [getId]="getId"></app-comments>
