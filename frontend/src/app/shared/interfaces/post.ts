@@ -1,4 +1,5 @@
 import { Creator } from './creator';
+import { Comment } from './comment';
 
 export interface Post {
   id: string;

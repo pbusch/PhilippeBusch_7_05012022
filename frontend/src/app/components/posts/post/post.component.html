@@ -19,20 +19,11 @@
     >
   </mat-card-header>
   <img mat-card-image [src]="post.imgUrl" alt="Photo de Groupomania" />
-  <mat-card-content>
-    <!-- <p>Publié le : {{ post.createdAt | date: "dd/MM/yyyy" }}</p> -->
-  </mat-card-content>
-  <mat-card-actions>
+  <mat-card-content> </mat-card-content>
+  <mat-card-actions class="actions">
     <button mat-button>
       LIKE <mat-icon class="icon-align">favorite_border</mat-icon>
     </button>
-    <!-- <button
-      mat-button
-      *ngIf="post.creator.id == getId.userId || getId.level > 1"
-      (click)="doEdit()"
-    >
-      EDITER <mat-icon>edit</mat-icon>
-    </button> -->
     <button
       mat-button
       *ngIf="post.creator.id == getId.userId || getId.level > 1"

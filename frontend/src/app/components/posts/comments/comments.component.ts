@@ -3,7 +3,6 @@ import { postService } from '../../../shared/services/postService';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/shared/interfaces/post';
-import { SplitPipe } from './firstChar.pipe';
 
 @Component({
   selector: 'app-comments',
@@ -12,7 +11,7 @@ import { SplitPipe } from './firstChar.pipe';
 })
 export class CommentsComponent implements OnInit {
   @Input() post?: any;
-  @Input() getId!: any;
+  @Input() getId?: any;
 
   public firstLetter: string = '';
 
@@ -51,7 +50,7 @@ export class CommentsComponent implements OnInit {
 
   public submit() {
     this.postService
-      .addComment(this.post.id, this.form.controls.commentText.value)
+      .addComment(this.post?.id, this.form.controls.commentText.value)
       .subscribe({
         next: () => console.log('ok'),
         error: (error) => {

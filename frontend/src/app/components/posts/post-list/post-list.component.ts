@@ -12,21 +12,7 @@ import { Router } from '@angular/router';
 export class PostListComponent implements OnInit {
   @Input() public posts: Post[] | null = null;
 
-  constructor(
-    public router: Router //public dialog: MatDialog
-  ) {}
+  constructor(public router: Router) {}
 
   ngOnInit(): void {}
-
-  // openDialog() {
-  //   const dialogRef = this.dialog.open(PostDialogComponent, {
-  //     width: '800px',
-  //     data: 'Add Post',
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     console.log(`Dialog result: ${result}`);
-  //     this.ngOnInit();
-  //   });
-  // }
 }

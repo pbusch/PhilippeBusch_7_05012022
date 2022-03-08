@@ -1,5 +1,8 @@
-<!-- <button mat-button color="accent" (click)="openDialog()">
-  Ajouter <mat-icon>add</mat-icon>
-</button> -->
+<div class="d-flex flex-justify-content-center">
+  <button mat-raised-button color="primary">
+    <mat-icon>camera_enhance</mat-icon>
+  </button>
+</div>
+<br />
 <app-post-dialog></app-post-dialog>
 <app-post *ngFor="let post of posts" [post]="post"></app-post>

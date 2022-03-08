@@ -14,13 +14,13 @@
         <div class="firstChar">
           {{ comment.creator?.name | firstChar }}
         </div>
-        <!-- </mat-card-subtitle> -->
         <div class="comment d-flex flex-column">
           <div class="comment-creator">{{ comment.creator?.name }}</div>
           <div class="comment-text">{{ comment.commentText }}</div>
         </div>
         <button
           mat-button
+          color="warn"
           title="Supprimer le commentaire"
           *ngIf="comment.creator?.id == getId.userId || getId.level > 1"
           (click)="doDelete(comment.id)"
@@ -45,7 +45,6 @@
 
         <mat-hint>Appuyez sur Entrée pour publier</mat-hint>
       </mat-form-field>
-      <!-- <button mat-raised-button color="primary">Envoyer</button> -->
     </form>
   </div>
 </div>

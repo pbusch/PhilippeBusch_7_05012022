@@ -6,14 +6,9 @@
 }
 
 .example-header-image {
-  //   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
   background-image: url("http://localhost:4200/assets/icon.png");
   background-size: cover;
 }
-
-// .mat-form-field + .mat-form-field {
-//   margin-left: 8px;
-// }
 
 .mat-card-image {
   margin: auto;
@@ -34,10 +29,7 @@
 .center {
   margin: auto;
   max-width: 750px;
-  // margin-right: 22%;
-  // margin-left: 22%;
   margin-bottom: 20px;
-  //width: 0%;
   border: 2px dotted #083ac49d;
   padding: 10px;
 }

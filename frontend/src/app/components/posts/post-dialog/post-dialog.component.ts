@@ -73,7 +73,6 @@ export class PostDialogComponent implements OnInit {
     if (fileList.length > 0) {
       this.file = fileList[0];
       if (this.file) {
-        //this.imageSrc = URL.createObjectURL(this.file);
         this.imageSrc = this.sanatizer.bypassSecurityTrustUrl(
           URL.createObjectURL(this.file)
         );
