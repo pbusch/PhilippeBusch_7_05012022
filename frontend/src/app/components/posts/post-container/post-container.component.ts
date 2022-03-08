@@ -20,7 +20,7 @@ export class PostContainerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = timer(0, 60000)
+    this.subscription = timer(0, 600000)
       .pipe(switchMap(() => this.postService.fetchPosts()))
       .subscribe();
 

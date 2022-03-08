@@ -9,7 +9,7 @@
     <ul>
       <li
         *ngFor="let comment of post.comments"
-        class="d-flex flex-align-items-center"
+        class="d-flex flex-align-items-center comment-block"
       >
         <div class="firstChar">
           {{ comment.creator?.name | firstChar }}

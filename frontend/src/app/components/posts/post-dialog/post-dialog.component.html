@@ -55,37 +55,35 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Choisissez une image</ng-template>
-      <input
-        type="file"
-        id="inputFile"
-        (change)="fileChange($event)"
-        placeholder="Upload file"
-        #inputFile
-      /><button mat-button (click)="inputFile.click(); goForward(stepper)">
-        <mat-icon class="menus">add_a_photo</mat-icon>
-        Chargez
-      </button>
+      <div class="d-flex flex-row">
+        <input
+          type="file"
+          id="inputFile"
+          (change)="fileChange($event)"
+          placeholder="Upload file"
+          #inputFile
+        /><button mat-button (click)="inputFile.click(); goForward(stepper)">
+          <mat-icon class="menus">add_a_photo</mat-icon>
+          Chargez
+        </button>
 
-      <div>
         <button mat-button matStepperPrevious>Retour</button>
         <!--  <button mat-button matStepperNext>Suivant</button> -->
       </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Validez</ng-template>
-      <mat-label>{{ this.firstFormGroup.value.firstCtrl }}</mat-label>
-      <p>
-        Votre image doit être conforme aux régles d'utilisation de ce site !
-      </p>
+      <!-- <mat-label>{{ this.firstFormGroup.value.firstCtrl }}</mat-label> -->
+      <mat-card-title>{{ this.firstFormGroup.value.firstCtrl }}</mat-card-title>
+
       <div>
         <img [src]="imageSrc" />
+
         <!-- <button mat-button matStepperPrevious>Back</button> -->
         <button mat-button (click)="submit(); stepper.reset()">
-          Mon image est conforme. Je valide !
+          Je valide mon Post !
         </button>
-        <button mat-button (click)="stepper.reset()">
-          J'annule et en choisit une autre !
-        </button>
+        <button mat-button (click)="stepper.reset()">J'annule !</button>
       </div>
     </mat-step>
   </mat-stepper>
