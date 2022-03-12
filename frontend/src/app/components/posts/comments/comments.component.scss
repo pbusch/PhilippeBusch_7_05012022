@@ -3,9 +3,9 @@
   padding-right: 50px;
   margin-bottom: 5px;
   padding-bottom: 5px;
-  border-bottom-left-radius: 20px;
+  //border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  //border-top-left-radius: 20px;
+  border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: #f2f3f5;
   margin-top: 10px;
@@ -35,4 +35,11 @@
 
 .comment-text {
   padding-left: 15px;
+}
+
+.delete {
+  align-items: center;
+}
+.delete:hover {
+  background-color: #f79b9b;
 }

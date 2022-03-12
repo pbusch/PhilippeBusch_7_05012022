@@ -4,8 +4,7 @@ import { PipeTransform, Pipe } from '@angular/core';
   name: 'firstChar',
 })
 export class SplitPipe implements PipeTransform {
-  transform(input: string): string {
-    console.log();
-    return input.slice(0, 1);
+  transform(input: string | undefined): string {
+    return (input ?? '').slice(0, 1);
   }
 }

@@ -10,7 +10,7 @@ import { Post } from 'src/app/shared/interfaces/post';
   styleUrls: ['./comments.component.scss'],
 })
 export class CommentsComponent implements OnInit {
-  @Input() post?: any;
+  @Input() post?: Post;
   @Input() getId?: any;
 
   public firstLetter: string = '';
@@ -31,11 +31,7 @@ export class CommentsComponent implements OnInit {
   ngOnInit(): void {}
 
   public showComments() {
-    if (this.commentsShow) {
-      this.commentsShow = false;
-    } else {
-      this.commentsShow = true;
-    }
+    this.commentsShow = !this.commentsShow;
   }
 
   public doDelete(commentId: any) {
