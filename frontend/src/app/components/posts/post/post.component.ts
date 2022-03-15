@@ -29,7 +29,6 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.getId = this.authService.tokenId();
-    console.log('id du createur ' + this.getId.userId);
     this.commentsShow = false;
   }
 

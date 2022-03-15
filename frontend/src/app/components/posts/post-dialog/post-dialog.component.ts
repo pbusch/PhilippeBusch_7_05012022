@@ -60,11 +60,9 @@ export class PostDialogComponent implements OnInit {
     formData.append('title', this.firstFormGroup.value.firstCtrl);
 
     this.postService.addPost(formData).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
+      next: () => {},
       error: () => (this.error = 'erreur'),
-      complete: () => console.log('ok'),
+      complete: () => {},
     });
   }
 

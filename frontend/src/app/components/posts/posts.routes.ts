@@ -4,7 +4,7 @@ import { PostContainerComponent } from './post-container/post-container.componen
 
 export const POSTS_ROUTES: Routes = [
   {
-    path: 'posts',
+    path: '',
     component: PostContainerComponent,
     canActivate: [AuthGuard],
   },

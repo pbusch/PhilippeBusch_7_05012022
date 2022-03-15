@@ -7,18 +7,18 @@
       >
     </li>
     <li *ngIf="isLoggedIn" class="m-10">
-      <a routerLink="profile">
+      <a routerLink="auth/profile">
         <mat-icon class="icon-align">account_circle</mat-icon> Profil</a
       >
     </li>
 
     <li *ngIf="!isLoggedIn" class="m-10">
-      <a routerLink="login">
+      <a routerLink="auth/login">
         <mat-icon class="icon-align">how_to_reg</mat-icon> Connexion</a
       >
     </li>
     <li *ngIf="!isLoggedIn" class="m-10">
-      <a routerLink="signup">
+      <a routerLink="auth/signup">
         <mat-icon class="icon-align"><mat-icon>person_add</mat-icon></mat-icon>
         Inscription</a
       >

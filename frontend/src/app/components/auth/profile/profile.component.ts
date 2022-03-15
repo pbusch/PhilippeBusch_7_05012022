@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   deconnect() {
     localStorage.removeItem('token');
     this.dataSharingservice.isUserLoggedIn$.next(false);
-    this.router?.navigate(['login']);
+    this.router?.navigate(['/auth/login']);
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
       error: (error) => {
         console.log(error.error);
       },
-      complete: () => console.log('okay'),
+      complete: () => {},
     });
   }
 }

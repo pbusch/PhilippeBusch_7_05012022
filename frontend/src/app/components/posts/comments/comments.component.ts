@@ -36,7 +36,7 @@ export class CommentsComponent implements OnInit {
 
   public doDelete(commentId: any) {
     this.postService.deleteComment(commentId).subscribe({
-      next: () => console.log('ok'),
+      next: () => {},
       error: (error) => {
         console.log(error.error);
       },
@@ -48,7 +48,7 @@ export class CommentsComponent implements OnInit {
     this.postService
       .addComment(this.post?.id, this.form.controls.commentText.value)
       .subscribe({
-        next: () => console.log('ok'),
+        next: () => {},
         error: (error) => {
           console.log(error.error);
         },

@@ -19,21 +19,15 @@
           <div class="comment-text">
             {{ comment.commentText }}
 
-            <!-- <button
-              mat-button
-              color="warn"
-              title="Supprimer le commentaire" -->
-
             <mat-icon
               inline="true"
               class="icon-align pl-10 pr-10 delete"
               color="primary"
               title="Supprimer le commentaire"
-              *ngIf="comment.creator?.id == getId.userId || getId.level > 1"
+              *ngIf="comment.creator!.id == getId.userId || getId.level > 1"
               (click)="doDelete(comment.id)"
               >highlight_off</mat-icon
             >
-            <!-- </button> -->
           </div>
         </div>
 

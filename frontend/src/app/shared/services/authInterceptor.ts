@@ -36,7 +36,8 @@ export class AuthInterceptor implements HttpInterceptor {
               return;
             }
             this.dataSharingService.isUserLoggedIn$.next(false);
-            this.router.navigate(['login']);
+            //this.router.navigate(['/auth/login']);
+            this.router.navigateByUrl('http://localhost:4200/auth/login');
           }
         }
       )
