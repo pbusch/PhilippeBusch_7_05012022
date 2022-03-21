@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
 import { Post } from '../../../shared/interfaces/post';
-import { postService } from '../../../shared/services/postService';
+import { PostService } from '../../../shared/services/postService';
 //import { TimerService } from '../../../shared/services/timerService';
 
 @Component({
@@ -16,7 +16,7 @@ export class PostContainerComponent implements OnInit {
   subscription!: Subscription;
 
   constructor(
-    private postService: postService //private timerService: TimerService
+    private postService: PostService //private timerService: TimerService
   ) {}
 
   ngOnInit(): void {

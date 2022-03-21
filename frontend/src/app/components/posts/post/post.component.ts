@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
-import { postService } from '../../../shared/services/postService';
+import { PostService } from '../../../shared/services/postService';
 import { AuthService } from 'src/app/shared/services/authService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -23,7 +23,7 @@ export class PostComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private postService: postService,
+    private postService: PostService,
     private authService: AuthService
   ) {}
 

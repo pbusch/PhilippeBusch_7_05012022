@@ -8,6 +8,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { POSTS_ROUTES } from './posts.routes';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PostService } from 'src/app/shared/services/postService';
 
 @NgModule({
   declarations: [
@@ -22,5 +23,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatStepperModule,
     RouterModule.forChild(POSTS_ROUTES),
   ],
+  providers: [PostService],
 })
 export class PostsModule {}

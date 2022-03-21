@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
-import { postService } from '../../../shared/services/postService';
+import { PostService } from '../../../shared/services/postService';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class PostDialogComponent implements OnInit {
   imageSrc: any;
 
   constructor(
-    public postService: postService,
+    public postService: PostService,
     public route: ActivatedRoute,
     private fb: FormBuilder,
     public router: Router,

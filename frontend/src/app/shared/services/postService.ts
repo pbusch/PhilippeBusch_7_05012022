@@ -10,10 +10,8 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
-@Injectable({
-  providedIn: 'root',
-})
-export class postService {
+@Injectable()
+export class PostService {
   public posts$: BehaviorSubject<Post[] | []> = new BehaviorSubject<
     Post[] | []
   >([]);

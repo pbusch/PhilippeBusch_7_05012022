@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { postService } from '../../../shared/services/postService';
+import { PostService } from '../../../shared/services/postService';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/shared/interfaces/post';
@@ -24,7 +24,7 @@ export class CommentsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private postService: postService,
+    private postService: PostService,
     public router: Router
   ) {}
 

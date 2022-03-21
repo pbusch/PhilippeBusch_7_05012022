@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DataSharingService implements OnInit {
   public isUserLoggedIn$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
