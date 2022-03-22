@@ -9,9 +9,11 @@ import { RouterModule } from '@angular/router';
 import { POSTS_ROUTES } from './posts.routes';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PostService } from 'src/app/shared/services/postService';
+import { PostIconsComponent } from './post-icons/post-icons.component';
 
 @NgModule({
   declarations: [
+    PostIconsComponent,
     PostListComponent,
     PostComponent,
     CommentsComponent,

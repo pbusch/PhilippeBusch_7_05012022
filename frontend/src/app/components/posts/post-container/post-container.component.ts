@@ -20,12 +20,15 @@ export class PostContainerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // console.log(this.postService.posts$.value.length == 0);
+    // if (this.postService.posts$.value.length == 0) {
+    //   this.postService.fetchPosts().subscribe();
+    // }
     this.subscription = timer(0, 600000)
       .pipe(switchMap(() => this.postService.fetchPosts()))
       .subscribe();
 
     // this.postService.fetchPosts().subscribe();
-
     // this.timerService.startWatching(4).subscribe((isTimeOut: boolean) => {
     //   if (isTimeOut) {
     //     this.postService.fetchPosts().subscribe();
