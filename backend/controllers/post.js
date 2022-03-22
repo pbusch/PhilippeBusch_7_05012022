@@ -1,8 +1,9 @@
-const { Sequelize } = require("../models");
+const { Sequelize, like, post } = require("../models");
 const db = require("../models");
 const users = require("../models/user");
 const Comment = db.comment;
 const Post = db.post;
+const Like = db.like;
 const User = db.user;
 const Op = db.Sequelize.Op;
 const fs = require("fs");
@@ -23,7 +24,25 @@ exports.listPosts = (req, res) => {
       [{ model: db.comment }, "id", "ASC"],
     ],
 
+    // group: ["post.id"],
+
+    // attributes: {
+    //   include: [
+    //     [Sequelize.fn("COUNT", Sequelize.col("likes.postId")), "likesCount"],
+    //   ],
+    // },
+
     include: [
+      {
+        model: db.like,
+        attributes: ["creatorId"],
+      },
+      //   model: db.like,
+      //   group: "postId",
+      //   attributes: [
+      //     [Sequelize.fn("COUNT", Sequelize.col("like.postId")), "likesCount"],
+      //   ],
+      // },
       { model: db.user, attributes: ["name", "id"], as: "creator" },
 
       {
@@ -38,6 +57,47 @@ exports.listPosts = (req, res) => {
   })
     .then((data) => {
       res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "error",
+      });
+    });
+};
+
+exports.likePost = (req, res) => {
+  const like = {
+    creatorId: req.token.userId,
+    postId: req.params.id,
+  };
+
+  Like.findOne({
+    attributes: ["id", "creatorId"],
+    where: { creatorId: req.token.userId, postId: req.params.id },
+  })
+    .then((data) => {
+      if (data === null) {
+        console.log("ok");
+
+        Like.create(like)
+          .then((data) => {
+            res.send(data);
+          })
+
+          .catch((err) => {
+            res.status(500).send({
+              message: err.message || "error ",
+            });
+          });
+      } else {
+        Like.destroy({
+          where: { creatorId: req.token.userId, postId: req.params.id },
+        })
+          .then(() => {
+            res.status(200).json({ message: "Like removed" });
+          })
+          .catch((error) => res.status(400).json({ error }));
+      }
     })
     .catch((err) => {
       res.status(500).send({
@@ -137,7 +197,6 @@ exports.addComment = (req, res) => {
     commentText: req.body.text,
     postId: req.params.id,
   };
-  console.log(req.body.text);
   Comment.create(comment)
     .then((data) => {
       res.send(data);

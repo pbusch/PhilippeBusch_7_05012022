@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  @Input() post!: Post;
+  @Input() post?: Post;
 
   public userToken?: any;
   public getId?: any;
@@ -36,8 +36,34 @@ export class PostComponent implements OnInit {
     this.onEdit = true;
   }
 
+  // public isOwner() {
+  //   const owner = {
+  //     creatorId: 1,
+  //   };
+  //   this.post.likes.indexOf(owner);
+  // }
+
+  public doLike() {
+    console.log(this.post?.likes);
+    this.postService.likePost(this.post?.id, '').subscribe({
+      next: (res) => {
+        this.post = res;
+      },
+      error: (error) => {
+        console.log(error.error);
+      },
+      complete: () => {},
+    });
+  }
+
+  public isLikedByUser() {
+    return this.post?.likes.some(
+      (like) => like.creatorId === this.getId.userId
+    );
+  }
+
   public doDelete() {
-    this.postService.deletePost(this.post.id).subscribe({
+    this.postService.deletePost(this.post?.id).subscribe({
       next: (res) => {
         this.post = res;
       },

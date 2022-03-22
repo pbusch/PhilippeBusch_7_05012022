@@ -73,4 +73,12 @@ export class PostService {
       })
     );
   }
+
+  public likePost(param: any, text: string): Observable<any> {
+    return this.http.post<any>(POST_API + param + '/like', { text }).pipe(
+      tap(() => {
+        this.fetchPosts().subscribe();
+      })
+    );
+  }
 }

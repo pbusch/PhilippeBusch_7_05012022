@@ -33,10 +33,10 @@ db.comment.belongsTo(db.user, { as: "creator" });
 db.post.hasMany(db.comment, { onDelete: "cascade" });
 db.comment.belongsTo(db.post);
 
-db.user.hasMany(db.like);
-db.like.belongsTo(db.user);
+//db.user.hasMany(db.like);
+db.like.belongsTo(db.user, { as: "creator" });
 
-db.post.hasMany(db.like);
+db.post.hasMany(db.like, { onDelete: "cascade" });
 db.like.belongsTo(db.post);
 
 //sequelize.sync({ loggin: console.log });

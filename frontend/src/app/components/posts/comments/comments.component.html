@@ -1,9 +1,8 @@
 <div *ngIf="post">
   <button mat-button (click)="this.commentsShow = !this.commentsShow">
     <!-- <mat-icon class="icon-align">visibility</mat-icon> -->
-    <span matBadge="{{ post.comments.length }}" matBadgeOverlap="false">
-      Commentaires
-    </span>
+    <!-- <span matBadge="" matBadgeOverlap="false"> -->
+    <span> Commentaires ({{ post.comments?.length }}) </span>
   </button>
   <div *ngIf="commentsShow">
     <ul>
@@ -12,10 +11,10 @@
         class="d-flex flex-align-items-center comment-block"
       >
         <div class="firstChar">
-          {{ comment.creator.name | firstChar }}
+          {{ comment.creator?.name | firstChar }}
         </div>
         <div class="comment d-flex flex-column">
-          <div class="comment-creator">{{ comment.creator.name }}</div>
+          <div class="comment-creator">{{ comment.creator?.name }}</div>
           <div class="comment-text">
             {{ comment.commentText }}
 
@@ -24,7 +23,7 @@
               class="icon-align pl-10 pr-10 delete"
               color="primary"
               title="Supprimer le commentaire"
-              *ngIf="comment.creator!.id == getId.userId || getId.level > 1"
+              *ngIf="comment.creator?.id == getId.userId || getId.level > 1"
               (click)="doDelete(comment.id)"
               >highlight_off</mat-icon
             >
