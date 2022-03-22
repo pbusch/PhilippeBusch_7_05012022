@@ -35,7 +35,10 @@ exports.listPosts = (req, res) => {
     include: [
       {
         model: db.like,
-        attributes: ["creatorId"],
+        attributes: ["id"],
+        include: [
+          { model: db.user, attributes: ["name", "id"], as: "creator" },
+        ],
       },
       //   model: db.like,
       //   group: "postId",

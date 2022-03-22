@@ -13,7 +13,6 @@ export class PostComponent implements OnInit {
   @Input() post?: Post;
 
   public userToken?: any;
-  public getId?: any;
   public onEdit = false;
 
   public commentsShow!: boolean;
@@ -28,7 +27,7 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getId = this.authService.tokenId();
+    this.userToken = this.authService.tokenId();
     this.commentsShow = false;
   }
 

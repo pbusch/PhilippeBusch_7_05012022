@@ -11,7 +11,7 @@ import { Post } from 'src/app/shared/interfaces/post';
 })
 export class CommentsComponent implements OnInit {
   @Input() post?: Post;
-  @Input() getId?: any;
+  @Input() userToken?: any;
 
   public firstLetter: string = '';
 

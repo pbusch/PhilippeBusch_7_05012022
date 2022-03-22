@@ -23,7 +23,9 @@
               class="icon-align pl-10 pr-10 delete"
               color="primary"
               title="Supprimer le commentaire"
-              *ngIf="comment.creator?.id == getId.userId || getId.level > 1"
+              *ngIf="
+                comment.creator?.id == userToken.userId || userToken.level > 1
+              "
               (click)="doDelete(comment.id)"
               >highlight_off</mat-icon
             >

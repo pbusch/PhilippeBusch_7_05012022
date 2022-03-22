@@ -1,3 +1,5 @@
+import { Creator } from './creator';
 export interface Like {
-  creatorId: number;
+  id: number;
+  creator: Creator;
 }

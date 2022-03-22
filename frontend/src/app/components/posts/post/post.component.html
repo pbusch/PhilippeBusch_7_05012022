@@ -7,7 +7,7 @@
       <button
         title="Editer"
         mat-button
-        *ngIf="post.creator?.id == getId.userId || getId.level > 1"
+        *ngIf="post.creator?.id == userToken.userId || userToken.level > 1"
         (click)="doEdit()"
       >
         <mat-icon class="icon-align">edit</mat-icon>
@@ -21,23 +21,7 @@
   <img mat-card-image [src]="post.imgUrl" alt="Photo de Groupomania" />
   <mat-card-content> </mat-card-content>
   <mat-card-actions class="actions">
-    <!-- <button mat-button (click)="doLike()">
-      LIKE ( {{ post.likes?.length }} )
-      <ng-template #like>
-        <mat-icon color="accent" class="icon-align">favorite</mat-icon>
-      </ng-template>
-      <mat-icon *ngIf="!isLikedByUser(); else like" class="icon-align"
-        >favorite_border</mat-icon
-      >
-    </button>
-    <button
-      mat-button
-      *ngIf="post.creator?.id == getId.userId || getId.level > 1"
-      (click)="doDelete()"
-    >
-      SUPPRIMER <mat-icon class="icon-align">delete</mat-icon>
-    </button> -->
-    <app-post-icons [post]="post" [getId]="getId"></app-post-icons>
+    <app-post-icons [post]="post" [userToken]="userToken"></app-post-icons>
   </mat-card-actions>
-  <app-comments [post]="post" [getId]="getId"></app-comments>
+  <app-comments [post]="post" [userToken]="userToken"></app-comments>
 </mat-card>

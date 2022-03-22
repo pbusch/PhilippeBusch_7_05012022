@@ -48,7 +48,7 @@ import {
 })
 export class PostIconsComponent implements OnInit {
   @Input() post?: Post;
-  @Input() getId?: any;
+  @Input() userToken?: any;
   public state = 'validated';
 
   constructor(private postService: PostService) {}
@@ -69,8 +69,13 @@ export class PostIconsComponent implements OnInit {
 
   public isLikedByUser() {
     return this.post?.likes?.some(
-      (like) => like?.creatorId === this.getId.userId
+      (like) => like?.creator.id === this.userToken.userId
     );
+  }
+
+  public likers() {
+    const likersList = this.post?.likes.map((a) => a.creator.name);
+    return likersList;
   }
 
   public doDelete() {
