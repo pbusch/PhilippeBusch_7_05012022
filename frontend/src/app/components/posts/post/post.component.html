@@ -1,18 +1,40 @@
-<mat-card class="example-card" *ngIf="post">
+<mat-card class="post-card" *ngIf="post">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
+    <div mat-card-avatar class="post-header-image"></div>
     <div *ngIf="!onEdit"></div>
-    <mat-card-title
-      >{{ post.title }}
-      <button
-        title="Editer"
-        mat-button
-        *ngIf="post.creator?.id == userToken.userId || userToken.level > 1"
-        (click)="doEdit()"
-      >
-        <mat-icon class="icon-align">edit</mat-icon>
-      </button>
+    <ng-template #edit>
+      <form [formGroup]="form" (submit)="submit()">
+        <mat-form-field appearance="fill" class="titre">
+          <mat-label>Entrez un nouveau titre</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="newTitle"
+            placeholder=""
+          />
+
+          <!-- <mat-icon class="icon-align" matSuffix>record_voice_over</mat-icon> -->
+
+          <mat-hint>Appuyez sur Entrée pour publier</mat-hint>
+        </mat-form-field>
+      </form>
+    </ng-template>
+
+    <mat-card-title>
+      <span *ngIf="!onEdit; else edit">
+        {{ post.title }}
+
+        <button
+          title="Editer"
+          mat-button
+          *ngIf="post.creator?.id == userToken.userId || userToken.level > 1"
+          (click)="doEdit()"
+        >
+          <mat-icon class="icon-align">edit</mat-icon>
+        </button>
+      </span>
     </mat-card-title>
+
     <mat-card-subtitle
       >Publié le {{ post.createdAt | date: "dd/MM/yyyy" }} par
       {{ post.creator.name }}</mat-card-subtitle

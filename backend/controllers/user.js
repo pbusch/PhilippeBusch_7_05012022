@@ -3,6 +3,7 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { post } = require("../models");
 
 exports.listUsers = (req, res) => {
   if (req.token.level < 2) {
@@ -24,9 +25,6 @@ exports.userInfo = (req, res) => {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
 
-  // if (req.token.userId != req.params.id && req.token.level < 3) {
-  //   return res.status(401).json({ error: { message: "Admin level required" } });
-  // }
   User.findOne({ where: { id: req.params.id } })
     .then((data) => {
       if (!data) {
@@ -38,23 +36,17 @@ exports.userInfo = (req, res) => {
 };
 
 exports.delUser = (req, res) => {
-  if (!req.body.password && req.token.level < 3) {
-    return res
-      .status(401)
-      .json({ error: { message: "Please provide a valid password" } });
-  } else {
-    User.destroy({
-      where: { id: req.params.id },
+  User.destroy({
+    where: { id: req.params.id },
+  })
+    .then((data) => {
+      if (data !== 0) {
+        res.status(200).json({ message: "User removed" });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
     })
-      .then((data) => {
-        if (data !== 0) {
-          res.status(200).json({ message: "User removed" });
-        } else {
-          res.status(404).json({ message: "User not found" });
-        }
-      })
-      .catch((error) => res.status(400).json({ error }));
-  }
+    .catch((error) => res.status(400).json({ error }));
 };
 
 exports.modUser = (req, res) => {

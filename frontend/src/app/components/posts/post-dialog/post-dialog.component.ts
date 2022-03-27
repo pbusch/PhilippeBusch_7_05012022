@@ -53,8 +53,6 @@ export class PostDialogComponent implements OnInit {
   }
 
   public submit() {
-    console.log(this.form.value);
-
     let formData: FormData = new FormData();
     formData.append('image', this.file, this.file.name);
     formData.append('title', this.firstFormGroup.value.firstCtrl);
@@ -62,7 +60,9 @@ export class PostDialogComponent implements OnInit {
     this.postService.addPost(formData).subscribe({
       next: () => {},
       error: () => (this.error = 'erreur'),
-      complete: () => {},
+      complete: () => {
+        this.imageSrc = '';
+      },
     });
   }
 

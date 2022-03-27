@@ -6,14 +6,15 @@ const isMod = require("../middleware/isMod");
 const postCtrl = require("../controllers/post");
 const multer = require("../middleware/multer-config");
 
-router.get("/", auth, postCtrl.listPosts);
+router.get("/:offset&:limit", auth, postCtrl.listPartialPosts);
 router.get("/:id", auth, postCtrl.getOnePost);
+router.get("/", auth, postCtrl.listPosts);
 router.post("/", auth, multer, postCtrl.addPost);
 router.get("/:id/comments", auth, postCtrl.getPostComments);
 router.post("/:id", auth, postCtrl.addComment);
 router.delete("/:id", auth, postCtrl.delPost);
-router.delete("/comments/:id", auth, postCtrl.delComment);
-router.put("/:id", auth, multer, postCtrl.updatePost);
+router.delete("/comments/:id&:post", auth, postCtrl.delComment);
+router.put("/:id", auth, postCtrl.updatePost);
 router.post("/:id/like", auth, postCtrl.likePost);
 
 module.exports = router;

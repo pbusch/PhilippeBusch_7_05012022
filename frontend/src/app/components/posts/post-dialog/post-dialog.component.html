@@ -42,12 +42,15 @@
 
       <div>
         <img [src]="imageSrc" />
-
-        <!-- <button mat-button matStepperPrevious>Back</button> -->
-        <button mat-button (click)="submit(); stepper.reset()">
-          Je valide mon Post !
-        </button>
-        <button mat-button (click)="stepper.reset()">J'annule !</button>
+        <div class="d-flex flex-row">
+          <!-- <button mat-button matStepperPrevious>Back</button> -->
+          <button mat-button (click)="submit(); stepper.reset()">
+            Je valide mon Post !
+          </button>
+          <button mat-button (click)="stepper.reset(); imageSrc = ''">
+            J'annule !
+          </button>
+        </div>
       </div>
     </mat-step>
   </mat-stepper>

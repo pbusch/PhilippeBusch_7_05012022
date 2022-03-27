@@ -4,6 +4,7 @@
     <!-- <span matBadge="" matBadgeOverlap="false"> -->
     <span> Commentaires ({{ post.comments?.length }}) </span>
   </button>
+
   <div *ngIf="commentsShow">
     <ul>
       <li
@@ -26,7 +27,7 @@
               *ngIf="
                 comment.creator?.id == userToken.userId || userToken.level > 1
               "
-              (click)="doDelete(comment.id)"
+              (click)="doDelete(comment.id, post.id)"
               >highlight_off</mat-icon
             >
           </div>

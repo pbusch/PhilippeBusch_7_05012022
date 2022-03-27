@@ -9,7 +9,7 @@ const pwCheck = require("../middleware/pwCheck");
 
 router.get("/", auth, userCtrl.listUsers);
 router.get("/:id", auth, userCtrl.userInfo);
-router.delete("/:id", auth, pwCheck, userCtrl.delUser);
+router.delete("/:id", auth, userCtrl.delUser);
 router.put("/:id", auth, userCheck, pwCheck, userCtrl.modUser);
 
 module.exports = router;

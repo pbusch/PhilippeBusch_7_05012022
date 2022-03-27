@@ -5,4 +5,18 @@
 </div>
 <br />
 <app-post-dialog></app-post-dialog>
-<app-post *ngFor="let post of posts" [post]="post"></app-post>
+
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="distance"
+  [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScroll()"
+>
+  <app-post *ngFor="let post of posts" [post]="post"></app-post>
+  <!-- <cdk-virtual-scroll-viewport
+    itemSize="500"
+    (scrolledIndexChange)="onScroll()"
+  >
+    <app-post *cdkVirtualFor="let post of posts" [post]="post"></app-post>
+  </cdk-virtual-scroll-viewport> -->
+</div>

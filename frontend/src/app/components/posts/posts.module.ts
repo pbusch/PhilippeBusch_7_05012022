@@ -10,6 +10,8 @@ import { POSTS_ROUTES } from './posts.routes';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PostService } from 'src/app/shared/services/postService';
 import { PostIconsComponent } from './post-icons/post-icons.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { PostIconsComponent } from './post-icons/post-icons.component';
     PostContainerComponent,
   ],
   imports: [
+    ScrollingModule,
+    InfiniteScrollModule,
     SharedModule,
     MatStepperModule,
     RouterModule.forChild(POSTS_ROUTES),

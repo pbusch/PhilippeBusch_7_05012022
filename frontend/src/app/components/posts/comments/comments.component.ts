@@ -14,12 +14,11 @@ export class CommentsComponent implements OnInit {
   @Input() userToken?: any;
 
   public firstLetter: string = '';
-
-  public commentsLoaded = true;
-  public commentsShow = true;
+  public commentsShow = false;
 
   public form: FormGroup = this.fb.group({
-    commentText: ['', Validators.required],
+    //commentText: ['', Validators.required],
+    commentText: [''],
   });
 
   constructor(
@@ -34,11 +33,15 @@ export class CommentsComponent implements OnInit {
     this.commentsShow = !this.commentsShow;
   }
 
-  public doDelete(commentId: any) {
-    this.postService.deleteComment(commentId).subscribe({
-      next: () => {},
+  public doDelete(commentId: any, postId: any) {
+    this.postService.deleteComment(commentId, postId).subscribe({
+      next: (res) => {
+        this.post = res;
+        console.log(res);
+      },
       error: (error) => {
         console.log(error.error);
+        alert('Commentaires indisponibles pour le moment');
       },
       complete: () => {},
     });
@@ -48,11 +51,16 @@ export class CommentsComponent implements OnInit {
     this.postService
       .addComment(this.post?.id, this.form.controls.commentText.value)
       .subscribe({
-        next: () => {},
+        next: (res) => {
+          this.post = res;
+        },
         error: (error) => {
           console.log(error.error);
+          alert('Commentaires indisponibles pour le moment');
         },
-        complete: () => {},
+        complete: () => {
+          this.form.controls.commentText.setValue(null);
+        },
       });
   }
 }

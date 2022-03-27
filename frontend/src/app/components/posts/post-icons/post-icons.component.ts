@@ -27,7 +27,7 @@ import {
           color: 'red',
         })
       ),
-      transition('* => validated', animate(500)),
+      transition('* => validated', animate(700)),
     ]),
     trigger('heartEmpty', [
       state(
@@ -58,12 +58,18 @@ export class PostIconsComponent implements OnInit {
   public doLike() {
     this.postService.likePost(this.post?.id, '').subscribe({
       next: (res) => {
-        //this.post = res;
+        this.post = res;
+        //this.state = 'validated';
       },
       error: (error) => {
         console.log(error.error);
+        alert(
+          "Une erreur s'est produite. Modification impossible pour le moment"
+        );
       },
-      complete: () => {},
+      complete: () => {
+        //this.postService.fetchOnePost(this.post?.id).subscribe();
+      },
     });
   }
 
@@ -73,16 +79,18 @@ export class PostIconsComponent implements OnInit {
     );
   }
 
-  public likers() {
-    const likersList = this.post?.likes.map((a) => a.creator.name);
-    return likersList;
+  public likers(): string {
+    return this.post?.likes.map((a) => a.creator.name).join('\n') || '';
   }
 
   public doDelete() {
     this.postService.deletePost(this.post?.id).subscribe({
-      next: () => {},
+      next: () => {
+        this.post = undefined;
+      },
       error: (error) => {
         console.log(error.error);
+        alert(error.error.message);
       },
       complete: () => {},
     });

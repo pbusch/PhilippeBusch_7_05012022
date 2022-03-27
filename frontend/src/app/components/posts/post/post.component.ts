@@ -17,7 +17,7 @@ export class PostComponent implements OnInit {
 
   public commentsShow!: boolean;
   public form: FormGroup = this.fb.group({
-    commentText: ['', Validators.required],
+    newTitle: ['', Validators.required],
   });
 
   constructor(
@@ -35,6 +35,25 @@ export class PostComponent implements OnInit {
     this.onEdit = true;
   }
 
+  public submit() {
+    console.log(this.post?.id, this.form.controls.newTitle.value);
+    this.postService
+      .updatePost(this.post?.id, this.form.controls.newTitle.value)
+      .subscribe({
+        next: (res) => {
+          this.post = res;
+          console.log(res);
+        },
+        error: (error) => {
+          console.log(error.error);
+          alert('Modification impossible pour le moment');
+        },
+        complete: () => {
+          this.onEdit = false;
+        },
+      });
+  }
+
   // public isOwner() {
   //   const owner = {
   //     creatorId: 1,
@@ -47,6 +66,7 @@ export class PostComponent implements OnInit {
       next: () => {},
       error: (error) => {
         console.log(error.error);
+        alert('Supression impossible');
       },
       complete: () => {},
     });

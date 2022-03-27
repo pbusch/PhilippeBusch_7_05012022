@@ -5,7 +5,7 @@ import { User } from '../interfaces/user';
 import { tap } from 'rxjs/operators';
 import { retry, catchError } from 'rxjs/operators';
 
-const AUTH_API = 'http://localhost:3000/';
+const USER_API = 'http://localhost:3000/api/users/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -18,6 +18,10 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   public getUser(param: string): Observable<any> {
-    return this.http.get<any>(AUTH_API + 'api/users/' + param, {});
+    return this.http.get<any>(USER_API + param, {}).pipe(tap((res) => {}));
+  }
+
+  public delUser(param: string): Observable<any> {
+    return this.http.delete<any>(USER_API + param, {}).pipe(tap((res) => {}));
   }
 }

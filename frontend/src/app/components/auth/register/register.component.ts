@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
     password: ['', Validators.required],
   });
   public error?: string;
+  public valid = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
           this.form.controls.password.value
         )
         .subscribe({
-          next: () => console.log('ok'),
+          next: () => {},
           error: (error) => {
             console.log(error.error);
             if (error.error.message) {
@@ -42,7 +43,11 @@ export class RegisterComponent implements OnInit {
               this.error = error.error.error;
             }
           },
-          complete: () => this.router?.navigate(['login']),
+
+          complete: () => {
+            this.valid = true;
+            setTimeout(() => this.router?.navigate(['auth', 'login']), 2500);
+          },
         });
     }
   }

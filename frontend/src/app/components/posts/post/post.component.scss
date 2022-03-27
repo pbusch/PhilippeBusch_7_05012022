@@ -1,11 +1,12 @@
-.example-card {
-  max-width: 750px;
+.post-card {
+  max-width: 550px;
+  //max-height: 500px;
   margin: auto;
   background-color: rgb(254, 255, 255);
   margin-bottom: 10px;
 }
 
-.example-header-image {
+.post-header-image {
   background-image: url("http://localhost:4200/assets/icon.png");
   background-size: cover;
 }
@@ -16,8 +17,14 @@
 
 .mat-card-image {
   margin: auto;
+  height: 300px;
+  object-fit: contain;
 }
 
 .mat-card-actions {
   margin-left: 0px;
+}
+
+.titre {
+  font-size: 12px;
 }

@@ -28,6 +28,31 @@ export class ProfileComponent implements OnInit {
     this.router?.navigate(['/auth/login']);
   }
 
+  delete() {
+    if (
+      confirm(
+        'Etes-vous certain(e) de vouloir supprimer votre compte ? Toutes vos données seront perdues !'
+      )
+    ) {
+      this.userService.delUser(this.getId.userId).subscribe({
+        next: (res) => {
+          this.nom = res.name;
+          this.email = res.email;
+        },
+        error: (error) => {
+          console.log(error.error);
+        },
+        complete: () => {
+          localStorage.removeItem('token');
+          this.dataSharingservice.isUserLoggedIn$.next(false);
+          this.router?.navigate(['/auth/signup']);
+        },
+      });
+    } else {
+      return;
+    }
+  }
+
   ngOnInit(): void {
     this.getId = this.authService.tokenId();
 

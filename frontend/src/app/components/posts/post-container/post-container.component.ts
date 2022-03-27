@@ -25,7 +25,7 @@ export class PostContainerComponent implements OnInit {
     //   this.postService.fetchPosts().subscribe();
     // }
     this.subscription = timer(0, 600000)
-      .pipe(switchMap(() => this.postService.fetchPosts()))
+      .pipe(switchMap(() => this.postService.fetchPartialPosts(0, 4)))
       .subscribe();
 
     // this.postService.fetchPosts().subscribe();
