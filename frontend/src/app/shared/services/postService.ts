@@ -12,10 +12,9 @@ const httpOptions = {
 
 @Injectable()
 export class PostService {
-  public posts$: BehaviorSubject<Post[] | []> = new BehaviorSubject<
-    Post[] | []
-  >([]);
-
+  public posts$: BehaviorSubject<Post[]> = new BehaviorSubject([] as Post[]);
+  public totalPosts: any = 2;
+  public page: any = 2;
   constructor(private http: HttpClient) {}
 
   public fetchPosts(): Observable<Post[]> {
@@ -26,14 +25,18 @@ export class PostService {
     );
   }
 
-  public fetchPartialPosts(offset: any, limit: any): Observable<Post[]> {
-    //const params = new HttpParams().set(offset, limit);
-    const newPOST_API = POST_API + offset + '&' + limit;
-    return this.http.get<Post[]>(newPOST_API).pipe(
-      tap((res) => {
-        this.posts$.next(res);
+  public fetchPartialPosts(offset: any, limit: any): void {
+    this.http
+      .get<Post[]>(POST_API, {
+        params: { limit, offset },
+        observe: 'response',
       })
-    );
+      .subscribe((res) => {
+        this.totalPosts = res.headers.get('x-total-count');
+        if (res.body) {
+          this.posts$.next(this.posts$.value.concat(res.body));
+        }
+      });
   }
 
   public fetchOnePost(param: any): Observable<Post[]> {

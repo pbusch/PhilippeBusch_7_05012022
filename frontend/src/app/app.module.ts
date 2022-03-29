@@ -12,6 +12,7 @@ import { authInterceptorProviders } from './shared/services/authInterceptor';
 import { MatIconModule } from '@angular/material/icon';
 import { APP_ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
+import { PostService } from 'src/app/shared/services/postService';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LandingPageComponent],
@@ -23,7 +24,12 @@ import { RouterModule } from '@angular/router';
     MatToolbarModule,
     MatIconModule,
   ],
-  providers: [AuthGuard, DataSharingService, authInterceptorProviders],
+  providers: [
+    AuthGuard,
+    DataSharingService,
+    authInterceptorProviders,
+    PostService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

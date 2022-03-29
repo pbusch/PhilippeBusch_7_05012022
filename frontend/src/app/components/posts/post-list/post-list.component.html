@@ -1,12 +1,13 @@
 <div class="d-flex flex-justify-content-center">
-  <button mat-raised-button color="primary">
+  <button mat-raised-button color="primary" (click)="doShow()">
     <mat-icon>camera_enhance</mat-icon>
   </button>
 </div>
 <br />
-<app-post-dialog></app-post-dialog>
+<app-post-dialog *ngIf="isVisible"></app-post-dialog>
 
 <div
+  class="scroll"
   infinite-scroll
   [infiniteScrollDistance]="distance"
   [infiniteScrollThrottle]="throttle"
@@ -14,7 +15,7 @@
 >
   <app-post *ngFor="let post of posts" [post]="post"></app-post>
   <!-- <cdk-virtual-scroll-viewport
-    itemSize="500"
+    itemSize="550"
     (scrolledIndexChange)="onScroll()"
   >
     <app-post *cdkVirtualFor="let post of posts" [post]="post"></app-post>

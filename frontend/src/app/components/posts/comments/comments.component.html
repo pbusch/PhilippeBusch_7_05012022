@@ -1,5 +1,5 @@
 <div *ngIf="post">
-  <button mat-button (click)="this.commentsShow = !this.commentsShow">
+  <button mat-raised-button (click)="this.commentsShow = !this.commentsShow">
     <!-- <mat-icon class="icon-align">visibility</mat-icon> -->
     <!-- <span matBadge="" matBadgeOverlap="false"> -->
     <span> Commentaires ({{ post.comments?.length }}) </span>

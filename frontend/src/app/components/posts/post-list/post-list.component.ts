@@ -10,17 +10,26 @@ import { PostService } from 'src/app/shared/services/postService';
 })
 export class PostListComponent implements OnInit {
   @Input() public posts: Post[] | null = null;
+  public isVisible: boolean = false;
+  public offset = 0;
 
-  throttle = 200;
-  distance = 5;
-  page = 1;
+  throttle = 0;
+  distance = 1.2;
+  //page = 2;
 
   constructor(public router: Router, public postService: PostService) {}
 
   ngOnInit(): void {}
 
+  public doShow() {
+    this.isVisible = !this.isVisible;
+  }
+
   onScroll(): void {
-    this.postService.fetchPartialPosts(0, ++this.page).subscribe();
-    console.log(this.page);
+    if (this.postService.page < this.postService.totalPosts) {
+      this.postService.fetchPartialPosts(++this.postService.page, 1);
+      console.log(this.postService.page);
+      console.log(this.postService.totalPosts);
+    }
   }
 }

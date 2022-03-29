@@ -27,7 +27,7 @@ import {
           color: 'red',
         })
       ),
-      transition('* => validated', animate(700)),
+      transition('normal <=> validated', animate(700)),
     ]),
     trigger('heartEmpty', [
       state(
@@ -49,17 +49,27 @@ import {
 export class PostIconsComponent implements OnInit {
   @Input() post?: Post;
   @Input() userToken?: any;
-  public state = 'validated';
+  public state: string = '';
 
   constructor(private postService: PostService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.isLikedByUser()) {
+      this.state = 'validated';
+    } else {
+      this.state = 'normal';
+    }
+  }
 
   public doLike() {
     this.postService.likePost(this.post?.id, '').subscribe({
       next: (res) => {
         this.post = res;
-        //this.state = 'validated';
+        if (this.isLikedByUser()) {
+          this.state = 'validated';
+        } else {
+          this.state = 'normal';
+        }
       },
       error: (error) => {
         console.log(error.error);

@@ -13,7 +13,7 @@ import { PostService } from '../../../shared/services/postService';
 export class PostContainerComponent implements OnInit {
   public posts$: Observable<Post[]> = this.postService.posts$;
   public posts!: Post[];
-  subscription!: Subscription;
+  // subscription!: Subscription;
 
   constructor(
     private postService: PostService //private timerService: TimerService
@@ -24,9 +24,13 @@ export class PostContainerComponent implements OnInit {
     // if (this.postService.posts$.value.length == 0) {
     //   this.postService.fetchPosts().subscribe();
     // }
-    this.subscription = timer(0, 600000)
-      .pipe(switchMap(() => this.postService.fetchPartialPosts(0, 4)))
-      .subscribe();
+
+    // this.subscription = timer(0, 60000000)
+    //   //.pipe(switchMap(() => this.postService.fetchPosts()))
+    //   .subscribe(() => this.postService.fetchPartialPosts(0, 2));
+    this.postService.posts$.next([]);
+    this.postService.page = 2;
+    this.postService.fetchPartialPosts(0, 2);
 
     // this.postService.fetchPosts().subscribe();
     // this.timerService.startWatching(4).subscribe((isTimeOut: boolean) => {
@@ -37,6 +41,6 @@ export class PostContainerComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

@@ -8,7 +8,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { POSTS_ROUTES } from './posts.routes';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { PostService } from 'src/app/shared/services/postService';
+//import { PostService } from 'src/app/shared/services/postService';
 import { PostIconsComponent } from './post-icons/post-icons.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -29,6 +29,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MatStepperModule,
     RouterModule.forChild(POSTS_ROUTES),
   ],
-  providers: [PostService],
+  providers: [],
 })
 export class PostsModule {}

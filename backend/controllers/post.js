@@ -10,7 +10,10 @@ const fs = require("fs");
 const { get } = require("http");
 
 exports.listPosts = (req, res) => {
-  Post.findAll({
+  Post.findAndCountAll({
+    limit: req.query.limit || 10,
+    offset: req.query.offset || 0,
+    distinct: true,
     order: [
       ["createdAt", "DESC"],
       [{ model: db.comment }, "id", "ASC"],
@@ -37,7 +40,8 @@ exports.listPosts = (req, res) => {
     ],
   })
     .then((data) => {
-      res.send(data);
+      res.set("x-total-count", data.count);
+      res.send(data.rows);
     })
     .catch((err) => {
       res.status(500).send({

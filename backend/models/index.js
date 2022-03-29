@@ -37,7 +37,7 @@ db.user.hasMany(db.like, { foreignKey: "creatorId", onDelete: "cascade" });
 db.like.belongsTo(db.user, { as: "creator" });
 
 db.post.hasMany(db.like, { onDelete: "cascade" });
-db.like.belongsTo(db.post);
+//db.like.belongsTo(db.post);
 
 //sequelize.sync({ loggin: console.log });
 

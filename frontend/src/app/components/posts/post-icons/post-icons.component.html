@@ -1,25 +1,26 @@
 <span *ngIf="post">
-  <button mat-button [title]="likers()" (click)="doLike()">
+  <button
+    mat-raised-button
+    color="primary"
+    [title]="likers()"
+    (click)="doLike()"
+  >
     LIKE ({{ post?.likes?.length }})
 
-    <ng-template #like>
+    <!-- <ng-template #like>
       <mat-icon [@heartFull]="state" [title]="likers()" class="icon-align"
         >favorite</mat-icon
       >
-    </ng-template>
+    </ng-template> -->
 
-    <mat-icon
-      [@heartEmpty]="state"
-      color="warn"
-      *ngIf="!isLikedByUser(); else like"
-      class="icon-align"
-    >
+    <mat-icon [@heartFull]="state" [title]="likers()" class="icon-align">
       favorite
     </mat-icon>
   </button>
 
   <button
-    mat-button
+    mat-raised-button
+    color="warn"
     *ngIf="post.creator.id == userToken.userId || userToken.level > 1"
     (click)="doDelete()"
   >
