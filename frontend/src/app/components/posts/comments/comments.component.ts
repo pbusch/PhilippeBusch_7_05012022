@@ -34,17 +34,21 @@ export class CommentsComponent implements OnInit {
   }
 
   public doDelete(commentId: any, postId: any) {
-    this.postService.deleteComment(commentId, postId).subscribe({
-      next: (res) => {
-        this.post = res;
-        console.log(res);
-      },
-      error: (error) => {
-        console.log(error.error);
-        alert('Commentaires indisponibles pour le moment');
-      },
-      complete: () => {},
-    });
+    if (confirm('Etes-vous certain(e) de vouloir supprimer ce commentaire ?')) {
+      this.postService.deleteComment(commentId, postId).subscribe({
+        next: (res) => {
+          this.post = res;
+          console.log(res);
+        },
+        error: (error) => {
+          console.log(error.error);
+          alert('Commentaires indisponibles pour le moment');
+        },
+        complete: () => {},
+      });
+    } else {
+      return;
+    }
   }
 
   public submit() {

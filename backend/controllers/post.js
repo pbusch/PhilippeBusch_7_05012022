@@ -7,7 +7,6 @@ const Like = db.like;
 const User = db.user;
 const Op = db.Sequelize.Op;
 const fs = require("fs");
-const { get } = require("http");
 
 exports.listPosts = (req, res) => {
   Post.findAndCountAll({
@@ -211,6 +210,23 @@ exports.likePost = (req, res) => {
       });
     });
 };
+
+// exports.getTopLikes = (req, res) => {
+//   Like.findAndCountAll({
+//     attributes: ["creatorId"],
+//     distinct: true,
+//     col: "postId",
+//   })
+//     .then((data) => {
+//       res.send(data.rows);
+//       console.log(data.rows);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message || "error",
+//       });
+//     });
+// };
 
 exports.getOnePost = (req, res) => {
   Post.findOne({

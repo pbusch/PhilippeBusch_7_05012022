@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { APP_ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { PostService } from 'src/app/shared/services/postService';
+import 'hammerjs';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LandingPageComponent],

@@ -20,6 +20,7 @@
 
   <button
     mat-raised-button
+    title="Supprimer le Post !"
     color="warn"
     *ngIf="post.creator.id == userToken.userId || userToken.level > 1"
     (click)="doDelete()"

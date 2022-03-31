@@ -1,37 +1,59 @@
 <div *ngIf="post">
   <button mat-raised-button (click)="this.commentsShow = !this.commentsShow">
-    <!-- <mat-icon class="icon-align">visibility</mat-icon> -->
-    <!-- <span matBadge="" matBadgeOverlap="false"> -->
     <span> Commentaires ({{ post.comments?.length }}) </span>
   </button>
 
   <div *ngIf="commentsShow">
     <ul>
-      <li
-        *ngFor="let comment of post.comments"
-        class="d-flex flex-align-items-center comment-block"
-      >
-        <div class="firstChar">
-          {{ comment.creator?.name | firstChar }}
-        </div>
-        <div class="comment d-flex flex-column">
-          <div class="comment-creator">{{ comment.creator?.name }}</div>
-          <div class="comment-text">
-            {{ comment.commentText }}
-
-            <mat-icon
-              inline="true"
-              class="icon-align pl-10 pr-10 delete"
-              color="primary"
-              title="Supprimer le commentaire"
-              *ngIf="
-                comment.creator?.id == userToken.userId || userToken.level > 1
-              "
-              (click)="doDelete(comment.id, post.id)"
-              >highlight_off</mat-icon
-            >
+      <li *ngFor="let comment of post.comments" class="flex-auto comment-block">
+        <div
+          *ngIf="comment.creator?.id !== userToken.userId; else alt"
+          class="flex-auto flex-row flex-justify-content-end"
+        >
+          <div class="firstChar">
+            {{ comment.creator?.name | firstChar }}
+          </div>
+          <div class="comment d-flex flex-column">
+            <div class="comment-creator">{{ comment.creator?.name }}</div>
+            <div class="comment-text">
+              {{ comment.commentText }}
+              <mat-icon
+                inline="true"
+                class="icon-align pl-10 pr-10 delete"
+                color="warn"
+                title="Supprimer le commentaire"
+                *ngIf="userToken.level > 1"
+                (click)="doDelete(comment.id, post.id)"
+                >highlight_off</mat-icon
+              >
+            </div>
           </div>
         </div>
+
+        <ng-template #alt class="d-flex flex-row flex-justify-content-end">
+          <div class="comment-alt d-flex flex-column">
+            <div class="comment-creator-alt">
+              {{ comment.creator?.name }}
+            </div>
+            <div class="comment-text-alt">
+              {{ comment.commentText }}
+              <mat-icon
+                inline="true"
+                class="icon-align pl-10 pr-10 delete"
+                color="warn"
+                title="Supprimer le commentaire"
+                *ngIf="
+                  comment.creator?.id == userToken.userId || userToken.level > 1
+                "
+                (click)="doDelete(comment.id, post.id)"
+                >highlight_off</mat-icon
+              >
+            </div>
+          </div>
+          <div class="firstChar-alt">
+            {{ comment.creator?.name | firstChar }}
+          </div>
+        </ng-template>
 
         <br />
       </li>

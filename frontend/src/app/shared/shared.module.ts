@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [SplitPipe],
@@ -23,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatBadgeModule,
     MatDialogModule,
+    MatTooltipModule,
   ],
   exports: [
     CommonModule,
