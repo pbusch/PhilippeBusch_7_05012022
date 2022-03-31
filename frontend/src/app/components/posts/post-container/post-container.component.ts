@@ -29,7 +29,7 @@ export class PostContainerComponent implements OnInit {
     //   //.pipe(switchMap(() => this.postService.fetchPosts()))
     //   .subscribe(() => this.postService.fetchPartialPosts(0, 2));
     this.postService.posts$.next([]);
-    this.postService.page = 2;
+    this.postService.page = 1;
     this.postService.fetchPartialPosts(0, 2);
 
     // this.postService.fetchPosts().subscribe();

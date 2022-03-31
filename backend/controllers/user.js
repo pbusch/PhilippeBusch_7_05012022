@@ -3,7 +3,7 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { post } = require("../models");
+const { post, like, comment, user } = require("../models");
 
 exports.listUsers = (req, res) => {
   if (req.token.level < 2) {
@@ -21,18 +21,38 @@ exports.listUsers = (req, res) => {
 };
 
 exports.userInfo = (req, res) => {
+  post
+    .count({ where: { creatorId: req.params.id } })
+    .then(function (totalPosts) {
+      like
+        .count({ where: { creatorId: req.params.id } })
+        .then(function (totalLikes) {
+          comment
+            .count({ where: { creatorId: req.params.id } })
+            .then(function (totalComments) {
+              User.findOne({ where: { id: req.params.id } })
+                .then((data) => {
+                  if (!data) {
+                    return res
+                      .status(404)
+                      .json({ error: { message: "User not found" } });
+                  }
+                  res.set("x-total-posts", totalPosts);
+                  res.set("x-total-likes", totalLikes);
+                  res.set("x-total-comments", totalComments);
+                  res.send(data);
+                })
+                .catch((error) => res.status(400).json({ error }));
+            })
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
+
   if (isNaN(req.params.id)) {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
-
-  User.findOne({ where: { id: req.params.id } })
-    .then((data) => {
-      if (!data) {
-        return res.status(404).json({ error: { message: "User not found" } });
-      }
-      res.send(data);
-    })
-    .catch((error) => res.status(400).json({ error }));
 };
 
 exports.delUser = (req, res) => {

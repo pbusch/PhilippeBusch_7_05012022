@@ -15,10 +15,20 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
+  public userTotalPosts: any = 0;
+  public userTotalLikes: any = 0;
+  public userTotalComments: any = 0;
+
   constructor(private http: HttpClient) {}
 
   public getUser(param: string): Observable<any> {
-    return this.http.get<any>(USER_API + param, {}).pipe(tap((res) => {}));
+    return this.http.get<any>(USER_API + param, { observe: 'response' }).pipe(
+      tap((res) => {
+        this.userTotalPosts = res.headers.get('x-total-posts');
+        this.userTotalComments = res.headers.get('x-total-comments');
+        this.userTotalLikes = res.headers.get('x-total-likes');
+      })
+    );
   }
 
   public delUser(param: string): Observable<any> {

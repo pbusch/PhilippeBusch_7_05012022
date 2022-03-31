@@ -14,6 +14,9 @@ export class ProfileComponent implements OnInit {
   public getId?: any;
   public nom?: string;
   public email?: string;
+  public totalPosts?: number;
+  public totalComments?: number;
+  public totalLikes?: number;
 
   constructor(
     private authService: AuthService,
@@ -58,8 +61,13 @@ export class ProfileComponent implements OnInit {
 
     this.userService.getUser(this.getId.userId).subscribe({
       next: (res) => {
-        this.nom = res.name;
-        this.email = res.email;
+        console.log(res.body);
+        this.nom = res.body.name;
+        console.log(this.nom);
+        this.email = res.body.email;
+        this.totalPosts = this.userService.userTotalPosts;
+        this.totalComments = this.userService.userTotalComments;
+        this.totalLikes = this.userService.userTotalLikes;
       },
       error: (error) => {
         console.log(error.error);
