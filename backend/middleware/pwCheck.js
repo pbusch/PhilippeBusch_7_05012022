@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
   if (req.token.userId != req.params.id && req.token.level < 3) {
-    return res.status(401).json({ error: { message: "Admin level required" } });
+    return res.status(403).json({ error: { message: "Admin level required" } });
   }
   if (req.body.newPassword && !req.body.password && req.token.level < 3) {
     return res
@@ -22,15 +22,13 @@ module.exports = (req, res, next) => {
     User.findOne({ where: { id: req.params.id } })
       .then((user) => {
         if (!user) {
-          return res.status(401).json({ error: "User not found" });
+          return res.status(403).json({ error: "User not found" });
         }
         bcrypt
           .compare(req.body.password, user.password)
           .then((valid) => {
             if (!valid) {
-              return res
-                .status(401)
-                .json({ error: { message: "Incorrect password" } });
+              return res.status(403).json({ error: "Incorrect password" });
             }
             next();
           })

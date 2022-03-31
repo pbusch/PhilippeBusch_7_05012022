@@ -3,6 +3,7 @@ import { UserService } from '../../../shared/services/userService';
 import { AuthService } from '../../../shared/services/authService';
 import { DataSharingService } from '../../../shared/services/dataSharingService';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -18,20 +19,28 @@ export class ProfileComponent implements OnInit {
   public totalComments?: number;
   public totalLikes?: number;
 
+  public form: FormGroup = this.fb.group({
+    oldPassword: ['', Validators.required],
+    newPassword: ['', Validators.required],
+  });
+  public error?: string;
+  public valid = false;
+
   constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
     private dataSharingservice: DataSharingService,
     private router: Router
   ) {}
 
-  deconnect() {
+  public deconnect() {
     localStorage.removeItem('token');
     this.dataSharingservice.isUserLoggedIn$.next(false);
     this.router?.navigate(['/auth/login']);
   }
 
-  delete() {
+  public delete() {
     if (
       confirm(
         'Etes-vous certain(e) de vouloir supprimer votre compte ? Toutes vos données seront perdues !'
@@ -74,5 +83,32 @@ export class ProfileComponent implements OnInit {
       },
       complete: () => {},
     });
+  }
+
+  public submit() {
+    if (this.form.valid) {
+      this.userService
+        .updateUser(
+          this.getId.userId,
+          this.form.controls.oldPassword.value,
+          this.form.controls.newPassword.value,
+          this.nom
+        )
+        .subscribe({
+          next: () => {},
+          error: (error) => {
+            console.log(error.error);
+
+            this.error = error.error.error;
+          },
+
+          complete: () => {
+            this.valid = true;
+            localStorage.removeItem('token');
+            this.dataSharingservice.isUserLoggedIn$.next(false);
+            setTimeout(() => this.router?.navigate(['auth', 'login']), 2500);
+          },
+        });
+    }
   }
 }

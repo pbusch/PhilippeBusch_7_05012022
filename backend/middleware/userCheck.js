@@ -1,12 +1,14 @@
 const passwordValidator = require("password-validator");
 
 module.exports = (req, res, next) => {
-  const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-    String(req.body.email).toLowerCase()
-  );
+  if (req.body.email) {
+    const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+      String(req.body.email).toLowerCase()
+    );
 
-  if (!emailFormat) {
-    return res.status(400).json({ error: "invalid email" });
+    if (!emailFormat) {
+      return res.status(400).json({ error: "invalid email" });
+    }
   }
 
   const nameFormat =

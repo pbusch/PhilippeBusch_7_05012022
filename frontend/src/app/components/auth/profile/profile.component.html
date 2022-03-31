@@ -15,10 +15,43 @@
       <button mat-raised-button color="accent" (click)="deconnect()">
         Déconnecter
       </button>
-      <button mat-raised-button color="primary">Modifier</button>
+      <button mat-raised-button color="primary">Mot de passe</button>
       <button mat-raised-button color="warn" (click)="delete()">
         Supprimer le compte
       </button>
+
+      <form [formGroup]="form" (submit)="submit()">
+        <mat-form-field>
+          <mat-label>Ancien mot de passe</mat-label>
+          <input matInput type="password" formControlName="oldPassword" />
+          <mat-error *ngIf="form.get('name')?.errors?.required">
+            Veuillez renseigner votre mot de passe actuel.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Nouveau mot de passe</mat-label>
+          <input matInput type="password" formControlName="newPassword" />
+
+          <mat-error *ngIf="form.get('password')?.errors?.required">
+            Veuillez renseigner votre nouveau mot de passe.
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="submit()"
+        >
+          Modifier
+        </button>
+        <mat-error *ngIf="error">
+          {{ error }}
+        </mat-error>
+      </form>
+      <mat-card-subtitle *ngIf="valid">
+        Modification réussie. Vous allez être redirigé(e) vers la page de
+        connexion
+      </mat-card-subtitle>
     </mat-card-actions>
   </mat-card>
 </div>

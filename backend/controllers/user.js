@@ -21,6 +21,10 @@ exports.listUsers = (req, res) => {
 };
 
 exports.userInfo = (req, res) => {
+  if (isNaN(req.params.id)) {
+    return res.status(400).json({ error: { message: "invalid parameter" } });
+  }
+
   post
     .count({ where: { creatorId: req.params.id } })
     .then(function (totalPosts) {
@@ -49,10 +53,6 @@ exports.userInfo = (req, res) => {
         .catch((error) => console.log(error));
     })
     .catch((error) => console.log(error));
-
-  if (isNaN(req.params.id)) {
-    return res.status(400).json({ error: { message: "invalid parameter" } });
-  }
 };
 
 exports.delUser = (req, res) => {
@@ -94,7 +94,6 @@ exports.modUser = (req, res) => {
           {
             level: req.body.level,
             name: req.body.name,
-            email: req.body.email,
             password: hash,
           },
           { where: { id: req.params.id } }
@@ -118,7 +117,6 @@ exports.modUser = (req, res) => {
       {
         level: req.body.level,
         name: req.body.name,
-        email: req.body.email,
       },
       { where: { id: req.params.id } }
     )

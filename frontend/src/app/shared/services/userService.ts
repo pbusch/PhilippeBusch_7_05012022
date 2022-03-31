@@ -31,6 +31,21 @@ export class UserService {
     );
   }
 
+  public updateUser(
+    param: any,
+    password: string,
+    newPassword: string,
+    name: any
+  ): Observable<any> {
+    return this.http
+      .put<any>(USER_API + param, {
+        password,
+        newPassword,
+        name,
+      })
+      .pipe(tap(() => {}));
+  }
+
   public delUser(param: string): Observable<any> {
     return this.http.delete<any>(USER_API + param, {}).pipe(tap((res) => {}));
   }
