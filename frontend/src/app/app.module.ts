@@ -14,9 +14,10 @@ import { APP_ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { PostService } from 'src/app/shared/services/postService';
 import 'hammerjs';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LandingPageComponent],
+  declarations: [AppComponent, HeaderComponent, LandingPageComponent, FooterComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(APP_ROUTES, { onSameUrlNavigation: 'reload' }),

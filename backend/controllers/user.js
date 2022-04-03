@@ -9,7 +9,9 @@ exports.listUsers = (req, res) => {
   if (req.token.level < 2) {
     return res.status(401).json({ error: { message: "Mod level required" } });
   }
-  User.findAll({})
+  User.findAll({
+    order: [["name", "ASC"]],
+  })
     .then((data) => {
       res.send(data);
     })

@@ -43,6 +43,7 @@ export class PostComponent implements OnInit {
     this.postService.creator = this.post?.creator.id;
     //this.router?.navigate(['posts']);
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      window.scrollTo(0, 0);
       this.router.navigate(['posts']);
     });
   }

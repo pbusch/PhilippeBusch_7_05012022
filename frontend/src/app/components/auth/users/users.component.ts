@@ -62,4 +62,15 @@ export class UsersComponent implements OnInit {
       return;
     }
   }
+
+  public resetPassword(id: any, name: any, level: any, email: any) {
+    let newPassword = prompt('Nouveau mot de passe');
+    if (newPassword != null) {
+      this.userService
+        .updateUser(id, 'null', newPassword, name, level, email)
+        .subscribe();
+    } else {
+      return;
+    }
+  }
 }
