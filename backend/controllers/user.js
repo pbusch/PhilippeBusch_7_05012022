@@ -74,25 +74,30 @@ exports.modUser = (req, res) => {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
 
+  let level = req.token.level;
+  if ((req.token.level = 3)) {
+    level = req.body.level;
+  }
+
   if (req.token.userId != req.params.id && req.token.level < 3) {
     return res.status(401).json({ error: { message: "Admin level required" } });
   }
 
-  if (req.token.level < 3 && req.body.level != null) {
-    return res.status(401).json({
-      error: {
-        message: "Lvl change is for Admin only - Modifications canceled",
-      },
-    });
-  }
+  // if (req.token.level < 3 && req.body.level != null) {
+  //   return res.status(401).json({
+  //     error: {
+  //       message: "Lvl change is for Admin only - Modifications canceled",
+  //     },
+  //   });
+  // }
 
-  if (req.body.newPassword) {
+  if (req.body.newPassword && req.body.newPassword != "no!") {
     bcrypt
       .hash(req.body.newPassword, 10)
       .then((hash) => {
         User.update(
           {
-            level: req.body.level,
+            level: level,
             name: req.body.name,
             password: hash,
           },
@@ -115,8 +120,9 @@ exports.modUser = (req, res) => {
   } else {
     User.update(
       {
-        level: req.body.level,
+        level: level,
         name: req.body.name,
+        mail: req.body.email,
       },
       { where: { id: req.params.id } }
     )

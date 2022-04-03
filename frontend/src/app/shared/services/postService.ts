@@ -15,6 +15,7 @@ export class PostService {
   public posts$: BehaviorSubject<Post[]> = new BehaviorSubject([] as Post[]);
   public totalPosts: any = 2;
   public page: any = 2;
+  public creator: any = 0;
   constructor(private http: HttpClient) {}
 
   public fetchPosts(): Observable<Post[]> {
@@ -25,10 +26,10 @@ export class PostService {
     );
   }
 
-  public fetchPartialPosts(offset: any, limit: any): void {
+  public fetchPartialPosts(offset: any, limit: any, creator: any): void {
     this.http
       .get<Post[]>(POST_API, {
-        params: { limit, offset },
+        params: { limit, offset, creator },
         observe: 'response',
       })
       .subscribe((res) => {
@@ -60,17 +61,13 @@ export class PostService {
   }
 
   public addPost(body: any): Observable<any> {
-    return this.http.post<any>(POST_API, body).pipe(
-      tap(() => {
-        this.fetchPosts().subscribe();
-      })
-    );
+    return this.http.post<any>(POST_API, body).pipe(tap(() => {}));
   }
 
   public deletePost(param: any): Observable<any> {
     return this.http.delete<any>(POST_API + param).pipe(
       tap(() => {
-        this.fetchPosts().subscribe();
+        //this.fetchPosts().subscribe();
       })
     );
   }

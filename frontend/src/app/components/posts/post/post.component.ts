@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
 import { PostService } from '../../../shared/services/postService';
 import { AuthService } from 'src/app/shared/services/authService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -11,9 +12,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PostComponent implements OnInit {
   @Input() post?: Post;
+  //@Output ("onReset") onReset: EventEmitter = new EventEmitter();
 
   public userToken?: any;
   public onEdit = false;
+  public postHide: boolean = false;
 
   public commentsShow!: boolean;
   public form: FormGroup = this.fb.group({
@@ -21,6 +24,7 @@ export class PostComponent implements OnInit {
   });
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private postService: PostService,
     private authService: AuthService
@@ -33,6 +37,14 @@ export class PostComponent implements OnInit {
 
   public doEdit() {
     this.onEdit = true;
+  }
+
+  public postsByUser() {
+    this.postService.creator = this.post?.creator.id;
+    //this.router?.navigate(['posts']);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['posts']);
+    });
   }
 
   public submit() {
@@ -61,9 +73,12 @@ export class PostComponent implements OnInit {
   //   this.post.likes.indexOf(owner);
   // }
 
-  public doDelete() {
+  public doDelete(data: any) {
+    console.log(data);
     this.postService.deletePost(this.post?.id).subscribe({
-      next: () => {},
+      next: () => {
+        this.post = undefined;
+      },
       error: (error) => {
         console.log(error.error);
         alert('Supression impossible');

@@ -37,13 +37,24 @@
 
     <mat-card-subtitle
       >Publié le {{ post.createdAt | date: "dd/MM/yyyy" }} par
-      {{ post.creator.name }}</mat-card-subtitle
-    >
+      <span
+        class="creator"
+        (click)="postsByUser()"
+        matTooltip="Voir tous les Posts de cet auteur"
+        matTooltipClass="multiline-tooltip"
+      >
+        {{ post.creator.name }}
+      </span>
+    </mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image [src]="post.imgUrl" alt="Photo de Groupomania" />
   <mat-card-content> </mat-card-content>
   <mat-card-actions class="actions">
-    <app-post-icons [post]="post" [userToken]="userToken"></app-post-icons>
+    <app-post-icons
+      [post]="post"
+      [userToken]="userToken"
+      (deleteP)="doDelete($event)"
+    ></app-post-icons>
   </mat-card-actions>
   <app-comments [post]="post" [userToken]="userToken"></app-comments>
 </mat-card>

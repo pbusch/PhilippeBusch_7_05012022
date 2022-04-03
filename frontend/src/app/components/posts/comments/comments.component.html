@@ -3,7 +3,7 @@
     <span> Commentaires ({{ post.comments?.length }}) </span>
   </button>
 
-  <div *ngIf="commentsShow">
+  <div *ngIf="commentsShow" class="comments">
     <ul>
       <li *ngFor="let comment of post.comments" class="flex-auto comment-block">
         <div

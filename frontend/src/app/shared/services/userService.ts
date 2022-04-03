@@ -31,17 +31,25 @@ export class UserService {
     );
   }
 
+  public getAllUsers(): Observable<any> {
+    return this.http.get<any>(USER_API).pipe(tap((res) => {}));
+  }
+
   public updateUser(
     param: any,
     password: string,
     newPassword: string,
-    name: any
+    name: any,
+    level: any,
+    email: any
   ): Observable<any> {
     return this.http
       .put<any>(USER_API + param, {
         password,
         newPassword,
         name,
+        level,
+        email,
       })
       .pipe(tap(() => {}));
   }

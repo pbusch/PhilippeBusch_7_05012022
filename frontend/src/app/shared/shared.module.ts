@@ -10,6 +10,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [SplitPipe],
@@ -25,6 +28,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatBadgeModule,
     MatDialogModule,
     MatTooltipModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
   ],
   exports: [
     CommonModule,
@@ -38,6 +44,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatBadgeModule,
     MatDialogModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
   ],
 })
 export class SharedModule {}

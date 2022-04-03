@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../shared/services/userService';
 import { AuthService } from '../../../shared/services/authService';
+import { PostService } from 'src/app/shared/services/postService';
 import { DataSharingService } from '../../../shared/services/dataSharingService';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +19,8 @@ export class ProfileComponent implements OnInit {
   public totalPosts?: number;
   public totalComments?: number;
   public totalLikes?: number;
+  public showPasswordChange: boolean = false;
+  public showAdminPannel: boolean = false;
 
   public form: FormGroup = this.fb.group({
     oldPassword: ['', Validators.required],
@@ -28,6 +31,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private postService: PostService,
     private authService: AuthService,
     private userService: UserService,
     private dataSharingservice: DataSharingService,
@@ -57,6 +61,7 @@ export class ProfileComponent implements OnInit {
         complete: () => {
           localStorage.removeItem('token');
           this.dataSharingservice.isUserLoggedIn$.next(false);
+          this.dataSharingservice.isUserAdmin$.next(false);
           this.router?.navigate(['/auth/signup']);
         },
       });
@@ -67,12 +72,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getId = this.authService.tokenId();
+    console.log(this.getId.level);
 
     this.userService.getUser(this.getId.userId).subscribe({
       next: (res) => {
-        console.log(res.body);
         this.nom = res.body.name;
-        console.log(this.nom);
         this.email = res.body.email;
         this.totalPosts = this.userService.userTotalPosts;
         this.totalComments = this.userService.userTotalComments;
@@ -85,14 +89,29 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  public changePassword() {
+    this.showPasswordChange = !this.showPasswordChange;
+  }
+  public showAdmin() {
+    this.showAdminPannel = !this.showAdminPannel;
+  }
+
+  public postsByUser() {
+    this.postService.creator = this.getId.userId;
+    this.router?.navigate(['posts']);
+  }
+
   public submit() {
     if (this.form.valid) {
+      this.error = '';
       this.userService
         .updateUser(
           this.getId.userId,
           this.form.controls.oldPassword.value,
           this.form.controls.newPassword.value,
-          this.nom
+          this.nom,
+          this.getId.level,
+          this.email
         )
         .subscribe({
           next: () => {},

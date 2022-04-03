@@ -62,6 +62,10 @@ export class PostDialogComponent implements OnInit {
       error: () => (this.error = 'erreur'),
       complete: () => {
         this.imageSrc = '';
+        //this.postService.creator = '0';
+        this.postService.page = 1;
+        this.postService.posts$.next([]);
+        this.postService.fetchPartialPosts(0, 2, this.postService.creator);
       },
     });
   }

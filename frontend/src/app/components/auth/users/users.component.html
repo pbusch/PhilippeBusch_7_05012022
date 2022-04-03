@@ -1,0 +1,103 @@
+<!-- <table mat-table [dataSource]="dataSource!">
+  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+    <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+    <td mat-cell *matCellDef="let user">
+      <span> {{ user[column] }}</span>
+    </td>
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let userrow; columns: displayedColumns"></tr>
+</table> -->
+
+<article>
+  <h2>Gestion des utilisateurs</h2>
+  <!-- <article class="table-header">
+    <button
+      class="button-remove-rows"
+      mat-button
+      (click)="removeSelectedRows()"
+    >
+      Remove Rows
+    </button>
+    <button class="button-add-row" mat-button (click)="addRow()">
+      Add Row
+    </button>
+  </article> -->
+  <table mat-table [dataSource]="dataSource!">
+    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef>
+        <span *ngIf="col !== 'isEdit' && col !== 'isSelected'">
+          {{ col }}
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+          <!-- <ng-container *ngSwitchCase="'isSelected'">
+            <mat-checkbox
+              (change)="element.isSelected = $event.checked"
+            ></mat-checkbox>
+          </ng-container> -->
+          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+            <button
+              mat-button
+              class="button-remove"
+              (click)="removeRow(element.id)"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+            <button mat-button (click)="element.isEdit = !element.isEdit">
+              <mat-icon>create</mat-icon>
+            </button>
+          </div>
+          <span *ngSwitchDefault>
+            {{ element[col] }}
+          </span>
+        </div>
+        <div [ngSwitch]="dataSchema[col]" *ngIf="element.isEdit">
+          <div *ngSwitchCase="'isSelected'"></div>
+          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+            <button
+              mat-button
+              (click)="
+                element.isEdit = !element.isEdit;
+                editRow(
+                  element,
+                  element.id,
+                  element.name,
+                  element.level,
+                  element.email
+                )
+              "
+            >
+              <mat-icon>done</mat-icon>
+            </button>
+          </div>
+          <!-- <mat-form-field *ngSwitchCase="'date'" appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="element[col]"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field> -->
+          <mat-form-field *ngSwitchDefault [style.width.px]="80">
+            <mat-label>{{ col }}</mat-label>
+            <input
+              [type]="dataSchema[col]"
+              matInput
+              [(ngModel)]="element[col]"
+            />
+          </mat-form-field>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</article>

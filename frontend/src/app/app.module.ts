@@ -19,7 +19,7 @@ import 'hammerjs';
   declarations: [AppComponent, HeaderComponent, LandingPageComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(APP_ROUTES),
+    RouterModule.forRoot(APP_ROUTES, { onSameUrlNavigation: 'reload' }),
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,

@@ -5,8 +5,9 @@ import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
 import { AUTH_ROUTES } from './auth.routes';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UsersComponent } from './users/users.component';
 @NgModule({
-  declarations: [LoginComponent, ProfileComponent, RegisterComponent],
+  declarations: [LoginComponent, ProfileComponent, RegisterComponent, UsersComponent],
   imports: [SharedModule, RouterModule.forChild(AUTH_ROUTES)],
 })
 export class AuthModule {}

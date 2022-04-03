@@ -15,7 +15,7 @@
 }
 
 .post-card {
-  max-width: 550px;
+  max-width: 500px;
   //max-height: 500px;
   margin: auto;
   background-color: rgb(254, 255, 255);
@@ -27,9 +27,9 @@
   background-size: cover;
 }
 
-.mat-form-field + .mat-form-field {
-  margin-left: 8px;
-}
+// .mat-form-field + .mat-form-field {
+//   margin-left: 8px;
+// }
 
 .mat-card-image {
   margin: auto;
@@ -38,9 +38,17 @@
 }
 
 .mat-card-actions {
-  margin-left: 0px;
+  margin: 5px;
 }
 
 .titre {
   font-size: 12px;
+}
+
+button {
+  margin: 5px;
+}
+
+mat-input {
+  max-width: 30px;
 }

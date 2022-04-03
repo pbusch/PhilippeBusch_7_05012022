@@ -1,7 +1,26 @@
 <div class="d-flex flex-justify-content-center">
-  <button mat-raised-button color="primary" (click)="doShow()">
-    <mat-icon>camera_enhance</mat-icon>
-  </button>
+  <span class="actions">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="doShow()"
+      matTooltip="Lancez-vous !"
+      matTooltipClass="multiline-tooltip"
+    >
+      <mat-icon>camera_enhance</mat-icon>
+    </button>
+  </span>
+  <span class="actions">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onReset()"
+      matTooltip="Tous les posts !"
+      matTooltipClass="multiline-tooltip"
+    >
+      <mat-icon>autorenew</mat-icon>
+    </button>
+  </span>
 </div>
 <br />
 <app-post-dialog *ngIf="isVisible"></app-post-dialog>

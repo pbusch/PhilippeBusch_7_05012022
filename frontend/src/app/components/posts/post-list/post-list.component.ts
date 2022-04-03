@@ -25,9 +25,20 @@ export class PostListComponent implements OnInit {
     this.isVisible = !this.isVisible;
   }
 
+  public onReset() {
+    this.postService.creator = '0';
+    this.postService.page = 1;
+    this.postService.posts$.next([]);
+    this.postService.fetchPartialPosts(0, 2, this.postService.creator);
+  }
+
   onScroll(): void {
     if (this.postService.page < this.postService.totalPosts) {
-      this.postService.fetchPartialPosts(++this.postService.page, 1);
+      this.postService.fetchPartialPosts(
+        ++this.postService.page,
+        1,
+        this.postService.creator
+      );
       console.log(this.postService.page);
       console.log(this.postService.totalPosts);
     }

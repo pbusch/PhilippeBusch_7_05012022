@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { PostService } from '../../../shared/services/postService';
 import { Post } from 'src/app/shared/interfaces/post';
 import {
@@ -8,6 +8,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { EventEmitter } from '@angular/core';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-post-icons',
@@ -49,6 +51,7 @@ import {
 export class PostIconsComponent implements OnInit {
   @Input() post?: Post;
   @Input() userToken?: any;
+  @Output() private deleteP: EventEmitter<any> = new EventEmitter();
   public state: string = '';
 
   constructor(private postService: PostService) {}
@@ -93,16 +96,18 @@ export class PostIconsComponent implements OnInit {
     return this.post?.likes.map((a) => a.creator.name).join('\n') || '';
   }
 
-  public doDelete() {
-    this.postService.deletePost(this.post?.id).subscribe({
-      next: () => {
-        this.post = undefined;
-      },
-      error: (error) => {
-        console.log(error.error);
-        alert(error.error.message);
-      },
-      complete: () => {},
-    });
+  public delete() {
+    // this.postService.deletePost(this.post?.id).subscribe({
+    //   next: () => {
+    //     this.post = undefined;
+    //   },
+    //   error: (error) => {
+    //     console.log(error.error);
+    //     alert(error.error.message);
+    //   },
+    //   complete: () => {},
+    // });
+    console.log('lol ?');
+    this.deleteP.emit(this.post?.id);
   }
 }

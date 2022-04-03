@@ -28,9 +28,12 @@ module.exports = (req, res, next) => {
           .compare(req.body.password, user.password)
           .then((valid) => {
             if (!valid) {
+              console.log(valid);
               return res.status(403).json({ error: "Incorrect password" });
+            } else {
+              console.log(valid);
+              next();
             }
-            next();
           })
           .catch((error) => res.status(500).json({ error }));
       })

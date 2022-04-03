@@ -1,8 +1,9 @@
 <span *ngIf="post">
   <button
     mat-raised-button
+    [matTooltipClass]="'multiline-tooltip'"
     color="primary"
-    [title]="likers()"
+    [matTooltip]="likers()"
     (click)="doLike()"
   >
     LIKE ({{ post?.likes?.length }})
@@ -13,17 +14,14 @@
       >
     </ng-template> -->
 
-    <mat-icon [@heartFull]="state" [title]="likers()" class="icon-align">
-      favorite
-    </mat-icon>
+    <mat-icon [@heartFull]="state" class="icon-align"> favorite </mat-icon>
   </button>
 
   <button
     mat-raised-button
-    title="Supprimer le Post !"
     color="warn"
     *ngIf="post.creator.id == userToken.userId || userToken.level > 1"
-    (click)="doDelete()"
+    (click)="delete()"
   >
     SUPPRIMER <mat-icon class="icon-align">delete</mat-icon>
   </button>

@@ -2,7 +2,7 @@
   <mat-stepper linear #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Indiquez un titre</ng-template>
+        <ng-template matStepLabel>Titre</ng-template>
         <mat-form-field appearance="fill">
           <mat-label>Titre</mat-label>
           <input
@@ -18,7 +18,7 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Choisissez une image</ng-template>
+      <ng-template matStepLabel>Image</ng-template>
       <div class="d-flex flex-row">
         <input
           type="file"

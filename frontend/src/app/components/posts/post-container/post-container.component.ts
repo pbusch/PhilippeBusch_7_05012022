@@ -12,7 +12,8 @@ import { PostService } from '../../../shared/services/postService';
 })
 export class PostContainerComponent implements OnInit {
   public posts$: Observable<Post[]> = this.postService.posts$;
-  public posts!: Post[];
+  //public posts!: Post[];
+
   // subscription!: Subscription;
 
   constructor(
@@ -30,7 +31,7 @@ export class PostContainerComponent implements OnInit {
     //   .subscribe(() => this.postService.fetchPartialPosts(0, 2));
     this.postService.posts$.next([]);
     this.postService.page = 1;
-    this.postService.fetchPartialPosts(0, 2);
+    this.postService.fetchPartialPosts(0, 2, this.postService.creator);
 
     // this.postService.fetchPosts().subscribe();
     // this.timerService.startWatching(4).subscribe((isTimeOut: boolean) => {

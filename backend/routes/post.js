@@ -6,7 +6,8 @@ const isMod = require("../middleware/isMod");
 const postCtrl = require("../controllers/post");
 const multer = require("../middleware/multer-config");
 
-router.get("/:offset&:limit", auth, postCtrl.listPartialPosts);
+router.get("/:offset&:limit&:creator", auth, postCtrl.listPartialPosts);
+//router.get("/users/:id", auth, postCtrl.postsByUser);
 router.get("/:id", auth, postCtrl.getOnePost);
 //router.get("/like/top", auth, postCtrl.getTopLikes);
 router.get("/", auth, postCtrl.listPosts);

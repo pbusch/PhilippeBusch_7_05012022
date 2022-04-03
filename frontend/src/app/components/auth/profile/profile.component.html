@@ -7,24 +7,50 @@
     </mat-card-header>
 
     <mat-card-content>
-      <p>Nombre de Posts : {{ totalPosts }}</p>
-      <p>Nombre de Commentaires : {{ totalComments }}</p>
-      <p>Nombre de Likes : {{ totalLikes }}</p>
+      <p>
+        Vous avez publié
+        <span class="totalPosts" (click)="postsByUser()"
+          >{{ totalPosts }} Post(s) !</span
+        >
+      </p>
+
+      <p>Vous avez écrit {{ totalComments }} commentaire(s).</p>
+      <p>Vous avez aimé {{ totalLikes }} Post(s) !</p>
     </mat-card-content>
-    <mat-card-actions>
+    <div class="d-flex flex-column">
       <button mat-raised-button color="accent" (click)="deconnect()">
         Déconnecter
       </button>
-      <button mat-raised-button color="primary">Mot de passe</button>
+
+      <button mat-raised-button color="primary" (click)="changePassword()">
+        changer de mot de passe
+      </button>
       <button mat-raised-button color="warn" (click)="delete()">
         Supprimer le compte
       </button>
+      <button
+        *ngIf="getId.level > 2"
+        mat-raised-button
+        color="primary"
+        (click)="showAdmin()"
+      >
+        Admin
+      </button>
+    </div>
+  </mat-card>
+</div>
 
-      <form [formGroup]="form" (submit)="submit()">
+<div *ngIf="showPasswordChange">
+  <mat-card class="post-card">
+    <mat-card-header>
+      <mat-card-title>Modification du mot de passe</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <form [formGroup]="form" (submit)="submit()" class="d-flex flex-column">
         <mat-form-field>
           <mat-label>Ancien mot de passe</mat-label>
           <input matInput type="password" formControlName="oldPassword" />
-          <mat-error *ngIf="form.get('name')?.errors?.required">
+          <mat-error *ngIf="form.get('password')?.errors?.required">
             Veuillez renseigner votre mot de passe actuel.
           </mat-error>
         </mat-form-field>
@@ -36,22 +62,19 @@
             Veuillez renseigner votre nouveau mot de passe.
           </mat-error>
         </mat-form-field>
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="form.invalid"
-          (click)="submit()"
-        >
+        <button mat-raised-button color="primary" [disabled]="form.invalid">
           Modifier
         </button>
         <mat-error *ngIf="error">
           {{ error }}
         </mat-error>
       </form>
-      <mat-card-subtitle *ngIf="valid">
-        Modification réussie. Vous allez être redirigé(e) vers la page de
-        connexion
-      </mat-card-subtitle>
     </mat-card-actions>
+
+    <mat-card-subtitle *ngIf="valid">
+      Modification réussie. Vous allez être redirigé(e) vers la page de
+      connexion
+    </mat-card-subtitle>
   </mat-card>
 </div>
+<app-users *ngIf="showAdminPannel"></app-users>
