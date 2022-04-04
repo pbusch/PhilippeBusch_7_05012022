@@ -5,11 +5,16 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
 export const AUTH_ROUTES: Routes = [
-  { path: 'signup', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'signup',
+    component: RegisterComponent,
+    data: { animation: 'isRight' },
+  },
+  { path: 'login', component: LoginComponent, data: { animation: 'isLeft' } },
   {
     path: 'profile',
     component: ProfileComponent,
+    data: { animation: 'isRight' },
     canActivate: [AuthGuard],
   },
 ];

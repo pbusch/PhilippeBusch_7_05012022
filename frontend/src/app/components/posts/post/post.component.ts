@@ -41,11 +41,14 @@ export class PostComponent implements OnInit {
 
   public postsByUser() {
     this.postService.creator = this.post?.creator.id;
-    //this.router?.navigate(['posts']);
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      window.scrollTo(0, 0);
-      this.router.navigate(['posts']);
-    });
+    this.postService.page = 1;
+    this.postService.fetchPartialPosts(0, 2, this.postService.creator);
+    window.scrollTo(0, 0);
+    this.router?.navigate(['posts']);
+    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    //   window.scrollTo(0, 0);
+    //   this.router.navigate(['posts']);
+    // });
   }
 
   public submit() {

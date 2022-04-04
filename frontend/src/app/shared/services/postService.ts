@@ -35,7 +35,12 @@ export class PostService {
       .subscribe((res) => {
         this.totalPosts = res.headers.get('x-total-count');
         if (res.body) {
-          this.posts$.next(this.posts$.value.concat(res.body));
+          if (offset == '0') {
+            console.log('offset!');
+            this.posts$.next(res.body);
+          } else {
+            this.posts$.next(this.posts$.value.concat(res.body));
+          }
         }
       });
   }
