@@ -69,10 +69,20 @@
           placeholder=""
         />
 
-        <!-- <mat-icon class="icon-align" matSuffix>record_voice_over</mat-icon> -->
-
+        <mat-icon
+          class="icon-align"
+          (click)="this.emojisShow = !this.emojisShow"
+          matSuffix
+          >sentiment_satisfied_alt</mat-icon
+        >
         <mat-hint>Appuyez sur Entrée pour publier</mat-hint>
       </mat-form-field>
+      <emoji-mart
+        class="emoji-mart"
+        *ngIf="emojisShow"
+        (emojiSelect)="addEmoji($event); this.emojisShow = !this.emojisShow"
+        title="Choose your emoji"
+      ></emoji-mart>
     </form>
   </div>
 </div>

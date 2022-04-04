@@ -15,6 +15,7 @@ export class CommentsComponent implements OnInit {
 
   public firstLetter: string = '';
   public commentsShow = false;
+  public emojisShow = false;
 
   public form: FormGroup = this.fb.group({
     //commentText: ['', Validators.required],
@@ -49,6 +50,17 @@ export class CommentsComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  public showEmojis() {
+    this.emojisShow = !this.emojisShow;
+  }
+
+  public addEmoji(data: any) {
+    console.log(data);
+    this.form.controls.commentText.setValue(
+      `${this.form.controls.commentText.value}${data.emoji.native}`
+    );
   }
 
   public submit() {

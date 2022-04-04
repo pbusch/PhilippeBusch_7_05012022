@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PostIconsComponent } from './post-icons/post-icons.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiComponent } from './emoji/emoji.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +23,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     CommentsComponent,
     PostDialogComponent,
     PostContainerComponent,
+    EmojiComponent,
   ],
   imports: [
+    PickerModule,
     ScrollingModule,
     InfiniteScrollModule,
     SharedModule,

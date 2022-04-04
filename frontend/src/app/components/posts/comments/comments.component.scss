@@ -1,5 +1,5 @@
 .comments {
-  max-height: 400px;
+  max-height: 900px;
   overflow-y: auto;
 }
 
@@ -16,6 +16,7 @@
   //margin-top: 10px;
   margin-right: 5px;
   flex: auto;
+  font-size: large;
 }
 
 .comment-alt {
@@ -30,6 +31,7 @@
   background-color: #f2f3f5;
   margin-left: 5px;
   flex: auto;
+  font-size: large;
 }
 
 .firstChar {
