@@ -10,6 +10,7 @@ import { PostService } from 'src/app/shared/services/postService';
 })
 export class PostListComponent implements OnInit {
   @Input() public posts: Post[] | null = null;
+  @Input() public creator: any;
   public isVisible: boolean = false;
   public offset = 0;
 
@@ -22,6 +23,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthor();
+    this.postService.creator = this.creator;
   }
 
   public getAuthor() {
@@ -39,10 +41,13 @@ export class PostListComponent implements OnInit {
   }
 
   public onReset() {
-    this.postService.creator = '0';
+    //this.postService.creator = '0';
+    this.creator = '0';
     this.postService.page = 1;
     //this.postService.posts$.next([]);
-    this.postService.fetchPartialPosts(0, 2, this.postService.creator);
+    //this.postService.fetchPartialPosts(0, 2, this.postService.creator);
+    this.postService.fetchPartialPosts(0, 2, this.creator);
+    this.router.navigate(['posts']);
   }
 
   onScroll(): void {
@@ -50,8 +55,10 @@ export class PostListComponent implements OnInit {
       this.postService.fetchPartialPosts(
         ++this.postService.page,
         1,
-        this.postService.creator
+        //this.postService.creator
+        this.creator
       );
+      console.log('yo' + this.creator);
       console.log(this.postService.page);
       console.log(this.postService.totalPosts);
     }

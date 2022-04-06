@@ -15,7 +15,7 @@ export class PostService {
   public posts$: BehaviorSubject<Post[]> = new BehaviorSubject([] as Post[]);
   public totalPosts: any = 2;
   public page: any = 2;
-  public creator: any = 0;
+  public creator: any;
   public offset: any;
 
   constructor(private http: HttpClient) {}

@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [SplitPipe],
@@ -31,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatTableModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatSnackBarModule,
   ],
   exports: [
     CommonModule,
@@ -48,6 +50,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatTableModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatSnackBarModule,
   ],
 })
 export class SharedModule {}

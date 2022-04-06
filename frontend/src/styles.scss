@@ -33,6 +33,7 @@ a {
 body {
   font-family: var(--font-family);
   color: var(--text-regular);
+  overflow-y: scroll;
 }
 
 main {

@@ -43,6 +43,8 @@
             <button
               mat-button
               class="button-remove"
+              matTooltip="Supprimer le compte"
+              matTooltipClass="multiline-tooltip"
               (click)="removeRow(element.id)"
             >
               <mat-icon>delete_forever</mat-icon>
@@ -51,6 +53,8 @@
             <button
               mat-button
               class="button-remove"
+              matTooltip="Modifier le mot de passe"
+              matTooltipClass="multiline-tooltip"
               (click)="
                 resetPassword(
                   element.id,
@@ -63,7 +67,12 @@
               <mat-icon> vpn_key</mat-icon>
             </button>
 
-            <button mat-button (click)="element.isEdit = !element.isEdit">
+            <button
+              mat-button
+              matTooltip="Editer"
+              matTooltipClass="multiline-tooltip"
+              (click)="element.isEdit = !element.isEdit"
+            >
               <mat-icon>create</mat-icon>
             </button>
           </div>
@@ -76,6 +85,8 @@
           <div class="btn-edit" *ngSwitchCase="'isEdit'">
             <button
               mat-button
+              matTooltip="Valider"
+              matTooltipClass="multiline-tooltip"
               (click)="
                 element.isEdit = !element.isEdit;
                 editRow(

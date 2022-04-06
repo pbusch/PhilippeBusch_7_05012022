@@ -3,6 +3,7 @@ import { UserService } from 'src/app/shared/services/userService';
 import { User, UserSchema } from 'src/app/shared/interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users',
@@ -25,7 +26,8 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -36,11 +38,21 @@ export class UsersComponent implements OnInit {
 
   public removeSelectedRows() {}
   public addRow() {}
+
   public editRow(row: any, id: any, name: any, level: any, email: any) {
     console.log(name, level, email);
     this.userService
       .updateUser(id, 'null', 'no!', name, level, email)
-      .subscribe(() => (row.isEdit = false));
+      // .subscribe(() => (row.isEdit = false));
+      .subscribe({
+        next: (res) => {},
+        error: (error) => {
+          console.log(error.error);
+        },
+        complete: () => {
+          this.openSnack('Utilisateur modifié');
+        },
+      });
   }
   public removeRow(id: any) {
     console.log(id);
@@ -55,6 +67,7 @@ export class UsersComponent implements OnInit {
           console.log(error.error);
         },
         complete: () => {
+          this.openSnack('Utilisateur supprimé');
           this.ngOnInit();
         },
       });
@@ -68,9 +81,23 @@ export class UsersComponent implements OnInit {
     if (newPassword != null) {
       this.userService
         .updateUser(id, 'null', newPassword, name, level, email)
-        .subscribe();
+        .subscribe({
+          next: (res) => {},
+          error: (error) => {
+            console.log(error.error);
+          },
+          complete: () => {
+            this.openSnack('Mot de passe modifié');
+          },
+        });
     } else {
       return;
     }
+  }
+
+  openSnack(message: any) {
+    const ref = this.snackBar.open(message, '', {
+      duration: 2000,
+    });
   }
 }

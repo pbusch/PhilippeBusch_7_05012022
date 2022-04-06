@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  public userId?: any;
   public userToken?: any;
   public nom?: string;
   public email?: string;
@@ -43,6 +44,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUser(this.userToken.userId).subscribe({
       next: (res) => {
         this.nom = res.body.name;
+        this.userId = res.body.id;
         this.email = res.body.email;
         this.totalPosts = this.userService.userTotalPosts;
         this.totalComments = this.userService.userTotalComments;

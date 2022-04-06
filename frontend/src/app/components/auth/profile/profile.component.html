@@ -13,6 +13,8 @@
           >{{ totalPosts }} Post(s) !</span
         >
       </p>
+      <!-- <span [routerLink]="['posts', this.userToken.userId]> ok </span> -->
+      <div [routerLink]="['../../posts', userId]">ok</div>
 
       <p>Vous avez écrit {{ totalComments }} commentaire(s).</p>
       <p>Vous avez aimé {{ totalLikes }} Post(s) !</p>

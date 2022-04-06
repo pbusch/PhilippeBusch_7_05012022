@@ -3,6 +3,7 @@ import { PostService } from '../../../shared/services/postService';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/shared/interfaces/post';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-comments',
@@ -25,7 +26,8 @@ export class CommentsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private postService: PostService,
-    public router: Router
+    public router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -35,21 +37,22 @@ export class CommentsComponent implements OnInit {
   }
 
   public doDelete(commentId: any, postId: any) {
-    if (confirm('Etes-vous certain(e) de vouloir supprimer ce commentaire ?')) {
-      this.postService.deleteComment(commentId, postId).subscribe({
-        next: (res) => {
-          this.post = res;
-          console.log(res);
-        },
-        error: (error) => {
-          console.log(error.error);
-          alert('Commentaires indisponibles pour le moment');
-        },
-        complete: () => {},
-      });
-    } else {
-      return;
-    }
+    //if (confirm('Etes-vous certain(e) de vouloir supprimer ce commentaire ?')) {
+    this.postService.deleteComment(commentId, postId).subscribe({
+      next: (res) => {
+        this.post = res;
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error.error);
+        alert('Commentaires indisponibles pour le moment');
+      },
+      complete: () => {
+        this.openSnack('Commentaire supprimé');
+      },
+    });
+    //} else {
+    //  return;
   }
 
   public showEmojis() {
@@ -77,5 +80,10 @@ export class CommentsComponent implements OnInit {
           this.form.controls.commentText.setValue(null);
         },
       });
+  }
+  openSnack(message: any) {
+    const ref = this.snackBar.open(message, '', {
+      duration: 2000,
+    });
   }
 }

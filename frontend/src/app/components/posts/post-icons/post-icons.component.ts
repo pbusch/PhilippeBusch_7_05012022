@@ -9,6 +9,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostComponent } from '../post/post.component';
 
 @Component({
@@ -54,7 +55,10 @@ export class PostIconsComponent implements OnInit {
   @Output() private deleteP: EventEmitter<any> = new EventEmitter();
   public state: string = '';
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     if (this.isLikedByUser()) {
@@ -95,6 +99,15 @@ export class PostIconsComponent implements OnInit {
   }
 
   public delete() {
-    this.deleteP.emit(this.post?.id);
+    if (confirm('Etes-vous certain(e) de vouloir supprimer ce Post ?')) {
+      this.openSnack('Post supprimé');
+      this.deleteP.emit(this.post?.id);
+    }
+  }
+
+  openSnack(message: any) {
+    const ref = this.snackBar.open(message, '', {
+      duration: 2000,
+    });
   }
 }
