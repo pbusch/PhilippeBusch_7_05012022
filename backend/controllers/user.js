@@ -27,9 +27,9 @@ exports.userInfo = (req, res) => {
   if (isNaN(req.params.id)) {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
-  if (req.token.level < 3 && userId !== paramId) {
-    return res.status(400).json({ error: { message: "Admin level required" } });
-  }
+  // if (req.token.level < 3 && userId !== paramId) {
+  //   return res.status(400).json({ error: { message: "Admin level required" } });
+  // }
 
   post
     .count({ where: { creatorId: req.params.id } })

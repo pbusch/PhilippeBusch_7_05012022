@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
 import { PostService } from '../../../shared/services/postService';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatStepper } from '@angular/material/stepper';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-post-dialog',
@@ -14,7 +14,8 @@ import { MatStepper } from '@angular/material/stepper';
   styleUrls: ['./post-dialog.component.scss'],
 })
 export class PostDialogComponent implements OnInit {
-  public post!: Post;
+  @Output() private doShow: EventEmitter<any> = new EventEmitter();
+  public post?: Post;
   public file!: File;
   public form: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -27,7 +28,6 @@ export class PostDialogComponent implements OnInit {
   secondFormGroup!: FormGroup;
 
   stepper: any;
-  //imageSrc: string = '';
   imageSrc: any;
 
   constructor(
@@ -35,7 +35,6 @@ export class PostDialogComponent implements OnInit {
     public route: ActivatedRoute,
     private fb: FormBuilder,
     public router: Router,
-    private dialogRef: MatDialog,
     private sanatizer: DomSanitizer
   ) {}
 
@@ -61,11 +60,12 @@ export class PostDialogComponent implements OnInit {
       next: () => {},
       error: () => (this.error = 'erreur'),
       complete: () => {
+        this.doShow.emit();
         this.imageSrc = '';
         this.postService.creator = '0';
         this.postService.page = 1;
-        //this.postService.posts$.next([]);
         this.postService.fetchPartialPosts(0, 2, this.postService.creator);
+        this.router.navigate(['posts']);
       },
     });
   }

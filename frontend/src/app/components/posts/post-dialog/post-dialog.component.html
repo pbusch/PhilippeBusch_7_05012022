@@ -32,18 +32,15 @@
         </button>
 
         <button mat-button matStepperPrevious>Retour</button>
-        <!--  <button mat-button matStepperNext>Suivant</button> -->
       </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Validez</ng-template>
-      <!-- <mat-label>{{ this.firstFormGroup.value.firstCtrl }}</mat-label> -->
       <mat-card-title>{{ this.firstFormGroup.value.firstCtrl }}</mat-card-title>
 
       <div>
         <img [src]="imageSrc" />
         <div class="d-flex flex-row">
-          <!-- <button mat-button matStepperPrevious>Back</button> -->
           <button mat-button (click)="submit(); stepper.reset()">
             Je valide mon Post !
           </button>

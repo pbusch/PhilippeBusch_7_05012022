@@ -7,13 +7,6 @@
     (click)="doLike()"
   >
     LIKE ({{ post?.likes?.length }})
-
-    <!-- <ng-template #like>
-      <mat-icon [@heartFull]="state" [title]="likers()" class="icon-align"
-        >favorite</mat-icon
-      >
-    </ng-template> -->
-
     <mat-icon [@heartFull]="state" class="icon-align"> favorite </mat-icon>
   </button>
 

@@ -1,5 +1,5 @@
 <div class="d-flex flex-justify-content-center">
-  <span class="actions">
+  <span class="actions d-flex">
     <button
       mat-raised-button
       color="primary"
@@ -10,7 +10,7 @@
       <mat-icon>camera_enhance</mat-icon>
     </button>
   </span>
-
+  <div>Posts de : {{ creatorName }}</div>
   <span class="actions">
     <button
       mat-raised-button
@@ -24,7 +24,7 @@
   </span>
 </div>
 <br />
-<app-post-dialog *ngIf="isVisible"></app-post-dialog>
+<app-post-dialog *ngIf="isVisible" (doShow)="doShow()"></app-post-dialog>
 
 <div
   class="scroll"
@@ -34,10 +34,4 @@
   (scrolled)="onScroll()"
 >
   <app-post *ngFor="let post of posts" [post]="post"></app-post>
-  <!-- <cdk-virtual-scroll-viewport
-    itemSize="550"
-    (scrolledIndexChange)="onScroll()"
-  >
-    <app-post *cdkVirtualFor="let post of posts" [post]="post"></app-post>
-  </cdk-virtual-scroll-viewport> -->
 </div>

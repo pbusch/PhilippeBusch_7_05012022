@@ -12,12 +12,9 @@ import { Router } from '@angular/router';
 })
 export class PostComponent implements OnInit {
   @Input() post?: Post;
-  //@Output ("onReset") onReset: EventEmitter = new EventEmitter();
 
   public userToken?: any;
   public onEdit = false;
-  public postHide: boolean = false;
-
   public commentsShow!: boolean;
   public form: FormGroup = this.fb.group({
     newTitle: ['', Validators.required],
@@ -40,19 +37,10 @@ export class PostComponent implements OnInit {
   }
 
   public postsByUser() {
-    this.postService.creator = this.post?.creator.id;
-    this.postService.page = 1;
-    this.postService.fetchPartialPosts(0, 2, this.postService.creator);
-    window.scrollTo(0, 0);
     this.router?.navigate(['posts', this.post?.creator.id]);
-    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    //   window.scrollTo(0, 0);
-    //   this.router.navigate(['posts']);
-    // });
   }
 
   public submit() {
-    console.log(this.post?.id, this.form.controls.newTitle.value);
     this.postService
       .updatePost(this.post?.id, this.form.controls.newTitle.value)
       .subscribe({
@@ -69,13 +57,6 @@ export class PostComponent implements OnInit {
         },
       });
   }
-
-  // public isOwner() {
-  //   const owner = {
-  //     creatorId: 1,
-  //   };
-  //   this.post.likes.indexOf(owner);
-  // }
 
   public doDelete(data: any) {
     console.log(data);

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/shared/services/postService';
+import { UserService } from 'src/app/shared/services/userService';
 
 @Component({
   selector: 'app-post-list',
@@ -11,28 +12,28 @@ import { PostService } from 'src/app/shared/services/postService';
 export class PostListComponent implements OnInit {
   @Input() public posts: Post[] | null = null;
   @Input() public creator: any;
+  public creatorName: any;
   public isVisible: boolean = false;
   public offset = 0;
 
   throttle = 0;
   distance = 1.2;
   public author: any;
-  //page = 2;
 
-  constructor(public router: Router, public postService: PostService) {}
+  constructor(
+    public router: Router,
+    public postService: PostService,
+    public userService: UserService
+  ) {}
 
   ngOnInit(): void {
-    this.getAuthor();
     this.postService.creator = this.creator;
-  }
-
-  public getAuthor() {
-    if ((this.postService.creator = '0')) {
-      console.log(this.postService.creator);
-      this.author = 'Tous';
+    if (this.creator != '0') {
+      this.userService
+        .getUser(this.creator)
+        .subscribe((res) => (this.creatorName = res.body.name));
     } else {
-      this.author = this.postService.creator;
-      console.log(this.postService.creator);
+      this.creatorName = 'Tous';
     }
   }
 
@@ -41,12 +42,6 @@ export class PostListComponent implements OnInit {
   }
 
   public onReset() {
-    //this.postService.creator = '0';
-    this.creator = '0';
-    this.postService.page = 1;
-    //this.postService.posts$.next([]);
-    //this.postService.fetchPartialPosts(0, 2, this.postService.creator);
-    this.postService.fetchPartialPosts(0, 2, this.creator);
     this.router.navigate(['posts']);
   }
 
@@ -55,10 +50,8 @@ export class PostListComponent implements OnInit {
       this.postService.fetchPartialPosts(
         ++this.postService.page,
         1,
-        //this.postService.creator
         this.creator
       );
-      console.log('yo' + this.creator);
       console.log(this.postService.page);
       console.log(this.postService.totalPosts);
     }

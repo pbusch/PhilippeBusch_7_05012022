@@ -37,7 +37,6 @@ export class CommentsComponent implements OnInit {
   }
 
   public doDelete(commentId: any, postId: any) {
-    //if (confirm('Etes-vous certain(e) de vouloir supprimer ce commentaire ?')) {
     this.postService.deleteComment(commentId, postId).subscribe({
       next: (res) => {
         this.post = res;
@@ -51,8 +50,6 @@ export class CommentsComponent implements OnInit {
         this.openSnack('Commentaire supprimé');
       },
     });
-    //} else {
-    //  return;
   }
 
   public showEmojis() {

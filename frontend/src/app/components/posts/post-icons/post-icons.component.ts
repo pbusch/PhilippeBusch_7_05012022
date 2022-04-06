@@ -10,7 +10,6 @@ import {
 } from '@angular/animations';
 import { EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-post-icons',
