@@ -22,6 +22,9 @@ export class HeaderComponent implements OnInit {
     this.dataSharingService.isUserLoggedIn$.subscribe((value) => {
       this.isLoggedIn = value;
     });
+    this.dataSharingService.isUserAdmin$.subscribe((value) => {
+      this.isAdmin = value;
+    });
   }
 
   ngOnInit(): void {
@@ -29,7 +32,12 @@ export class HeaderComponent implements OnInit {
       this.dataSharingService.isUserLoggedIn$.next(true);
     }
     this.userToken = this.authService.tokenId();
+    console.log(this.userToken.level);
+    if (this.userToken.level == '3') {
+      this.dataSharingService.isUserAdmin$.next(true);
+    }
   }
+
   public onReset() {
     // this.postService.creator = '0';
     // this.postService.posts$.next([]);

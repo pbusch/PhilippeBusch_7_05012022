@@ -57,9 +57,8 @@ export class CommentsComponent implements OnInit {
   }
 
   public addEmoji(data: any) {
-    console.log(data);
     this.form.controls.commentText.setValue(
-      `${this.form.controls.commentText.value}${data.emoji.native}`
+      `${this.form.controls.commentText.value || ''}${data.emoji.native}`
     );
   }
 

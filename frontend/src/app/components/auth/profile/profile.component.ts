@@ -13,21 +13,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
   public userToken?: any;
-  public getId?: any;
   public nom?: string;
   public email?: string;
   public totalPosts?: number;
   public totalComments?: number;
   public totalLikes?: number;
   public showPasswordChange: boolean = false;
-  public showAdminPannel: boolean = false;
+
+  public error?: string;
+  public valid = false;
 
   public form: FormGroup = this.fb.group({
     oldPassword: ['', Validators.required],
     newPassword: ['', Validators.required],
   });
-  public error?: string;
-  public valid = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,10 +37,27 @@ export class ProfileComponent implements OnInit {
     private router: Router
   ) {}
 
-  public deconnect() {
+  ngOnInit(): void {
+    this.userToken = this.authService.tokenId();
+
+    this.userService.getUser(this.userToken.userId).subscribe({
+      next: (res) => {
+        this.nom = res.body.name;
+        this.email = res.body.email;
+        this.totalPosts = this.userService.userTotalPosts;
+        this.totalComments = this.userService.userTotalComments;
+        this.totalLikes = this.userService.userTotalLikes;
+      },
+      error: (error) => {},
+      complete: () => {},
+    });
+  }
+
+  public disconnect() {
     localStorage.removeItem('token');
     this.dataSharingservice.isUserLoggedIn$.next(false);
-    this.router?.navigate(['/auth/login']);
+    this.dataSharingservice.isUserAdmin$.next(false);
+    this.router.navigate(['/auth/login']);
   }
 
   public delete() {
@@ -50,14 +66,12 @@ export class ProfileComponent implements OnInit {
         'Etes-vous certain(e) de vouloir supprimer votre compte ? Toutes vos données seront perdues !'
       )
     ) {
-      this.userService.delUser(this.getId.userId).subscribe({
+      this.userService.delUser(this.userToken.userId).subscribe({
         next: (res) => {
           this.nom = res.name;
           this.email = res.email;
         },
-        error: (error) => {
-          console.log(error.error);
-        },
+        error: (error) => {},
         complete: () => {
           localStorage.removeItem('token');
           this.dataSharingservice.isUserLoggedIn$.next(false);
@@ -70,34 +84,13 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getId = this.authService.tokenId();
-    console.log(this.getId.level);
-
-    this.userService.getUser(this.getId.userId).subscribe({
-      next: (res) => {
-        this.nom = res.body.name;
-        this.email = res.body.email;
-        this.totalPosts = this.userService.userTotalPosts;
-        this.totalComments = this.userService.userTotalComments;
-        this.totalLikes = this.userService.userTotalLikes;
-      },
-      error: (error) => {
-        console.log(error.error);
-      },
-      complete: () => {},
-    });
-  }
-
   public changePassword() {
     this.showPasswordChange = !this.showPasswordChange;
   }
-  public showAdmin() {
-    this.showAdminPannel = !this.showAdminPannel;
-  }
 
   public postsByUser() {
-    this.postService.creator = this.getId.userId;
+    this.postService.creator = this.userToken.userId;
+    this.postService.offset = 0;
     this.router?.navigate(['posts']);
   }
 
@@ -106,18 +99,17 @@ export class ProfileComponent implements OnInit {
       this.error = '';
       this.userService
         .updateUser(
-          this.getId.userId,
+          this.userToken.userId,
           this.form.controls.oldPassword.value,
           this.form.controls.newPassword.value,
           this.nom,
-          this.getId.level,
+          this.userToken.level,
           this.email
         )
         .subscribe({
           next: () => {},
           error: (error) => {
             console.log(error.error);
-
             this.error = error.error.error;
           },
 

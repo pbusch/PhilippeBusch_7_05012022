@@ -6,14 +6,6 @@ module.exports = (sequelize, Sequelize) => {
     imgUrl: {
       type: Sequelize.STRING,
     },
-    //created_at: {
-    //  type: Sequelize.DATE,
-    //  defaultValue: Sequelize.NOW,
-    //},
-    //modified_at: {
-    // type: Sequelize.DATE,
-    //defaultValue: Sequelize.NOW,
-    //},
   });
 
   return Post;

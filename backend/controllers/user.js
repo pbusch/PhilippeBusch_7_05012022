@@ -1,13 +1,11 @@
 const db = require("../models");
 const User = db.user;
-const Op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const { post, like, comment, user } = require("../models");
 
 exports.listUsers = (req, res) => {
-  if (req.token.level < 2) {
-    return res.status(401).json({ error: { message: "Mod level required" } });
+  if (req.token.level < 3) {
+    return res.status(401).json({ error: { message: "Admin level required" } });
   }
   User.findAll({
     order: [["name", "ASC"]],
@@ -23,8 +21,14 @@ exports.listUsers = (req, res) => {
 };
 
 exports.userInfo = (req, res) => {
+  const userId = parseInt(req.token.userId);
+  const paramId = parseInt(req.params.id);
+
   if (isNaN(req.params.id)) {
     return res.status(400).json({ error: { message: "invalid parameter" } });
+  }
+  if (req.token.level < 3 && userId !== paramId) {
+    return res.status(400).json({ error: { message: "Admin level required" } });
   }
 
   post
@@ -36,7 +40,12 @@ exports.userInfo = (req, res) => {
           comment
             .count({ where: { creatorId: req.params.id } })
             .then(function (totalComments) {
-              User.findOne({ where: { id: req.params.id } })
+              User.findOne({
+                // {
+                attributes: { exclude: ["password"] },
+                // },
+                where: { id: req.params.id },
+              })
                 .then((data) => {
                   if (!data) {
                     return res
@@ -58,6 +67,16 @@ exports.userInfo = (req, res) => {
 };
 
 exports.delUser = (req, res) => {
+  const userId = parseInt(req.token.userId);
+  const paramId = parseInt(req.params.id);
+
+  if (isNaN(req.params.id)) {
+    return res.status(400).json({ error: { message: "invalid parameter" } });
+  }
+  if (req.token.level < 3 && userId !== paramId) {
+    return res.status(400).json({ error: { message: "Admin level required" } });
+  }
+
   User.destroy({
     where: { id: req.params.id },
   })
@@ -72,26 +91,21 @@ exports.delUser = (req, res) => {
 };
 
 exports.modUser = (req, res) => {
+  const userId = parseInt(req.token.userId);
+  const paramId = parseInt(req.params.id);
+  const email = req.body.email;
+
   if (isNaN(req.params.id)) {
     return res.status(400).json({ error: { message: "invalid parameter" } });
+  }
+  if (req.token.level < 3 && userId !== paramId) {
+    return res.status(400).json({ error: { message: "Admin level required" } });
   }
 
   let level = req.token.level;
   if ((req.token.level = 3)) {
     level = req.body.level;
   }
-
-  if (req.token.userId != req.params.id && req.token.level < 3) {
-    return res.status(401).json({ error: { message: "Admin level required" } });
-  }
-
-  // if (req.token.level < 3 && req.body.level != null) {
-  //   return res.status(401).json({
-  //     error: {
-  //       message: "Lvl change is for Admin only - Modifications canceled",
-  //     },
-  //   });
-  // }
 
   if (req.body.newPassword && req.body.newPassword != "no!") {
     bcrypt
@@ -125,6 +139,7 @@ exports.modUser = (req, res) => {
         level: level,
         name: req.body.name,
         mail: req.body.email,
+        email: email.toLowerCase(),
       },
       { where: { id: req.params.id } }
     )

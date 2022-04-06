@@ -75,14 +75,14 @@
           matSuffix
           >sentiment_satisfied_alt</mat-icon
         >
+        <emoji-mart
+          class="emoji-mart"
+          *ngIf="emojisShow"
+          (emojiSelect)="addEmoji($event); this.emojisShow = !this.emojisShow"
+          title="Choose your emoji"
+        ></emoji-mart>
         <mat-hint>Appuyez sur Entrée pour publier</mat-hint>
       </mat-form-field>
-      <emoji-mart
-        class="emoji-mart"
-        *ngIf="emojisShow"
-        (emojiSelect)="addEmoji($event); this.emojisShow = !this.emojisShow"
-        title="Choose your emoji"
-      ></emoji-mart>
     </form>
   </div>
 </div>

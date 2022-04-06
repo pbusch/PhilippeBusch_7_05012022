@@ -29,10 +29,12 @@ export class PostContainerComponent implements OnInit {
     // this.subscription = timer(0, 60000000)
     //   //.pipe(switchMap(() => this.postService.fetchPosts()))
     //   .subscribe(() => this.postService.fetchPartialPosts(0, 2));
-    this.postService.posts$.next([]);
+    //this.postService.posts$.next([]);
     this.postService.page = 1;
+    this.postService.offset = 0;
+    this.postService.creator = 0;
     this.postService.fetchPartialPosts(0, 2, this.postService.creator);
-
+    console.log(this.posts$);
     // this.postService.fetchPosts().subscribe();
     // this.timerService.startWatching(4).subscribe((isTimeOut: boolean) => {
     //   if (isTimeOut) {

@@ -16,8 +16,14 @@ export class DataSharingService implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    console.log('service !');
     if (localStorage.getItem('token')) {
       this.isUserLoggedIn$.next(true);
+    }
+    this.userToken = this.authService.tokenId();
+    console.log(this.userToken.level);
+    if (this.userToken.level == '3') {
+      this.isUserAdmin$.next(true);
     }
   }
 }

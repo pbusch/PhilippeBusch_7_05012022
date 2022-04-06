@@ -1,6 +1,5 @@
 const db = require("../models");
 const User = db.user;
-const Op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -9,9 +8,10 @@ exports.signup = (req, res) => {
     return res.status(400).json({ error: "No password provided" });
   }
   bcrypt.hash(req.body.password, 10).then((hash) => {
+    const email = req.body.email;
     const user = {
       name: req.body.name,
-      email: req.body.email,
+      email: email.toLowerCase(),
       password: hash,
       level: "1",
     };
@@ -19,12 +19,7 @@ exports.signup = (req, res) => {
       .then(() => {
         res.status(201).send();
       })
-      .catch((err) => {
-        console.error(err);
-        res.status(400).json({
-          message: "error",
-        });
-      });
+      .catch((error) => res.status(500).json({ error }));
   });
 };
 

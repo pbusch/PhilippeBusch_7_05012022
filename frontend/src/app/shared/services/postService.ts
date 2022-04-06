@@ -16,20 +16,14 @@ export class PostService {
   public totalPosts: any = 2;
   public page: any = 2;
   public creator: any = 0;
-  constructor(private http: HttpClient) {}
+  public offset: any;
 
-  public fetchPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(POST_API).pipe(
-      tap((res) => {
-        this.posts$.next(res);
-      })
-    );
-  }
+  constructor(private http: HttpClient) {}
 
   public fetchPartialPosts(offset: any, limit: any, creator: any): void {
     this.http
       .get<Post[]>(POST_API, {
-        params: { limit, offset, creator },
+        params: { offset, limit, creator },
         observe: 'response',
       })
       .subscribe((res) => {
@@ -45,24 +39,12 @@ export class PostService {
       });
   }
 
-  public fetchOnePost(param: any): Observable<Post[]> {
-    return this.http.get<Post[]>(POST_API + param).pipe(
-      tap((res) => {
-        //this.posts$.next(res);
-      })
-    );
-  }
-
   public updatePost(param: any, text: string): Observable<any> {
     return this.http
       .put<any>(POST_API + param, {
         text,
       })
-      .pipe(
-        tap(() => {
-          //this.fetchPosts().subscribe();
-        })
-      );
+      .pipe(tap(() => {}));
   }
 
   public addPost(body: any): Observable<any> {
@@ -70,11 +52,7 @@ export class PostService {
   }
 
   public deletePost(param: any): Observable<any> {
-    return this.http.delete<any>(POST_API + param).pipe(
-      tap(() => {
-        //this.fetchPosts().subscribe();
-      })
-    );
+    return this.http.delete<any>(POST_API + param).pipe(tap(() => {}));
   }
 
   public addComment(param: any, text: string): Observable<any> {
@@ -82,27 +60,17 @@ export class PostService {
       .post<any>(POST_API + param, {
         text,
       })
-      .pipe(
-        tap(() => {
-          //this.fetchPosts().subscribe();
-        })
-      );
+      .pipe(tap(() => {}));
   }
 
   public deleteComment(param: any, post: any): Observable<any> {
     const newPOST_API = POST_API + 'comments/' + param + '&' + post;
-    return this.http.delete<any>(newPOST_API).pipe(
-      tap(() => {
-        //this.fetchPosts().subscribe();
-      })
-    );
+    return this.http.delete<any>(newPOST_API).pipe(tap(() => {}));
   }
 
   public likePost(param: any, text: string): Observable<any> {
-    return this.http.post<any>(POST_API + param + '/like', { text }).pipe(
-      tap(() => {
-        //this.fetchPosts().subscribe();
-      })
-    );
+    return this.http
+      .post<any>(POST_API + param + '/like', { text })
+      .pipe(tap(() => {}));
   }
 }

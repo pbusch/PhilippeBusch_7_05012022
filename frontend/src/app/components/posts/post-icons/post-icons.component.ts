@@ -80,9 +80,7 @@ export class PostIconsComponent implements OnInit {
           "Une erreur s'est produite. Modification impossible pour le moment"
         );
       },
-      complete: () => {
-        //this.postService.fetchOnePost(this.post?.id).subscribe();
-      },
+      complete: () => {},
     });
   }
 
@@ -97,17 +95,6 @@ export class PostIconsComponent implements OnInit {
   }
 
   public delete() {
-    // this.postService.deletePost(this.post?.id).subscribe({
-    //   next: () => {
-    //     this.post = undefined;
-    //   },
-    //   error: (error) => {
-    //     console.log(error.error);
-    //     alert(error.error.message);
-    //   },
-    //   complete: () => {},
-    // });
-    console.log('lol ?');
     this.deleteP.emit(this.post?.id);
   }
 }

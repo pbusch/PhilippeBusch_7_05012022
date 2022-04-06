@@ -1,13 +1,12 @@
-const { Sequelize, like, post } = require("../models");
+//const { Sequelize, like, post } = require("../models");
 const db = require("../models");
-const users = require("../models/user");
+//const users = require("../models/user");
 const Comment = db.comment;
 const Post = db.post;
 const Like = db.like;
-const User = db.user;
-const Op = db.Sequelize.Op;
+//const User = db.user;
+//const Op = db.Sequelize.Op;
 const fs = require("fs");
-const { get } = require("http");
 
 exports.listPosts = (req, res) => {
   if (req.query.creator !== "0") {
@@ -93,44 +92,6 @@ exports.listPosts = (req, res) => {
   }
 };
 
-exports.postsByUser = (req, res) => {
-  Post.findAll({
-    where: { creatorId: req.params.id },
-    order: [
-      ["createdAt", "DESC"],
-      [{ model: db.comment }, "id", "ASC"],
-    ],
-    include: [
-      {
-        model: db.like,
-        attributes: ["id"],
-        include: [
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-        ],
-      },
-
-      { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-      {
-        model: db.comment,
-        attributes: ["commentText", "createdAt", "id"],
-
-        include: [
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-        ],
-      },
-    ],
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "error",
-      });
-    });
-};
-
 exports.listPartialPosts = (req, res) => {
   Post.findAll({
     offset: req.params.offset,
@@ -161,6 +122,7 @@ exports.listPartialPosts = (req, res) => {
     ],
   })
     .then((data) => {
+      console.log("baaaaaaad");
       res.send(data);
     })
     .catch((err) => {
@@ -292,23 +254,6 @@ exports.likePost = (req, res) => {
       });
     });
 };
-
-// exports.getTopLikes = (req, res) => {
-//   Like.findAndCountAll({
-//     attributes: ["creatorId"],
-//     distinct: true,
-//     col: "postId",
-//   })
-//     .then((data) => {
-//       res.send(data.rows);
-//       console.log(data.rows);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: err.message || "error",
-//       });
-//     });
-// };
 
 exports.getOnePost = (req, res) => {
   Post.findOne({

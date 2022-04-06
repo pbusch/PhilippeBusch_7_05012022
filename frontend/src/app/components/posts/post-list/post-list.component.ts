@@ -15,11 +15,24 @@ export class PostListComponent implements OnInit {
 
   throttle = 0;
   distance = 1.2;
+  public author: any;
   //page = 2;
 
   constructor(public router: Router, public postService: PostService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAuthor();
+  }
+
+  public getAuthor() {
+    if ((this.postService.creator = '0')) {
+      console.log(this.postService.creator);
+      this.author = 'Tous';
+    } else {
+      this.author = this.postService.creator;
+      console.log(this.postService.creator);
+    }
+  }
 
   public doShow() {
     this.isVisible = !this.isVisible;

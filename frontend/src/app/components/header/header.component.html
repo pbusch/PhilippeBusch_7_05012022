@@ -23,5 +23,11 @@
         Inscription</a
       >
     </li>
+    <li *ngIf="isAdmin" class="m-10">
+      <a routerLink="auth/admin">
+        <mat-icon class="icon-align"><mat-icon>person_add</mat-icon></mat-icon>
+        Admin</a
+      >
+    </li>
   </ul>
 </mat-toolbar>

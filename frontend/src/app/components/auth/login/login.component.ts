@@ -36,8 +36,18 @@ export class LoginComponent implements OnInit {
           next: (res) => {
             localStorage.setItem('token', res['token']);
             this.dataSharingService.isUserLoggedIn$.next(true);
+            //this.dataSharingService.isUserAdmin$.next(true);
+            this.dataSharingService.ngOnInit();
           },
-          error: () => (this.error = 'Identifiants incorrects'),
+          error: (error) => {
+            console.log(error);
+            if (error.status == '500') {
+              this.error =
+                'Connexion impossible pour le moment. Veuillez re-essayer plus tard.';
+            } else {
+              this.error = 'Identifiants incorrects';
+            }
+          },
           complete: () => this.router?.navigate(['posts']),
         });
     }

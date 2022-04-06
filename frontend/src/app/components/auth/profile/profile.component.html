@@ -18,23 +18,14 @@
       <p>Vous avez aimé {{ totalLikes }} Post(s) !</p>
     </mat-card-content>
     <div class="d-flex flex-column">
-      <button mat-raised-button color="accent" (click)="deconnect()">
+      <button mat-raised-button color="accent" (click)="disconnect()">
         Déconnecter
-      </button>
-
-      <button mat-raised-button color="primary" (click)="changePassword()">
-        changer de mot de passe
       </button>
       <button mat-raised-button color="warn" (click)="delete()">
         Supprimer le compte
       </button>
-      <button
-        *ngIf="getId.level > 2"
-        mat-raised-button
-        color="primary"
-        (click)="showAdmin()"
-      >
-        Admin
+      <button mat-raised-button color="primary" (click)="changePassword()">
+        changer de mot de passe
       </button>
     </div>
   </mat-card>
@@ -77,4 +68,3 @@
     </mat-card-subtitle>
   </mat-card>
 </div>
-<app-users *ngIf="showAdminPannel"></app-users>

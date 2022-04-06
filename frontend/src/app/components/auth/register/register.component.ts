@@ -36,11 +36,15 @@ export class RegisterComponent implements OnInit {
         .subscribe({
           next: () => {},
           error: (error) => {
-            console.log(error.error);
-            if (error.error.message) {
+            if (error.error.error.name == 'SequelizeUniqueConstraintError') {
               this.error = 'Adresse mail déjà utilisée';
+            } else if (
+              error.error.error.name == 'SequelizeConnectionRefusedError'
+            ) {
+              this.error =
+                'Inscription impossible pour le moment. Veuillez re-essayer plus tard';
             } else {
-              this.error = error.error.error;
+              this.error = error.error.error.name;
             }
           },
 
