@@ -1,5 +1,6 @@
 module.exports = {
-  HOST: "localhost",
+  // HOST: "localhost",
+  HOST: process.env.HOST || "localhost",
   USER: process.env.DB_USER || "groupomania",
   PASSWORD: process.env.DB_PWD || "aaa",
   DB: "groupomania",
