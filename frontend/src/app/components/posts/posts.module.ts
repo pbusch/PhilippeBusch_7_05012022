@@ -8,22 +8,19 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { POSTS_ROUTES } from './posts.routes';
 import { SharedModule } from 'src/app/shared/shared.module';
-//import { PostService } from 'src/app/shared/services/postService';
-import { PostIconsComponent } from './post-icons/post-icons.component';
+import { PostActionsComponent } from './post-actions/post-actions.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { EmojiComponent } from './emoji/emoji.component';
 
 @NgModule({
   declarations: [
-    PostIconsComponent,
+    PostActionsComponent,
     PostListComponent,
     PostComponent,
     CommentsComponent,
     PostDialogComponent,
     PostContainerComponent,
-    EmojiComponent,
   ],
   imports: [
     PickerModule,

@@ -13,8 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post-icons',
-  templateUrl: './post-icons.component.html',
-  styleUrls: ['./post-icons.component.scss'],
+  templateUrl: './post-actions.component.html',
+  styleUrls: ['./post-actions.component.scss'],
   animations: [
     trigger('heartFull', [
       state(
@@ -48,7 +48,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ]),
   ],
 })
-export class PostIconsComponent implements OnInit {
+export class PostActionsComponent implements OnInit {
   @Input() post?: Post;
   @Input() userToken?: any;
   @Output() private deleteP: EventEmitter<any> = new EventEmitter();
