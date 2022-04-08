@@ -3,11 +3,24 @@ const app = express();
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
+const bcrypt = require("bcrypt");
 const path = require("path");
 require("dotenv").config();
 const db = require("./models");
+const { sequelize } = require("./models");
 
-db.sequelize.sync();
+bcrypt.hash("GMAdmin", 10).then((hash) => {
+  db.sequelize.sync().then(() =>
+    db.user.create({
+      name: "admin",
+      email: "admin@groupomania.fr",
+      password: hash,
+      level: "3",
+    })
+  );
+});
+
+//db.sequelize.sync();
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

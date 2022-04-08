@@ -19,9 +19,9 @@ BASE POSTGRESQL
 
 via shell PostreSQL :
 
-    postgres=# create database groupomania;
-    postgres=# create user groupomania with encrypted password 'VotreMotDePassse';
-    postgres=# grant all privileges on database groupomania to groupomania;
+    create database groupomania;
+    create user groupomania with encrypted password 'VotreMotDePassse';
+    grant all privileges on database groupomania to groupomania;
 
 DEPOT GITHUB
 
@@ -54,14 +54,10 @@ FRONTEND
 - Lancer `npm install`
 - Lancer `ng serve`
 
-DONNER LES DROITS ADMIN A UN UTILISATEUR QUE VOUS AVEZ CREE DEPUIS LE FRONTEND
+Compte administrateur initial :
 
-Table 'users', passer le 'level' de l'utilisateur à '3' (= niveau 'admin')
-
-via shell PostreSQL :
-
-    postgres=#\c groupomania
-    postgres=#UPDATE users SET level=’3’ WHERE ‘email’=”[mail de votre utilisateur]”
+- login : admin@groupomania.fr
+- password : GMAdmin
 
 ---
 
