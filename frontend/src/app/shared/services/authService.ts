@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
-const AUTH_API = 'http://localhost:3000/';
+const AUTH_API = 'http://localhost:3000/api/auth/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   public login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(AUTH_API + 'api/auth/login', {
+    return this.http.post<any>(AUTH_API + 'login', {
       email,
       password,
     });
@@ -27,7 +27,7 @@ export class AuthService {
     email: string,
     password: string
   ): Observable<any> {
-    return this.http.post<any>(AUTH_API + 'api/auth/signup', {
+    return this.http.post<any>(AUTH_API + 'signup', {
       name,
       email,
       password,

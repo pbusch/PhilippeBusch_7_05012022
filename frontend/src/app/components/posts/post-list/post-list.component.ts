@@ -53,8 +53,6 @@ export class PostListComponent implements OnInit {
         1,
         this.creator
       );
-      console.log(this.postService.page);
-      console.log(this.postService.totalPosts);
     }
   }
 }

@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/userService';
 import { User, UserSchema } from 'src/app/shared/interfaces/user';
-import { HttpClient } from '@angular/common/http';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -15,18 +14,9 @@ export class UsersComponent implements OnInit {
   public dataSource? = new MatTableDataSource();
   public dataSchema?: any = UserSchema;
   displayedColumns: string[] = Object.keys(UserSchema);
-  // displayedColumns: string[] = [
-  //   'id',
-  //   'name',
-  //   'email',
-  //   'level',
-  //   'Delete',
-  //   'change PWD',
-  // ];
 
   constructor(
     private userService: UserService,
-    private httpClient: HttpClient,
     private snackBar: MatSnackBar
   ) {}
 
@@ -43,11 +33,10 @@ export class UsersComponent implements OnInit {
     console.log(name, level, email);
     this.userService
       .updateUser(id, 'null', 'no!', name, level, email)
-      // .subscribe(() => (row.isEdit = false));
       .subscribe({
         next: (res) => {},
         error: (error) => {
-          console.log(error.error);
+          alert('Modification(s) impossible(s) pour le moment');
         },
         complete: () => {
           this.openSnack('Utilisateur modifié');
@@ -62,9 +51,9 @@ export class UsersComponent implements OnInit {
       )
     ) {
       this.userService.delUser(id).subscribe({
-        next: (res) => {},
-        error: (error) => {
-          console.log(error.error);
+        next: () => {},
+        error: () => {
+          alert('Suppression impossible pour le moment');
         },
         complete: () => {
           this.openSnack('Utilisateur supprimé');

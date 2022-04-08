@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const APP_ROUTES: Routes = [
   { path: '', component: LandingPageComponent },
@@ -13,5 +14,9 @@ export const APP_ROUTES: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('./components/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];

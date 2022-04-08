@@ -58,6 +58,6 @@ export class UserService {
   }
 
   public delUser(param: string): Observable<any> {
-    return this.http.delete<any>(USER_API + param, {}).pipe(tap((res) => {}));
+    return this.http.delete<any>(USER_API + param, {}).pipe(tap(() => {}));
   }
 }

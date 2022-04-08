@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataSharingService } from '../../shared/services/dataSharingService';
-import { PostService } from '../../shared/services/postService';
 import { AuthService } from 'src/app/shared/services/authService';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,9 +13,7 @@ export class HeaderComponent implements OnInit {
   public userToken?: any;
 
   constructor(
-    private router: Router,
     private dataSharingService: DataSharingService,
-    private postService: PostService,
     private authService: AuthService
   ) {
     this.dataSharingService.isUserLoggedIn$.subscribe((value) => {
@@ -36,11 +33,5 @@ export class HeaderComponent implements OnInit {
     if (this.userToken.level == '3') {
       this.dataSharingService.isUserAdmin$.next(true);
     }
-  }
-
-  public onReset() {
-    // this.postService.creator = '0';
-    // this.postService.posts$.next([]);
-    // this.postService.fetchPartialPosts(0, 2, this.postService.creator);
   }
 }
