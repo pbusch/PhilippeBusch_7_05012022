@@ -16,7 +16,10 @@ module.exports = (req, res, next) => {
       .json({ error: { message: "Invalid current password" } });
   }
 
-  if (!req.body.password || req.token.level > 2) {
+  if (
+    !req.body.password ||
+    (req.token.level > 2 && req.token.userId != req.params.id)
+  ) {
     next();
   } else {
     User.findOne({ where: { id: req.params.id } })

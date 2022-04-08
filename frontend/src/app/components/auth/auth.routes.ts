@@ -9,19 +9,19 @@ export const AUTH_ROUTES: Routes = [
   {
     path: 'signup',
     component: RegisterComponent,
-    data: { animation: 'isRight' },
+    data: { animation: 'isSignup' },
   },
-  { path: 'login', component: LoginComponent, data: { animation: 'isLeft' } },
+  { path: 'login', component: LoginComponent, data: { animation: 'isLogin' } },
   {
     path: 'profile',
     component: ProfileComponent,
-    data: { animation: 'isRight' },
+    data: { animation: 'isProfile' },
     canActivate: [AuthGuard],
   },
   {
     path: 'admin',
     component: UsersComponent,
-    data: { animation: 'isRight' },
+    data: { animation: 'isAdmin' },
     canActivate: [AuthGuard],
   },
 ];

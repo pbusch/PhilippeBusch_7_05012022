@@ -4,7 +4,7 @@ const auth = require("../middleware/authCheck");
 const postCtrl = require("../controllers/post");
 const multer = require("../middleware/multer-config");
 
-router.get("/:offset&:limit&:creator", auth, postCtrl.listPosts);
+//router.get("/:offset&:limit&:creator", auth, postCtrl.listPosts);
 router.get("/", auth, postCtrl.listPosts);
 router.post("/", auth, multer, postCtrl.addPost);
 router.get("/:id/comments", auth, postCtrl.getPostComments);

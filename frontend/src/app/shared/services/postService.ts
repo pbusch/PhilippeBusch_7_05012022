@@ -15,26 +15,30 @@ export class PostService {
   public posts$: BehaviorSubject<Post[]> = new BehaviorSubject([] as Post[]);
   public totalPosts: any = 2;
   public page: any = 2;
-  public creator: any;
-  public offset: any;
 
   constructor(private http: HttpClient) {}
 
-  public fetchPartialPosts(offset: any, limit: any, creator: any): void {
+  public fetchPartialPosts(
+    offset: number,
+    limit: number,
+    creator?: string
+  ): void {
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
+    if (creator) {
+      params = params.append('creator', creator);
+    }
     this.http
       .get<Post[]>(POST_API, {
-        params: { offset, limit, creator },
+        params,
         observe: 'response',
       })
       .subscribe((res) => {
         this.totalPosts = res.headers.get('x-total-count');
         if (res.body) {
-          if (offset == '0') {
-            console.log('offset!');
-            this.posts$.next(res.body);
-          } else {
-            this.posts$.next(this.posts$.value.concat(res.body));
+          if (offset == 0) {
+            return this.posts$.next(res.body);
           }
+          this.posts$.next(this.posts$.value.concat(res.body));
         }
       });
   }

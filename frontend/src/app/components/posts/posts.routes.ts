@@ -6,13 +6,13 @@ export const POSTS_ROUTES: Routes = [
   {
     path: '',
     component: PostContainerComponent,
-    data: { animation: 'isLeft' },
+    data: { animation: 'isPosts' },
     canActivate: [AuthGuard],
   },
   {
     path: ':id',
     component: PostContainerComponent,
-    data: { animation: 'isRight' },
+    data: { animation: 'isPostsId' },
     canActivate: [AuthGuard],
   },
 ];

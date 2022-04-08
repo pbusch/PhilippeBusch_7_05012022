@@ -11,7 +11,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class PostContainerComponent implements OnInit {
   public posts$: Observable<Post[]> = this.postService.posts$;
-  public creator: any;
+  public creator?: string;
 
   constructor(
     private postService: PostService,
@@ -19,13 +19,11 @@ export class PostContainerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      this.postService.creator = paramMap.get('id') || '0';
-      this.creator = paramMap.get('id') || '0';
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.creator = params.creator;
+      this.postService.fetchPartialPosts(0, 2, this.creator);
     });
 
     this.postService.page = 1;
-    this.postService.offset = 0;
-    this.postService.fetchPartialPosts(0, 2, this.postService.creator);
   }
 }

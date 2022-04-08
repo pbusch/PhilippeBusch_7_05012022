@@ -93,7 +93,10 @@ export class ProfileComponent implements OnInit {
   }
 
   public postsByUser() {
-    this.router?.navigate(['posts', this.userToken.userId]);
+    //this.router?.navigate(['posts', this.userToken.userId]);
+    this.router?.navigate(['posts'], {
+      queryParams: { creator: this.userToken.userId },
+    });
   }
 
   public submit() {

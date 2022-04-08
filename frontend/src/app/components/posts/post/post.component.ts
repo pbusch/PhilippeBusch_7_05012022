@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
 import { PostService } from '../../../shared/services/postService';
 import { AuthService } from 'src/app/shared/services/authService';
@@ -41,7 +41,11 @@ export class PostComponent implements OnInit {
   }
 
   public postsByUser() {
-    this.router?.navigate(['posts', this.post?.creator.id]);
+    window.scrollTo(0, 0);
+    this.postService.page = 1;
+    this.router?.navigate(['posts'], {
+      queryParams: { creator: this.post?.creator.id },
+    });
   }
 
   public submit() {

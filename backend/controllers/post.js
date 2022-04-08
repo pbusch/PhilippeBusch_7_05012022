@@ -9,87 +9,46 @@ const Like = db.like;
 const fs = require("fs");
 
 exports.listPosts = (req, res) => {
-  if (req.query.creator !== "0") {
-    let creator = req.query.creator;
-    Post.findAndCountAll({
-      where: { creatorId: creator },
-      limit: req.query.limit || 10,
-      offset: req.query.offset || 0,
-      distinct: true,
-      order: [
-        ["createdAt", "DESC"],
-        [{ model: db.comment }, "id", "ASC"],
-      ],
-      include: [
-        {
-          model: db.like,
-          attributes: ["id"],
-          include: [
-            { model: db.user, attributes: ["name", "id"], as: "creator" },
-          ],
-        },
+  let creator = req.query.creator;
+  Post.findAndCountAll({
+    where: JSON.parse(JSON.stringify({ creatorId: creator })),
+    limit: req.query.limit || 10,
+    offset: req.query.offset || 0,
+    distinct: true,
+    order: [
+      ["createdAt", "DESC"],
+      [{ model: db.comment }, "id", "ASC"],
+    ],
+    include: [
+      {
+        model: db.like,
+        attributes: ["id"],
+        include: [
+          { model: db.user, attributes: ["name", "id"], as: "creator" },
+        ],
+      },
 
-        { model: db.user, attributes: ["name", "id"], as: "creator" },
+      { model: db.user, attributes: ["name", "id"], as: "creator" },
 
-        {
-          model: db.comment,
-          attributes: ["commentText", "createdAt", "id"],
+      {
+        model: db.comment,
+        attributes: ["commentText", "createdAt", "id"],
 
-          include: [
-            { model: db.user, attributes: ["name", "id"], as: "creator" },
-          ],
-        },
-      ],
+        include: [
+          { model: db.user, attributes: ["name", "id"], as: "creator" },
+        ],
+      },
+    ],
+  })
+    .then((data) => {
+      res.set("x-total-count", data.count);
+      res.send(data.rows);
     })
-      .then((data) => {
-        res.set("x-total-count", data.count);
-        res.send(data.rows);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "error",
-        });
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "error",
       });
-  } else {
-    Post.findAndCountAll({
-      limit: req.query.limit || 10,
-      offset: req.query.offset || 0,
-      distinct: true,
-      order: [
-        ["createdAt", "DESC"],
-        [{ model: db.comment }, "id", "ASC"],
-      ],
-      include: [
-        {
-          model: db.like,
-          attributes: ["id"],
-          include: [
-            { model: db.user, attributes: ["name", "id"], as: "creator" },
-          ],
-        },
-
-        { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-        {
-          model: db.comment,
-          attributes: ["commentText", "createdAt", "id"],
-
-          include: [
-            { model: db.user, attributes: ["name", "id"], as: "creator" },
-          ],
-        },
-      ],
-    })
-      .then((data) => {
-        res.set("x-total-count", data.count);
-        res.send(data.rows);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "error",
-        });
-      });
-  }
+    });
 };
 
 exports.likePost = (req, res) => {

@@ -62,9 +62,9 @@ export class PostDialogComponent implements OnInit {
       complete: () => {
         this.doShow.emit();
         this.imageSrc = '';
-        this.postService.creator = '0';
+
         this.postService.page = 1;
-        this.postService.fetchPartialPosts(0, 2, this.postService.creator);
+
         this.router.navigate(['posts']);
       },
     });

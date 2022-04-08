@@ -1,6 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/shared/services/postService';
 import { UserService } from 'src/app/shared/services/userService';
 
@@ -9,9 +15,9 @@ import { UserService } from 'src/app/shared/services/userService';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnChanges {
   @Input() public posts: Post[] | null = null;
-  @Input() public creator: any;
+  @Input() public creator?: string;
   public creatorName: any;
   public isVisible: boolean = false;
   public offset = 0;
@@ -19,7 +25,7 @@ export class PostListComponent implements OnInit {
   public totalPosts?: any;
 
   throttle = 0;
-  distance = 1.2;
+  distance = 1.4;
 
   constructor(
     public router: Router,
@@ -28,9 +34,26 @@ export class PostListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.postService.creator = this.creator;
-    if (this.creator != '0') {
+    if (this.creator) {
       this.userService.getUser(this.creator).subscribe((res) => {
+        this.creatorName = res.body.name;
+        this.totalPosts = this.userService.userTotalPosts;
+      });
+    } else {
+      this.creatorName = 'Tout le monde !';
+      this.totalPosts = this.postService.totalPosts;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.creator?.currentValue) {
+      this.getCreatorName(changes.creator?.currentValue);
+    }
+  }
+
+  public getCreatorName(id: any) {
+    if (this.creator) {
+      this.userService.getUser(id).subscribe((res) => {
         this.creatorName = res.body.name;
         this.totalPosts = this.userService.userTotalPosts;
       });
@@ -45,11 +68,15 @@ export class PostListComponent implements OnInit {
   }
 
   public onReset() {
+    this.creatorName = 'Tout le monde !';
+    this.postService.page = 1;
     this.router.navigate(['posts']);
   }
 
   onScroll(): void {
     if (this.postService.page < this.postService.totalPosts) {
+      console.log(this.postService.page);
+
       this.postService.fetchPartialPosts(
         ++this.postService.page,
         1,
