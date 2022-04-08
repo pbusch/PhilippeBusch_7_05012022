@@ -19,9 +19,9 @@ BASE POSTGRESQL
 
 via shell PostreSQL :
 
-postgres=# create database groupomania;
-postgres=# create user groupomania with encrypted password 'VotreMotDePassse';
-postgres=# grant all privileges on database groupomania to groupomania;
+    postgres=# create database groupomania;
+    postgres=# create user groupomania with encrypted password 'VotreMotDePassse';
+    postgres=# grant all privileges on database groupomania to groupomania;
 
 DEPOT GITHUB
 
@@ -52,12 +52,12 @@ FRONTEND
 
 - cd frontend # Aller dans le dossier "frontend"
 - Lancer `npm install`
-- Lancer `ng serve` (chemin complet : modules\.bin\ng serve)
+- Lancer `ng serve`
 
-DONNER LES DROITS ADMIN A UN UTILISATUER CREE VIA LE FRONTEND (via page 'register') VIA SHELL POSTGRESQL
+DONNER LES DROITS ADMIN A UN UTILISATUER CREE DEPUIS LE FRONTEND VIA SHELL POSTGRESQL
 
-- \c groupomania
-  UPDATE users SET level=’3’ WHERE ‘email’=”[mail de votre utilisateur]”
+    postgres=#\c groupomania
+    postgres=#UPDATE users SET level=’3’ WHERE ‘email’=”[mail de votre utilisateur]”
 
 ---
 
