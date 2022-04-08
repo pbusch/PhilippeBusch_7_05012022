@@ -12,9 +12,6 @@
             formControlName="newTitle"
             placeholder=""
           />
-
-          <!-- <mat-icon class="icon-align" matSuffix>record_voice_over</mat-icon> -->
-
           <mat-hint>Appuyez sur Entrée pour publier</mat-hint>
         </mat-form-field>
       </form>
@@ -34,6 +31,9 @@
         </button>
       </span>
     </mat-card-title>
+    <mat-icon class="icon-align align-right" (click)="top()"
+      >navigation</mat-icon
+    >
 
     <mat-card-subtitle
       >Publié le {{ post.createdAt | date: "dd/MM/yyyy" }} par
