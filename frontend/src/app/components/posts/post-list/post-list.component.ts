@@ -15,6 +15,7 @@ export class PostListComponent implements OnInit {
   public creatorName: any;
   public isVisible: boolean = false;
   public offset = 0;
+  public topTitle?: Text;
 
   throttle = 0;
   distance = 1.2;
@@ -33,7 +34,7 @@ export class PostListComponent implements OnInit {
         .getUser(this.creator)
         .subscribe((res) => (this.creatorName = res.body.name));
     } else {
-      this.creatorName = 'Tous';
+      this.creatorName = 'Tout le monde !';
     }
   }
 

@@ -91,9 +91,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public postsByUser() {
-    this.postService.creator = this.userToken.userId;
-    this.postService.offset = 0;
-    this.router?.navigate(['posts']);
+    this.router?.navigate(['posts', this.userToken.userId]);
   }
 
   public submit() {

@@ -32,6 +32,10 @@ export class PostComponent implements OnInit {
     this.commentsShow = false;
   }
 
+  public top() {
+    window.scrollTo(0, 0);
+  }
+
   public doEdit() {
     this.onEdit = true;
   }

@@ -7,17 +7,14 @@
     </mat-card-header>
 
     <mat-card-content>
-      <p>
-        Vous avez publié
-        <span class="totalPosts" (click)="postsByUser()"
-          >{{ totalPosts }} Post(s) !</span
+      <h2>
+        Vous avez publié {{ totalPosts }} Post(s) :
+        <mat-icon (click)="postsByUser()" class="icon-align pointer"
+          >visibility</mat-icon
         >
-      </p>
-      <!-- <span [routerLink]="['posts', this.userToken.userId]> ok </span> -->
-      <div [routerLink]="['../../posts', userId]">ok</div>
-
-      <p>Vous avez écrit {{ totalComments }} commentaire(s).</p>
-      <p>Vous avez aimé {{ totalLikes }} Post(s) !</p>
+      </h2>
+      <h2>Vous avez écrit {{ totalComments }} commentaire(s).</h2>
+      <h2>Vous avez aimé {{ totalLikes }} Post(s).</h2>
     </mat-card-content>
     <div class="d-flex flex-column">
       <button mat-raised-button color="accent" (click)="disconnect()">

@@ -119,11 +119,30 @@ main {
   vertical-align: text-bottom;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .multiline-tooltip {
   white-space: pre-line;
   //color: yellow;
   //background-color: ;
   font-size: medium;
+}
+
+mat-card {
+  background-color: rgb(253, 252, 250);
+}
+
+.text-center {
+  text-align: center;
+  color: var(--text-regular);
+}
+
+.post-card {
+  max-width: 550px;
+  margin: auto;
+  margin-bottom: 10px;
 }
 
 //theme

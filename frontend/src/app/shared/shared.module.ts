@@ -46,11 +46,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     MatBadgeModule,
     MatDialogModule,
-    MatTooltipModule,
     MatTableModule,
     MatCheckboxModule,
     MatDatepickerModule,
     MatSnackBarModule,
+    MatTooltipModule,
   ],
 })
 export class SharedModule {}

@@ -3,7 +3,13 @@
   <ul>
     <li *ngIf="isLoggedIn" class="m-10">
       <a routerLink="posts" (click)="onReset()">
-        <mat-icon class="icon-align">perm_media</mat-icon> Posts</a
+        <mat-icon
+          class="icon-align"
+          matTooltip="Posts"
+          matTooltipClass="multiline-tooltip"
+          >perm_media</mat-icon
+        >
+        Posts</a
       >
     </li>
     <li *ngIf="isLoggedIn" class="m-10">

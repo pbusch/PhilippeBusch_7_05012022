@@ -17,10 +17,16 @@ import 'hammerjs';
 import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LandingPageComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    LandingPageComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(APP_ROUTES, { onSameUrlNavigation: 'reload' }),
+    //RouterModule.forRoot(APP_ROUTES, { onSameUrlNavigation: 'reload' }),
+    RouterModule.forRoot(APP_ROUTES),
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,
