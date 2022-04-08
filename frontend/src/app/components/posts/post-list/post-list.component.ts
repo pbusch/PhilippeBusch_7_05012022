@@ -70,6 +70,7 @@ export class PostListComponent implements OnInit, OnChanges {
   public onReset() {
     this.creatorName = 'Tout le monde !';
     this.postService.page = 1;
+    this.postService.fetchPartialPosts(0, 2);
     this.router.navigate(['posts']);
   }
 

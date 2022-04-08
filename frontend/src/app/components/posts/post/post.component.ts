@@ -76,7 +76,15 @@ export class PostComponent implements OnInit {
         console.log(error.error);
         alert('Supression impossible');
       },
-      complete: () => {},
+      complete: () => {
+        this.postService.page = 1;
+
+        this.router
+          .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['posts']);
+          });
+      },
     });
   }
 }

@@ -1,5 +1,5 @@
 table {
-  width: 55%;
+  width: 80%;
   margin: auto;
   background-color: var(--lightgray);
 }
@@ -36,7 +36,7 @@ h3 {
   font-weight: bold;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 740px) {
   table {
     font-size: xx-small;
     width: 100%;

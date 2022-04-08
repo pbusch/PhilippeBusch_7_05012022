@@ -62,10 +62,15 @@ export class PostDialogComponent implements OnInit {
       complete: () => {
         this.doShow.emit();
         this.imageSrc = '';
-
         this.postService.page = 1;
 
-        this.router.navigate(['posts']);
+        this.router
+          .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['posts']);
+          });
+
+        //this.router.navigate(['posts']);
       },
     });
   }
