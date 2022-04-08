@@ -25,7 +25,7 @@ export class PostListComponent implements OnInit, OnChanges {
   public totalPosts?: any;
 
   throttle = 0;
-  distance = 1.4;
+  distance = 1.2;
 
   constructor(
     public router: Router,
@@ -69,9 +69,14 @@ export class PostListComponent implements OnInit, OnChanges {
 
   public onReset() {
     this.creatorName = 'Tout le monde !';
-    this.postService.page = 1;
-    this.postService.fetchPartialPosts(0, 2);
-    this.router.navigate(['posts']);
+    //this.postService.page = 1;
+    //this.postService.fetchPartialPosts(0, 2);
+    //this.router.navigate(['posts']);
+    this.router
+      .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
+      .then(() => {
+        this.router.navigate(['posts']);
+      });
   }
 
   onScroll(): void {

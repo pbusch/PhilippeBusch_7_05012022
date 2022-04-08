@@ -43,9 +43,18 @@ export class PostComponent implements OnInit {
   public postsByUser() {
     window.scrollTo(0, 0);
     this.postService.page = 1;
-    this.router?.navigate(['posts'], {
-      queryParams: { creator: this.post?.creator.id },
-    });
+
+    this.router
+      .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
+      .then(() => {
+        this.router.navigate(['posts'], {
+          queryParams: { creator: this.post?.creator.id },
+        });
+      });
+
+    // this.router?.navigate(['posts'], {
+    //   queryParams: { creator: this.post?.creator.id },
+    // });
   }
 
   public submit() {
