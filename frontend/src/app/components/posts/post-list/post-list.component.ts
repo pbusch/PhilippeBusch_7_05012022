@@ -16,10 +16,10 @@ export class PostListComponent implements OnInit {
   public isVisible: boolean = false;
   public offset = 0;
   public topTitle?: Text;
+  public totalPosts?: any;
 
   throttle = 0;
   distance = 1.2;
-  public author: any;
 
   constructor(
     public router: Router,
@@ -30,11 +30,13 @@ export class PostListComponent implements OnInit {
   ngOnInit(): void {
     this.postService.creator = this.creator;
     if (this.creator != '0') {
-      this.userService
-        .getUser(this.creator)
-        .subscribe((res) => (this.creatorName = res.body.name));
+      this.userService.getUser(this.creator).subscribe((res) => {
+        this.creatorName = res.body.name;
+        this.totalPosts = this.userService.userTotalPosts;
+      });
     } else {
       this.creatorName = 'Tout le monde !';
+      this.totalPosts = this.postService.totalPosts;
     }
   }
 

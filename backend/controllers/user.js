@@ -27,9 +27,6 @@ exports.userInfo = (req, res) => {
   if (isNaN(req.params.id)) {
     return res.status(400).json({ error: { message: "invalid parameter" } });
   }
-  // if (req.token.level < 3 && userId !== paramId) {
-  //   return res.status(400).json({ error: { message: "Admin level required" } });
-  // }
 
   post
     .count({ where: { creatorId: req.params.id } })
@@ -41,9 +38,7 @@ exports.userInfo = (req, res) => {
             .count({ where: { creatorId: req.params.id } })
             .then(function (totalComments) {
               User.findOne({
-                // {
                 attributes: { exclude: ["password"] },
-                // },
                 where: { id: req.params.id },
               })
                 .then((data) => {

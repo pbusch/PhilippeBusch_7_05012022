@@ -92,46 +92,6 @@ exports.listPosts = (req, res) => {
   }
 };
 
-exports.listPartialPosts = (req, res) => {
-  Post.findAll({
-    offset: req.params.offset,
-    limit: req.params.limit,
-    order: [
-      ["createdAt", "DESC"],
-      [{ model: db.comment }, "id", "ASC"],
-    ],
-    include: [
-      {
-        model: db.like,
-        attributes: ["id"],
-        include: [
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-        ],
-      },
-
-      { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-      {
-        model: db.comment,
-        attributes: ["commentText", "createdAt", "id"],
-
-        include: [
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-        ],
-      },
-    ],
-  })
-    .then((data) => {
-      console.log("baaaaaaad");
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "error",
-      });
-    });
-};
-
 exports.likePost = (req, res) => {
   const like = {
     creatorId: req.token.userId,
@@ -505,11 +465,6 @@ exports.delComment = (req, res) => {
             message: err.message || "error",
           });
         });
-      // if (data !== 0) {
-      //   res.status(200).json({ message: "Comment removed by Admin" });
-      // } else {
-      //   res.status(404).json({ message: "Comment not found" });
-      // }
     })
     .catch((error) => res.status(400).json({ error }));
 };

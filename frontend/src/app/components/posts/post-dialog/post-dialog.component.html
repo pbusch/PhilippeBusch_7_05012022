@@ -39,7 +39,7 @@
       <mat-card-title>{{ this.firstFormGroup.value.firstCtrl }}</mat-card-title>
 
       <div>
-        <img [src]="imageSrc" />
+        <img [src]="imageSrc" class="preview" />
         <div class="d-flex flex-row">
           <button mat-button (click)="submit(); stepper.reset()">
             Je valide mon Post !

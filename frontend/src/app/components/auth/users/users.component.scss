@@ -35,3 +35,18 @@ h3 {
 .demo-row-is-clicked {
   font-weight: bold;
 }
+
+@media screen and (max-width: 480px) {
+  table {
+    font-size: xx-small;
+    width: 100%;
+    background-color: var(--lightgray);
+  }
+  td {
+    font-size: 11px;
+  }
+  .mat-button {
+    min-width: 0;
+    padding: 5px !important;
+  }
+}
