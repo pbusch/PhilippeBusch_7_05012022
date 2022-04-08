@@ -1,13 +1,7 @@
-<div class="scroll">
-  <div class="container">
-    <app-header></app-header>
-  </div>
+<div class="container">
+  <app-header></app-header>
+</div>
 
-  <div [@routeAnimations]="prepareRoute(outlet)">
-    <router-outlet #outlet="outlet"></router-outlet>
-  </div>
-
-  <!-- <div class="container footer">
-    <app-footer></app-footer>
-  </div> -->
+<div [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>

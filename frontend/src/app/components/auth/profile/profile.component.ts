@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../shared/services/userService';
 import { AuthService } from '../../../shared/services/authService';
-import { PostService } from 'src/app/shared/services/postService';
 import { DataSharingService } from '../../../shared/services/dataSharingService';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -31,7 +30,6 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private postService: PostService,
     private authService: AuthService,
     private userService: UserService,
     private dataSharingservice: DataSharingService,
@@ -50,7 +48,9 @@ export class ProfileComponent implements OnInit {
         this.totalComments = this.userService.userTotalComments;
         this.totalLikes = this.userService.userTotalLikes;
       },
-      error: (error) => {},
+      error: () => {
+        alert('Données indisponibles pour le moment');
+      },
       complete: () => {},
     });
   }
@@ -73,7 +73,9 @@ export class ProfileComponent implements OnInit {
           this.nom = res.name;
           this.email = res.email;
         },
-        error: (error) => {},
+        error: () => {
+          alert('Suppression impossible pour le moment');
+        },
         complete: () => {
           localStorage.removeItem('token');
           this.dataSharingservice.isUserLoggedIn$.next(false);

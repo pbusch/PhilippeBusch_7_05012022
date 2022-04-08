@@ -15,7 +15,7 @@ DEPENDANCES
 
 BASE POSTGRESQL
 
-- Créer une base 'groupomania' avec un utilisateur 'groupomania' avec tous les droits sur cette base.
+- Créer une base 'groupomania' et un utilisateur 'groupomania' avec tous les droits sur cette base.
 
 via shell PostreSQL :
 
@@ -33,13 +33,13 @@ BACKEND
 
 - Variables d'environement (fichier .env à la racine de /backend/)
 
-      HOST = nom du serveur - par défaut : localhost
-
       PORT = port du serveur - par défaut : 3000
 
       APP_SECRET = chaine de cryptage à renseigner
 
-      DB_USER= groupomania
+      HOST = nom du serveur PostgreSQL - par défaut : localhost
+
+      DB_USER = groupomania
 
       DB_PWD = Mot de Passe pour le user groupomania
 
@@ -54,7 +54,11 @@ FRONTEND
 - Lancer `npm install`
 - Lancer `ng serve`
 
-DONNER LES DROITS ADMIN A UN UTILISATUER CREE DEPUIS LE FRONTEND VIA SHELL POSTGRESQL
+DONNER LES DROITS ADMIN A UN UTILISATEUR QUE VOUS AVEZ CREE DEPUIS LE FRONTEND
+
+Table 'users', passer le 'level' de l'utilisateur à '3' (= niveau 'admin')
+
+via shell PostreSQL :
 
     postgres=#\c groupomania
     postgres=#UPDATE users SET level=’3’ WHERE ‘email’=”[mail de votre utilisateur]”

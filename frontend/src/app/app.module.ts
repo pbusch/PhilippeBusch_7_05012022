@@ -25,7 +25,6 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    //RouterModule.forRoot(APP_ROUTES, { onSameUrlNavigation: 'reload' }),
     RouterModule.forRoot(APP_ROUTES),
     BrowserAnimationsModule,
     HttpClientModule,
