@@ -51,10 +51,6 @@ export class PostComponent implements OnInit {
           queryParams: { creator: this.post?.creator.id },
         });
       });
-
-    // this.router?.navigate(['posts'], {
-    //   queryParams: { creator: this.post?.creator.id },
-    // });
   }
 
   public submit() {

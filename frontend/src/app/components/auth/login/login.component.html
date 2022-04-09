@@ -18,7 +18,9 @@
           </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary">Connexion</button>
+        <button aria-label="Connexion" mat-raised-button color="primary">
+          Connexion
+        </button>
         <mat-error *ngIf="error">
           {{ error }}
         </mat-error>

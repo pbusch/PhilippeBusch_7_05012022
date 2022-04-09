@@ -1,6 +1,7 @@
 <span *ngIf="post">
   <button
     mat-raised-button
+    aria-label="Like"
     [matTooltipClass]="'multiline-tooltip'"
     color="primary"
     [matTooltip]="likers()"
@@ -12,6 +13,7 @@
 
   <button
     mat-raised-button
+    aria-label="Supprimer le Post"
     color="warn"
     *ngIf="post.creator.id == userToken.userId || userToken.level > 1"
     (click)="delete()"

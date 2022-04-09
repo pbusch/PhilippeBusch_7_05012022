@@ -26,7 +26,8 @@ a {
   --primary: #546de5;
   --secondary: #778beb;
   --accent: #e66767;
-  --lightgray: #ddd;
+  // --lightgray: #ddd;
+  --lightgray: rgb(241, 239, 234);
   --text-regular: #444;
 }
 
@@ -34,10 +35,7 @@ body {
   font-family: var(--font-family);
   color: var(--text-regular);
   overflow-y: scroll;
-}
-
-main {
-  position: relative;
+  padding-bottom: 50px;
 }
 
 .container {
@@ -83,10 +81,6 @@ main {
   flex: 1 1 auto;
 }
 
-.flex-50 {
-  flex: 1 1 50%;
-}
-
 .p-10 {
   padding: 10px;
 }
@@ -119,17 +113,9 @@ main {
   vertical-align: text-bottom;
 }
 
-.pointer {
-  cursor: pointer;
-}
-
 .multiline-tooltip {
   white-space: pre-line;
   font-size: medium;
-}
-
-mat-card {
-  background-color: rgb(253, 252, 250);
 }
 
 .text-center {
@@ -141,9 +127,8 @@ mat-card {
   max-width: 550px;
   margin: auto;
   margin-bottom: 10px;
+  background-color: var(--lightgray);
 }
-
-//theme
 
 .list-primary {
   li {
@@ -153,7 +138,6 @@ mat-card {
     &:hover {
       background-color: var(--primary);
       color: white;
-      //font-weight: 500;
       cursor: pointer;
     }
     transition: all 0.4s;
@@ -167,21 +151,4 @@ mat-card {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
   }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  padding-bottom: 50px;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding-top: 10px;
-  padding-bottom: 0px;
 }

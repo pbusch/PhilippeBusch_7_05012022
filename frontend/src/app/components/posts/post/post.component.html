@@ -23,7 +23,9 @@
 
         <button
           title="Editer"
+          name="Editer"
           mat-button
+          aria-label="Editer"
           *ngIf="post.creator?.id == userToken.userId || userToken.level > 1"
           (click)="doEdit()"
         >

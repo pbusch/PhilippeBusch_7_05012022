@@ -65,6 +65,7 @@
         <input
           matInput
           type="text"
+          aria-label="Ajouter un commentaire"
           formControlName="commentText"
           placeholder=""
         />
@@ -77,6 +78,7 @@
         >
         <emoji-mart
           class="emoji-mart"
+          aria-label="Ajouter un emoji"
           *ngIf="emojisShow"
           (emojiSelect)="addEmoji($event); this.emojisShow = !this.emojisShow"
           title="Choisissez votre emoji"

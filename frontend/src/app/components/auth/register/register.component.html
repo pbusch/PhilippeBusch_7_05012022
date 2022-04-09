@@ -25,7 +25,12 @@
           </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" [disabled]="form.invalid">
+        <button
+          aria-label="Ajouter un post"
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+        >
           Inscription
         </button>
         <mat-error *ngIf="error">

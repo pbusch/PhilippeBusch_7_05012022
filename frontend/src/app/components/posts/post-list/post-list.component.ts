@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PostService } from 'src/app/shared/services/postService';
 import { UserService } from 'src/app/shared/services/userService';
 
@@ -69,9 +69,6 @@ export class PostListComponent implements OnInit, OnChanges {
 
   public onReset() {
     this.creatorName = 'Tout le monde !';
-    //this.postService.page = 1;
-    //this.postService.fetchPartialPosts(0, 2);
-    //this.router.navigate(['posts']);
     this.router
       .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
       .then(() => {

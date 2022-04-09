@@ -10,14 +10,17 @@ const db = require("./models");
 const { sequelize } = require("./models");
 
 bcrypt.hash("GMAdmin", 10).then((hash) => {
-  db.sequelize.sync().then(() =>
-    db.user.create({
-      name: "admin",
-      email: "admin@groupomania.fr",
-      password: hash,
-      level: "3",
-    })
-  );
+  db.sequelize
+    .sync()
+    .then(() =>
+      db.user.create({
+        name: "admin",
+        email: "admin@groupomania.fr",
+        password: hash,
+        level: "3",
+      })
+    )
+    .catch((error) => {});
 });
 
 //db.sequelize.sync();

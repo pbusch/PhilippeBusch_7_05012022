@@ -14,22 +14,10 @@
   }
 }
 
-.post-card {
-  max-width: 500px;
-  //max-height: 500px;
-  margin: auto;
-  background-color: rgb(254, 255, 255);
-  margin-bottom: 10px;
-}
-
 .post-header-image {
   background-image: url("http://localhost:4200/assets/icon.png");
   background-size: cover;
 }
-
-// .mat-form-field + .mat-form-field {
-//   margin-left: 8px;
-// }
 
 .mat-card-image {
   margin: auto;
@@ -41,16 +29,8 @@
   margin: 5px;
 }
 
-.titre {
-  font-size: 12px;
-}
-
 button {
   margin: 5px;
-}
-
-mat-input {
-  max-width: 30px;
 }
 
 .pointer {

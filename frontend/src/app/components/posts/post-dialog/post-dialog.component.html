@@ -13,7 +13,9 @@
           />
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Suivant</button>
+          <button mat-button aria-label="Suivant" matStepperNext>
+            Suivant
+          </button>
         </div>
       </form>
     </mat-step>
@@ -26,12 +28,19 @@
           (change)="fileChange($event)"
           placeholder="Upload file"
           #inputFile
-        /><button mat-button (click)="inputFile.click(); goForward(stepper)">
+        /><button
+          mat-raised-button
+          color="primary"
+          aria-label="Charger une image"
+          (click)="inputFile.click(); goForward(stepper)"
+        >
           <mat-icon class="menus">add_a_photo</mat-icon>
           Chargez
         </button>
 
-        <button mat-button matStepperPrevious>Retour</button>
+        <button mat-button aria-label="Retour" matStepperPrevious>
+          Retour
+        </button>
       </div>
     </mat-step>
     <mat-step>
@@ -41,10 +50,20 @@
       <div>
         <img [src]="imageSrc" class="preview" />
         <div class="d-flex flex-row">
-          <button mat-button (click)="submit(); stepper.reset()">
+          <button
+            mat-raised-button
+            aria-label="Valider le post"
+            color="primary"
+            (click)="submit(); stepper.reset()"
+          >
             Je valide mon Post !
           </button>
-          <button mat-button (click)="stepper.reset(); imageSrc = ''">
+          <button
+            mat-raised-button
+            aria-label="Annuler"
+            color="warn"
+            (click)="stepper.reset(); imageSrc = ''"
+          >
             J'annule !
           </button>
         </div>

@@ -69,8 +69,6 @@ export class PostDialogComponent implements OnInit {
           .then(() => {
             this.router.navigate(['posts']);
           });
-
-        //this.router.navigate(['posts']);
       },
     });
   }

@@ -1,10 +1,8 @@
 export interface User {
-  //token?: string;
   isSelected?: boolean;
   id?: number;
   name: string;
   email: string;
-  //password?: string;
   level?: number;
   isEdit?: boolean;
 }

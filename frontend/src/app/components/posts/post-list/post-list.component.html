@@ -3,6 +3,7 @@
     <button
       mat-raised-button
       color="primary"
+      aria-label="Ajouter un post"
       (click)="doShow()"
       matTooltip="Lancez-vous !"
       matTooltipClass="multiline-tooltip"
@@ -15,8 +16,7 @@
     <button
       mat-raised-button
       color="primary"
-      matTooltip="Tous les posts !"
-      matTooltipClass="multiline-tooltip"
+      aria-label="Afficher tous les posts"
       (click)="onReset()"
     >
       <mat-icon>autorenew</mat-icon>
