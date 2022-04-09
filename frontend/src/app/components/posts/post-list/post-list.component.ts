@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../../../shared/interfaces/post';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/shared/services/postService';
@@ -15,7 +9,7 @@ import { UserService } from 'src/app/shared/services/userService';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
 })
-export class PostListComponent implements OnInit, OnChanges {
+export class PostListComponent implements OnInit {
   @Input() public posts: Post[] | null = null;
   @Input() public creator?: string;
   public creatorName: any;
@@ -42,12 +36,6 @@ export class PostListComponent implements OnInit, OnChanges {
     } else {
       this.creatorName = 'Tout le monde !';
       this.totalPosts = this.postService.totalPosts;
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.creator?.currentValue) {
-      this.getCreatorName(changes.creator?.currentValue);
     }
   }
 
