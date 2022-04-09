@@ -1,7 +1,7 @@
 <div class="center">
   <mat-stepper linear #stepper>
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
+      <form autocomplete="off" [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Titre</ng-template>
         <mat-form-field appearance="fill">
           <mat-label>Titre</mat-label>

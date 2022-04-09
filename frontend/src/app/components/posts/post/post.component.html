@@ -3,7 +3,7 @@
     <div mat-card-avatar class="post-header-image"></div>
     <div *ngIf="!onEdit"></div>
     <ng-template #edit>
-      <form [formGroup]="form" (submit)="submit()">
+      <form autocomplete="off" [formGroup]="form" (submit)="submit()">
         <mat-form-field appearance="fill" class="titre">
           <mat-label>Entrez un nouveau titre</mat-label>
           <input

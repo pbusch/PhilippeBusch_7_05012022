@@ -83,7 +83,7 @@ export class PostComponent implements OnInit {
       },
       complete: () => {
         this.postService.page = 1;
-
+        window.scrollTo(0, 0);
         this.router
           .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
           .then(() => {
