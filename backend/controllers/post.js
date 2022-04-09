@@ -1,18 +1,14 @@
-//const { Sequelize, like, post } = require("../models");
 const db = require("../models");
-//const users = require("../models/user");
 const Comment = db.comment;
 const Post = db.post;
 const Like = db.like;
-//const User = db.user;
-//const Op = db.Sequelize.Op;
 const fs = require("fs");
 
 exports.listPosts = (req, res) => {
   let creator = req.query.creator;
   Post.findAndCountAll({
     where: JSON.parse(JSON.stringify({ creatorId: creator })),
-    limit: req.query.limit || 10,
+    limit: req.query.limit || 3,
     offset: req.query.offset || 0,
     distinct: true,
     order: [
@@ -63,50 +59,9 @@ exports.likePost = (req, res) => {
   })
     .then((data) => {
       if (data === null) {
-        console.log("ok");
-
         Like.create(like)
-          .then((data) => {
-            Post.findOne({
-              attributes: ["title", "imgUrl", "createdAt", "id"],
-              where: { id: req.params.id },
-              include: [
-                {
-                  model: db.like,
-                  attributes: ["id"],
-                  include: [
-                    {
-                      model: db.user,
-                      attributes: ["name", "id"],
-                      as: "creator",
-                    },
-                  ],
-                },
-
-                { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-                {
-                  model: db.comment,
-                  attributes: ["commentText", "createdAt", "id"],
-
-                  include: [
-                    {
-                      model: db.user,
-                      attributes: ["name", "id"],
-                      as: "creator",
-                    },
-                  ],
-                },
-              ],
-            })
-              .then((data) => {
-                res.send(data);
-              })
-              .catch((err) => {
-                res.status(500).send({
-                  message: err.message || "error",
-                });
-              });
+          .then(() => {
+            returnOnePost(req.params.id).then((data) => res.send(data));
           })
 
           .catch((err) => {
@@ -119,88 +74,10 @@ exports.likePost = (req, res) => {
           where: { creatorId: req.token.userId, postId: req.params.id },
         })
           .then(() => {
-            Post.findOne({
-              attributes: ["title", "imgUrl", "createdAt", "id"],
-              where: { id: req.params.id },
-              include: [
-                {
-                  model: db.like,
-                  attributes: ["id"],
-                  include: [
-                    {
-                      model: db.user,
-                      attributes: ["name", "id"],
-                      as: "creator",
-                    },
-                  ],
-                },
-
-                {
-                  model: db.user,
-                  attributes: ["name", "id"],
-                  as: "creator",
-                },
-
-                {
-                  model: db.comment,
-                  attributes: ["commentText", "createdAt", "id"],
-
-                  include: [
-                    {
-                      model: db.user,
-                      attributes: ["name", "id"],
-                      as: "creator",
-                    },
-                  ],
-                },
-              ],
-            })
-              .then((data) => {
-                res.send(data);
-              })
-              .catch((err) => {
-                res.status(500).send({
-                  message: err.message || "error",
-                });
-              });
+            returnOnePost(req.params.id).then((data) => res.send(data));
           })
           .catch((error) => res.status(400).json({ error }));
       }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "error",
-      });
-    });
-};
-
-exports.getOnePost = (req, res) => {
-  Post.findOne({
-    attributes: ["title", "imgUrl", "createdAt", "id"],
-    where: { id: req.params.id },
-    include: [
-      {
-        model: db.like,
-        attributes: ["id"],
-        include: [
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-        ],
-      },
-
-      { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-      {
-        model: db.comment,
-        attributes: ["commentText", "createdAt", "id"],
-
-        include: [
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-        ],
-      },
-    ],
-  })
-    .then((data) => {
-      res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
@@ -232,47 +109,8 @@ exports.updatePost = (req, res) => {
     },
     { where: { id: req.params.id } }
   )
-    .then((data) => {
-      Post.findOne({
-        attributes: ["title", "imgUrl", "createdAt", "id"],
-        where: { id: req.params.id },
-        include: [
-          {
-            model: db.like,
-            attributes: ["id"],
-            include: [
-              {
-                model: db.user,
-                attributes: ["name", "id"],
-                as: "creator",
-              },
-            ],
-          },
-
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-          {
-            model: db.comment,
-            attributes: ["commentText", "createdAt", "id"],
-
-            include: [
-              {
-                model: db.user,
-                attributes: ["name", "id"],
-                as: "creator",
-              },
-            ],
-          },
-        ],
-      })
-        .then((data) => {
-          res.send(data);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message: err.message || "error",
-          });
-        });
+    .then(() => {
+      returnOnePost(req.params.id).then((data) => res.send(data));
     })
     .catch((err) => {
       res.status(500).send({
@@ -305,45 +143,8 @@ exports.addComment = (req, res) => {
     postId: req.params.id,
   };
   Comment.create(comment)
-    .then((data) => {
-      Post.findOne({
-        attributes: ["title", "imgUrl", "createdAt", "id"],
-        where: { id: req.params.id },
-        order: [
-          ["createdAt", "DESC"],
-          [{ model: db.comment }, "id", "ASC"],
-        ],
-        include: [
-          {
-            model: db.like,
-            attributes: ["id"],
-            include: [
-              { model: db.user, attributes: ["name", "id"], as: "creator" },
-            ],
-          },
-
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-          {
-            model: db.comment,
-            attributes: ["commentText", "createdAt", "id"],
-
-            include: [
-              { model: db.user, attributes: ["name", "id"], as: "creator" },
-            ],
-          },
-        ],
-      })
-        .then((data) => {
-          res.send(data);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message: err.message || "error",
-          });
-        });
-
-      //res.send(data);
+    .then(() => {
+      returnOnePost(req.params.id).then((data) => res.send(data));
     })
     .catch((err) => {
       res.status(500).send({
@@ -387,43 +188,40 @@ exports.delComment = (req, res) => {
   Comment.destroy({
     where: { id: req.params.id },
   })
-    .then((data) => {
-      Post.findOne({
-        attributes: ["title", "imgUrl", "createdAt", "id"],
-        where: { id: req.params.post },
-        order: [
-          ["createdAt", "DESC"],
-          [{ model: db.comment }, "id", "ASC"],
-        ],
-        include: [
-          {
-            model: db.like,
-            attributes: ["id"],
-            include: [
-              { model: db.user, attributes: ["name", "id"], as: "creator" },
-            ],
-          },
-
-          { model: db.user, attributes: ["name", "id"], as: "creator" },
-
-          {
-            model: db.comment,
-            attributes: ["commentText", "createdAt", "id"],
-
-            include: [
-              { model: db.user, attributes: ["name", "id"], as: "creator" },
-            ],
-          },
-        ],
-      })
-        .then((data) => {
-          res.send(data);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message: err.message || "error",
-          });
-        });
+    .then(() => {
+      returnOnePost(req.params.post).then((data) => res.send(data));
     })
     .catch((error) => res.status(400).json({ error }));
 };
+
+async function returnOnePost(postId) {
+  const data = await Post.findOne({
+    attributes: ["title", "imgUrl", "createdAt", "id"],
+    where: { id: postId },
+    order: [
+      ["createdAt", "DESC"],
+      [{ model: db.comment }, "id", "ASC"],
+    ],
+    include: [
+      {
+        model: db.like,
+        attributes: ["id"],
+        include: [
+          { model: db.user, attributes: ["name", "id"], as: "creator" },
+        ],
+      },
+
+      { model: db.user, attributes: ["name", "id"], as: "creator" },
+
+      {
+        model: db.comment,
+        attributes: ["commentText", "createdAt", "id"],
+
+        include: [
+          { model: db.user, attributes: ["name", "id"], as: "creator" },
+        ],
+      },
+    ],
+  });
+  return data;
+}
