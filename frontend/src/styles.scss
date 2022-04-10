@@ -53,6 +53,7 @@ body {
 .flex-column {
   flex-direction: column;
 }
+
 .flex-auto {
   display: flex;
   flex: auto;
@@ -62,19 +63,8 @@ body {
   justify-content: center;
 }
 
-.flex-justify-content-between {
-  justify-content: space-between;
-}
-
 .flex-align-items-center {
   align-items: center;
-}
-.flex-justify-content-end {
-  justify-content: flex-end;
-}
-
-.flex-align-items-between {
-  align-items: space-between;
 }
 
 .flex-fill {
@@ -87,14 +77,6 @@ body {
 
 .p-20 {
   padding: 20px;
-}
-
-.pr-10 {
-  padding-right: 10px;
-}
-
-.pl-10 {
-  padding-left: 10px;
 }
 
 .m-10 {

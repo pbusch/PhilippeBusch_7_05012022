@@ -28,7 +28,6 @@ export class UsersComponent implements OnInit {
 
   // Edition d'un utilisateur
   public editRow(row: any, id: any, name: any, level: any, email: any) {
-    console.log(name, level, email);
     this.userService
       .updateUser(id, 'null', 'no!', name, level, email)
       .subscribe({
@@ -85,7 +84,6 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  // SnackBar
   openSnack(message: any) {
     const ref = this.snackBar.open(message, '', {
       duration: 2000,
