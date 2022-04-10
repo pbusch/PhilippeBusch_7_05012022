@@ -14,6 +14,8 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   },
 });
 
+// Definition des tables et relations (clés primaires, étrangères et contraintes)
+
 const db = {};
 
 db.Sequelize = Sequelize;
