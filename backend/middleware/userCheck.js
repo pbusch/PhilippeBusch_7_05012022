@@ -22,14 +22,23 @@ module.exports = (req, res, next) => {
   }
 
   const schema = new passwordValidator();
-  schema.is().min(3);
+  schema.is().min(8).is().max(100).has().uppercase().has().digits();
 
   if (!schema.validate(req.body.password)) {
-    return res.status(400).json({ error: "invalid password" });
+    return res.status(400).json({
+      error:
+        "Mot de passe invalide - Il doit comporter 8 caractères, 1 majuscule (min) et 1 chiffre (min)",
+    });
   }
-
-  if (!schema.validate(req.body.newPassword)) {
-    return res.status(400).json({ error: "invalid new password" });
+  if (req.body.newPassword) {
+    if (!schema.validate(req.body.newPassword)) {
+      return res
+        .status(400)
+        .json({
+          error:
+            "Nouveau mot de passe invalide - Il doit comporter 8 caractères, 1 majuscule (min) et 1 chiffre (min)",
+        });
+    }
   }
 
   next();

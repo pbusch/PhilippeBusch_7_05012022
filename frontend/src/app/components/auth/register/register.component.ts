@@ -44,11 +44,13 @@ export class RegisterComponent implements OnInit {
               this.error =
                 'Inscription impossible pour le moment. Veuillez re-essayer plus tard';
             } else {
-              this.error = error.error.error.name;
+              this.error = error.error.error;
+              console.log(this.error);
             }
           },
 
           complete: () => {
+            this.error = undefined;
             this.valid = true;
             setTimeout(() => this.router?.navigate(['auth', 'login']), 2500);
           },
