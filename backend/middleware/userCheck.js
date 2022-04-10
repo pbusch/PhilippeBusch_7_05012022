@@ -1,5 +1,6 @@
 const passwordValidator = require("password-validator");
 
+// Validation RegEx du mail et du nom - Validation de la complexité du mot de passe
 module.exports = (req, res, next) => {
   if (req.body.email) {
     const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(

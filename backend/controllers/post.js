@@ -4,6 +4,7 @@ const Post = db.post;
 const Like = db.like;
 const fs = require("fs");
 
+// Récupération des Posts. Params  : Offset, Limit, Creator
 exports.listPosts = (req, res) => {
   let creator = req.query.creator;
   Post.findAndCountAll({
@@ -47,6 +48,7 @@ exports.listPosts = (req, res) => {
     });
 };
 
+// Ajout / suppresion de 'likes'
 exports.likePost = (req, res) => {
   const like = {
     creatorId: req.token.userId,
@@ -86,6 +88,7 @@ exports.likePost = (req, res) => {
     });
 };
 
+// Récupération des commentaires
 exports.getPostComments = (req, res) => {
   Comment.findAll({
     attributes: ["commentText", "createdAt", "id"],
@@ -102,6 +105,7 @@ exports.getPostComments = (req, res) => {
     });
 };
 
+// Mise à jour d'un Post
 exports.updatePost = (req, res) => {
   Post.update(
     {
@@ -119,6 +123,7 @@ exports.updatePost = (req, res) => {
     });
 };
 
+// Ajout d'un Post
 exports.addPost = (req, res) => {
   const post = {
     creatorId: req.token.userId,
@@ -136,6 +141,7 @@ exports.addPost = (req, res) => {
     });
 };
 
+// Ajout d'un commentaire
 exports.addComment = (req, res) => {
   const comment = {
     creatorId: req.token.userId,
@@ -153,6 +159,7 @@ exports.addComment = (req, res) => {
     });
 };
 
+// Suppression d'un Post
 exports.delPost = (req, res) => {
   Post.findOne({
     attributes: ["title", "imgUrl", "createdAt", "id"],
@@ -184,6 +191,7 @@ exports.delPost = (req, res) => {
     });
 };
 
+// Suppression d'un commentaire
 exports.delComment = (req, res) => {
   Comment.destroy({
     where: { id: req.params.id },
@@ -194,6 +202,7 @@ exports.delComment = (req, res) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
+// Fonction partagée de récupération d'un Post
 async function returnOnePost(postId) {
   const data = await Post.findOne({
     attributes: ["title", "imgUrl", "createdAt", "id"],

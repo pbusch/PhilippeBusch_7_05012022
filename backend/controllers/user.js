@@ -3,6 +3,7 @@ const User = db.user;
 const bcrypt = require("bcrypt");
 const { post, like, comment, user } = require("../models");
 
+// Liste des utilisateurs
 exports.listUsers = (req, res) => {
   if (req.token.level < 3) {
     return res.status(401).json({ error: { message: "Admin level required" } });
@@ -20,6 +21,7 @@ exports.listUsers = (req, res) => {
     });
 };
 
+// Récupération d'un utiisateur - Avec calcul du nombre de Posts / likes / commentaires
 exports.userInfo = (req, res) => {
   const userId = parseInt(req.token.userId);
   const paramId = parseInt(req.params.id);
@@ -61,6 +63,7 @@ exports.userInfo = (req, res) => {
     .catch((error) => console.log(error));
 };
 
+// Suppression d'un utilisateur
 exports.delUser = (req, res) => {
   const userId = parseInt(req.token.userId);
   const paramId = parseInt(req.params.id);
@@ -85,6 +88,7 @@ exports.delUser = (req, res) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
+// Modification d'un utilisateur (optionnel : changement du mot de passe)
 exports.modUser = (req, res) => {
   const userId = parseInt(req.token.userId);
   const paramId = parseInt(req.params.id);

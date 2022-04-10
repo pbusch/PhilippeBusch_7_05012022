@@ -9,6 +9,8 @@ require("dotenv").config();
 const db = require("./models");
 const { sequelize } = require("./models");
 
+// initialisation de la BDD et création du compte admin
+
 bcrypt.hash("GMAdmin", 10).then((hash) => {
   db.sequelize
     .sync()
@@ -23,7 +25,7 @@ bcrypt.hash("GMAdmin", 10).then((hash) => {
     .catch((error) => {});
 });
 
-//db.sequelize.sync();
+// configuration de CORS
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -39,8 +41,15 @@ app.use((req, res, next) => {
   next();
 });
 
+// Body parser
+
 app.use(express.json());
+
+// Path dossier "images"
+
 app.use("/images", express.static(path.join(__dirname, "images")));
+
+// Routes
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);

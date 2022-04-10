@@ -3,6 +3,7 @@ const User = db.user;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// Inscription
 exports.signup = (req, res) => {
   if (!req.body.password) {
     return res.status(400).json({ error: "No password provided" });
@@ -23,6 +24,7 @@ exports.signup = (req, res) => {
   });
 };
 
+// Authentification
 exports.login = (req, res) => {
   const email = req.body.email;
   User.findOne({ where: { email: email } })

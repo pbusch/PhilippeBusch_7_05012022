@@ -4,6 +4,8 @@ const auth = require("../middleware/authCheck");
 const postCtrl = require("../controllers/post");
 const multer = require("../middleware/multer-config");
 
+// Routes de publications (Posts)
+
 //router.get("/:offset&:limit&:creator", auth, postCtrl.listPosts);
 router.get("/", auth, postCtrl.listPosts);
 router.post("/", auth, multer, postCtrl.addPost);

@@ -3,6 +3,7 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
 
+// Vérification du mot de passe actuel avant sa mise à jour - sauf pour les Admin (utilisateur avec 'level'= 3)
 module.exports = (req, res, next) => {
   if (isNaN(req.params.id)) {
     return res.status(400).json({ error: { message: "invalid parameter" } });
@@ -29,7 +30,7 @@ module.exports = (req, res, next) => {
           .then((valid) => {
             if (!valid) {
               console.log(valid);
-              return res.status(403).json({ error: "Incorrect password" });
+              return res.status(403).json({ error: "Incorrect old password" });
             } else {
               console.log(valid);
               next();

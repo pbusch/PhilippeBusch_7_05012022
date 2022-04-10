@@ -5,6 +5,8 @@ const userCtrl = require("../controllers/user");
 const userCheck = require("../middleware/userCheck");
 const pwCheck = require("../middleware/pwCheck");
 
+// Routes de gestion des utilisateurs
+
 router.put("/:id", auth, userCheck, pwCheck, userCtrl.modUser);
 router.get("/", auth, userCtrl.listUsers);
 router.get("/:id", auth, userCtrl.userInfo);
