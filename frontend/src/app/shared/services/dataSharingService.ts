@@ -22,7 +22,7 @@ export class DataSharingService implements OnInit {
       this.isUserLoggedIn$.next(true);
     }
     this.userToken = this.authService.tokenId();
-    console.log(this.userToken.level);
+
     if (this.userToken.level == '3') {
       this.isUserAdmin$.next(true);
     }
