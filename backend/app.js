@@ -17,7 +17,7 @@ bcrypt.hash("GMAdmin", 10).then((hash) => {
     .then(() =>
       db.user.create({
         name: "admin",
-        email: "admin@groupomania.fr",
+        email: "admin@gm.fr",
         password: hash,
         level: "3",
       })

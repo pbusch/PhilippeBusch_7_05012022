@@ -55,7 +55,7 @@ FRONTEND
 
 Compte administrateur initial :
 
-- login : admin@groupomania.fr
+- login : admin@gm.fr
 - password : GMAdmin
 
 ---

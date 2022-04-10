@@ -28,11 +28,10 @@ export class HeaderComponent implements OnInit {
     // Vérification du Token et du level (user ou admin) de l'utilisateur
     if (localStorage.getItem('token')) {
       this.dataSharingService.isUserLoggedIn$.next(true);
-    }
-    this.userToken = this.authService.tokenId();
-    console.log(this.userToken.level);
-    if (this.userToken.level == '3') {
-      this.dataSharingService.isUserAdmin$.next(true);
+      this.userToken = this.authService.tokenId();
+      if (this.userToken.level == '3') {
+        this.dataSharingService.isUserAdmin$.next(true);
+      }
     }
   }
 }
