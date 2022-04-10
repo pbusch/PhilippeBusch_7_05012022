@@ -39,6 +39,7 @@ export class PostListComponent implements OnInit {
     }
   }
 
+  // Récupération du nom de l'utilisateur / créateur - si vide : créateur = tout le monde
   public getCreatorName(id: any) {
     if (this.creator) {
       this.userService.getUser(id).subscribe((res) => {
@@ -64,6 +65,7 @@ export class PostListComponent implements OnInit {
       });
   }
 
+  // Gestion du scroll infini (récupération prgressive des Posts avec offset/limit)
   onScroll(): void {
     if (this.postService.page < this.postService.totalPosts) {
       console.log(this.postService.page);

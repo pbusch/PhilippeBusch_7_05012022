@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Vérification du Token et du level (user ou admin) de l'utilisateur
     if (localStorage.getItem('token')) {
       this.dataSharingService.isUserLoggedIn$.next(true);
     }

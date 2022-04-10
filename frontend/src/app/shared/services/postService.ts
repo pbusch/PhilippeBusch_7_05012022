@@ -18,6 +18,7 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
+  // Récupération progressive des Posts (params [optionels] : offset, limit, creator)
   public fetchPartialPosts(
     offset: number,
     limit: number,
@@ -43,6 +44,7 @@ export class PostService {
       });
   }
 
+  // Mise à jour des Posts (Param : id du Post, body : titre du Post)
   public updatePost(param: any, text: string): Observable<any> {
     return this.http
       .put<any>(POST_API + param, {
@@ -51,6 +53,7 @@ export class PostService {
       .pipe(tap(() => {}));
   }
 
+  // Ajout d'un Post (body : titre / image [formdata] )
   public addPost(body: any): Observable<any> {
     return this.http.post<any>(POST_API, body).pipe(tap(() => {}));
   }
@@ -67,11 +70,13 @@ export class PostService {
       .pipe(tap(() => {}));
   }
 
+  // Suppression d'un commentaire (params : id du commentaire et id du Post)
   public deleteComment(param: any, post: any): Observable<any> {
     const newPOST_API = POST_API + 'comments/' + param + '&' + post;
     return this.http.delete<any>(newPOST_API).pipe(tap(() => {}));
   }
 
+  // Ajout / Suppression d'un 'Like' (param : id du Post, body : texte du commentaire)
   public likePost(param: any, text: string): Observable<any> {
     return this.http
       .post<any>(POST_API + param + '/like', { text })

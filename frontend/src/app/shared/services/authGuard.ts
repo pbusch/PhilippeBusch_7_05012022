@@ -9,6 +9,7 @@ import { AuthService } from './authService';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
+  // Redirection vers la page d'authentification si l'utilisateur n'est pas "logged"
   canActivate(): boolean {
     if (this.authService.loggedIn()) {
       return true;

@@ -2,6 +2,7 @@
   <app-header></app-header>
 </div>
 
+<!-- Annimations (fade-in) sur les routes -->
 <div [@routeAnimations]="prepareRoute(outlet)">
   <router-outlet #outlet="outlet"></router-outlet>
 </div>

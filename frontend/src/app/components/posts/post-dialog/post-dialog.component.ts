@@ -51,6 +51,7 @@ export class PostDialogComponent implements OnInit {
     stepper.next();
   }
 
+  // Ajout d'un post
   public submit() {
     let formData: FormData = new FormData();
     formData.append('image', this.file, this.file.name);

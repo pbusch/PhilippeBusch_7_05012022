@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/authService';
 
 @Injectable({ providedIn: 'root' })
+
+// Récupération du statut de l'utilisateur (authentifié / admin)
 export class DataSharingService implements OnInit {
   public isUserLoggedIn$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);

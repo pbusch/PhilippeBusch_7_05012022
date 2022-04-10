@@ -26,9 +26,7 @@ export class UsersComponent implements OnInit {
       .subscribe((data) => (this.dataSource = data));
   }
 
-  public removeSelectedRows() {}
-  public addRow() {}
-
+  // Edition d'un utilisateur
   public editRow(row: any, id: any, name: any, level: any, email: any) {
     console.log(name, level, email);
     this.userService
@@ -43,6 +41,8 @@ export class UsersComponent implements OnInit {
         },
       });
   }
+
+  // Suppression d'un utilisateur
   public removeRow(id: any) {
     console.log(id);
     if (
@@ -65,6 +65,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  // Modification du mot de passe d'un utilisateur
   public resetPassword(id: any, name: any, level: any, email: any) {
     let newPassword = prompt('Nouveau mot de passe');
     if (newPassword != null) {
@@ -84,6 +85,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  // SnackBar
   openSnack(message: any) {
     const ref = this.snackBar.open(message, '', {
       duration: 2000,

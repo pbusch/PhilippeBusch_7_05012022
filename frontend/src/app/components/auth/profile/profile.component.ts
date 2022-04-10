@@ -37,8 +37,8 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Récupéaration des données de l'utilisateur actuel
     this.userToken = this.authService.tokenId();
-
     this.userService.getUser(this.userToken.userId).subscribe({
       next: (res) => {
         this.nom = res.body.name;
@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // Déconnection et suppression du Token
   public disconnect() {
     localStorage.removeItem('token');
     this.dataSharingservice.isUserLoggedIn$.next(false);
@@ -62,6 +63,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/auth/login']);
   }
 
+  // Suppression de l'utilisateur et redirection vers la page d'inscription
   public delete() {
     if (
       confirm(
@@ -93,12 +95,12 @@ export class ProfileComponent implements OnInit {
   }
 
   public postsByUser() {
-    //this.router?.navigate(['posts', this.userToken.userId]);
     this.router?.navigate(['posts'], {
       queryParams: { creator: this.userToken.userId },
     });
   }
 
+  // Modification du mot de passe avec vérification du mot de passe actuel (sauf pour les admin)
   public submit() {
     if (this.form.valid) {
       this.error = '';

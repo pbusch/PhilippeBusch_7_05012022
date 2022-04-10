@@ -10,6 +10,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./post-container.component.scss'],
 })
 export class PostContainerComponent implements OnInit {
+  // Initialisation du flux de Posts
   public posts$: Observable<Post[]> = this.postService.posts$;
   public creator?: string;
 

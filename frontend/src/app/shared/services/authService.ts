@@ -15,6 +15,7 @@ const httpOptions = {
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  // Authentification (body : email, password)
   public login(email: string, password: string): Observable<any> {
     return this.http.post<any>(AUTH_API + 'login', {
       email,
@@ -22,6 +23,7 @@ export class AuthService {
     });
   }
 
+  // Inscription (body : name, email, password)
   public signup(
     name: string,
     email: string,
@@ -34,6 +36,7 @@ export class AuthService {
     });
   }
 
+  // Déconnexion - Supression du Token
   public signOut() {
     localStorage.removeItem('token');
   }
@@ -46,6 +49,7 @@ export class AuthService {
     }
   }
 
+  // Récupération des informations du Token
   public tokenId() {
     let creds: any;
     let token: any;

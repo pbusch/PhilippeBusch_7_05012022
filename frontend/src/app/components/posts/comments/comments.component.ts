@@ -36,6 +36,7 @@ export class CommentsComponent implements OnInit {
     this.commentsShow = !this.commentsShow;
   }
 
+  // Supression d'un commentaire
   public doDelete(commentId: any, postId: any) {
     this.postService.deleteComment(commentId, postId).subscribe({
       next: (res) => {

@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-post-icons',
   templateUrl: './post-actions.component.html',
   styleUrls: ['./post-actions.component.scss'],
+  // Animation du coeur 'like'
   animations: [
     trigger('heartFull', [
       state(
@@ -67,6 +68,7 @@ export class PostActionsComponent implements OnInit {
     }
   }
 
+  // Ajout / Supression d'un 'like'
   public doLike() {
     this.postService.likePost(this.post?.id, '').subscribe({
       next: (res) => {
@@ -93,10 +95,12 @@ export class PostActionsComponent implements OnInit {
     );
   }
 
+  // Récupération de la liste des utilisateurs ayant 'like' le Post
   public likers(): string {
     return this.post?.likes.map((a) => a.creator.name).join('\n') || '';
   }
 
+  // Supression du Post (envoyé vers le composant parent via output)
   public delete() {
     if (confirm('Etes-vous certain(e) de vouloir supprimer ce Post ?')) {
       this.openSnack('Post supprimé');

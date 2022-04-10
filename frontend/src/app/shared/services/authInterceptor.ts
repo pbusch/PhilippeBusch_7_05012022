@@ -31,6 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
       tap(
         () => {},
         (err: any) => {
+          // Redirection sur page d'authentification en cas d'erreur 401
           if (err instanceof HttpErrorResponse) {
             if (err.status !== 401) {
               return;

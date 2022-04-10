@@ -7,6 +7,7 @@ export interface User {
   isEdit?: boolean;
 }
 
+// Utilisé pour la tables des utilisateurs (menu admin)
 export const UserSchema = {
   isSelected: 'isSelected',
   name: 'text',

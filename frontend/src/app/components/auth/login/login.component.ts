@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
         )
         .subscribe({
           next: (res) => {
+            // Modification du menu header en fonction de l'authentification de l'utilisateur
             localStorage.setItem('token', res['token']);
             this.dataSharingService.isUserLoggedIn$.next(true);
-            //this.dataSharingService.isUserAdmin$.next(true);
             this.dataSharingService.ngOnInit();
           },
           error: (error) => {

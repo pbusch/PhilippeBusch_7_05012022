@@ -22,6 +22,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  // Récupération des données d'un utilisateur avec stats (param : id de l'utilisateur)
   public getUser(param: string): Observable<any> {
     return this.http.get<any>(USER_API + param, { observe: 'response' }).pipe(
       tap((res) => {
@@ -34,10 +35,12 @@ export class UserService {
     );
   }
 
+  // Récupération de la liste des utilisateurs
   public getAllUsers(): Observable<any> {
     return this.http.get<any>(USER_API).pipe(tap((res) => {}));
   }
 
+  // Mise à jour d'un utilisateur (param : id de l'utilisateur, body : mot de passe actuel, nouveua mot de passe, nom, level, email)
   public updateUser(
     param: any,
     password: string,
@@ -57,6 +60,7 @@ export class UserService {
       .pipe(tap(() => {}));
   }
 
+  // Suppression d'un utilisateur (param : id de l'utilisateur)
   public delUser(param: string): Observable<any> {
     return this.http.delete<any>(USER_API + param, {}).pipe(tap(() => {}));
   }

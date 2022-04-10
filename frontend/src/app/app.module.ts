@@ -14,7 +14,6 @@ import { APP_ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { PostService } from 'src/app/shared/services/postService';
 import 'hammerjs';
-import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     AppComponent,
     HeaderComponent,
     LandingPageComponent,
-    FooterComponent,
     PageNotFoundComponent,
   ],
   imports: [

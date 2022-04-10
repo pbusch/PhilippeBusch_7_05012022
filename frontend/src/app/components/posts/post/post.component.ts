@@ -53,6 +53,7 @@ export class PostComponent implements OnInit {
       });
   }
 
+  // Modification du nom du Post
   public submit() {
     this.postService
       .updatePost(this.post?.id, this.form.controls.newTitle.value)
@@ -71,6 +72,7 @@ export class PostComponent implements OnInit {
       });
   }
 
+  // Supression du Post via output du composant enfant (post-actions)
   public doDelete(data: any) {
     console.log(data);
     this.postService.deletePost(this.post?.id).subscribe({
