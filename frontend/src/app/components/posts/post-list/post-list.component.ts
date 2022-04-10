@@ -68,8 +68,6 @@ export class PostListComponent implements OnInit {
   // Gestion du scroll infini (récupération prgressive des Posts avec offset/limit)
   onScroll(): void {
     if (this.postService.page < this.postService.totalPosts) {
-      console.log(this.postService.page);
-
       this.postService.fetchPartialPosts(
         ++this.postService.page,
         1,
