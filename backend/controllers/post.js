@@ -176,7 +176,7 @@ exports.delPost = (req, res) => {
         })
           .then((data) => {
             if (data !== 0) {
-              res.status(200).json({ message: "Post removed by Admin" });
+              res.status(200).json({ message: "Post removed" });
             } else {
               res.status(404).json({ message: "Post not found" });
             }

@@ -19,8 +19,7 @@ export class CommentsComponent implements OnInit {
   public emojisShow = false;
 
   public form: FormGroup = this.fb.group({
-    //commentText: ['', Validators.required],
-    commentText: [''],
+    commentText: ['', [Validators.minLength(0), Validators.maxLength(25)]],
   });
 
   constructor(
@@ -41,7 +40,6 @@ export class CommentsComponent implements OnInit {
     this.postService.deleteComment(commentId, postId).subscribe({
       next: (res) => {
         this.post = res;
-        console.log(res);
       },
       error: (error) => {
         console.log(error.error);
@@ -64,20 +62,22 @@ export class CommentsComponent implements OnInit {
   }
 
   public submit() {
-    this.postService
-      .addComment(this.post?.id, this.form.controls.commentText.value)
-      .subscribe({
-        next: (res) => {
-          this.post = res;
-        },
-        error: (error) => {
-          console.log(error.error);
-          alert('Commentaires indisponibles pour le moment');
-        },
-        complete: () => {
-          this.form.controls.commentText.setValue(null);
-        },
-      });
+    if (this.form.valid) {
+      this.postService
+        .addComment(this.post?.id, this.form.controls.commentText.value)
+        .subscribe({
+          next: (res) => {
+            this.post = res;
+          },
+          error: (error) => {
+            console.log(error.error);
+            alert('Commentaires indisponibles pour le moment');
+          },
+          complete: () => {
+            this.form.controls.commentText.setValue(null);
+          },
+        });
+    }
   }
   openSnack(message: any) {
     const ref = this.snackBar.open(message, '', {

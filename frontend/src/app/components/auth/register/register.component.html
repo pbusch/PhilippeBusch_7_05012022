@@ -5,16 +5,28 @@
       <form autocomplete="off" [formGroup]="form" (submit)="submit()">
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input matInput type="text" formControlName="email" />
+          <input matInput type="email" formControlName="email" />
           <mat-error *ngIf="form.get('email')?.errors?.required">
             Veuillez renseigner une adresse email.
+          </mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('pattern')">
+            Adresse invalide
           </mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Nom</mat-label>
           <input matInput type="text" formControlName="name" />
           <mat-error *ngIf="form.get('name')?.errors?.required">
-            Veuillez renseigner un nom.
+            Veuillez renseigner un nom
+          </mat-error>
+          <mat-error *ngIf="form.get('name')?.hasError('minlength')">
+            3 caractères minimum
+          </mat-error>
+          <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+            25 caractères maximum
+          </mat-error>
+          <mat-error *ngIf="form.get('name')?.hasError('pattern')">
+            Nom invalide
           </mat-error>
         </mat-form-field>
         <mat-form-field>
@@ -22,6 +34,12 @@
           <input matInput type="password" formControlName="password" />
           <mat-error *ngIf="form.get('password')?.errors?.required">
             Veuillez renseigner un mot de passe.
+          </mat-error>
+          <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+            8 caractères minimum
+          </mat-error>
+          <mat-error *ngIf="form.get('password')?.hasError('maxlength')">
+            50 caractères maximum
           </mat-error>
         </mat-form-field>
 

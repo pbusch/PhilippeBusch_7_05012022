@@ -10,9 +10,9 @@ const multer = require("../middleware/multer-config");
 router.get("/", auth, postCtrl.listPosts);
 router.post("/", auth, multer, postCtrl.addPost);
 router.get("/:id/comments", auth, postCtrl.getPostComments);
-router.post("/:id", auth, postCtrl.addComment);
+router.post("/:id/comments", auth, postCtrl.addComment);
 router.delete("/:id", auth, postCtrl.delPost);
-router.delete("/comments/:id&:post", auth, postCtrl.delComment);
+router.delete("/:post/comments/:id", auth, postCtrl.delComment);
 router.put("/:id", auth, postCtrl.updatePost);
 router.post("/:id/like", auth, postCtrl.likePost);
 

@@ -64,7 +64,7 @@ export class PostService {
 
   public addComment(param: any, text: string): Observable<any> {
     return this.http
-      .post<any>(POST_API + param, {
+      .post<any>(POST_API + param + '/comments', {
         text,
       })
       .pipe(tap(() => {}));
@@ -72,8 +72,10 @@ export class PostService {
 
   // Suppression d'un commentaire (params : id du commentaire et id du Post)
   public deleteComment(param: any, post: any): Observable<any> {
-    const newPOST_API = POST_API + 'comments/' + param + '&' + post;
-    return this.http.delete<any>(newPOST_API).pipe(tap(() => {}));
+    //const newPOST_API = POST_API + 'comments/' + param + '&' + post;
+    return this.http
+      .delete<any>(POST_API + post + '/comments/' + param)
+      .pipe(tap(() => {}));
   }
 
   // Ajout / Suppression d'un 'Like' (param : id du Post, body : texte du commentaire)

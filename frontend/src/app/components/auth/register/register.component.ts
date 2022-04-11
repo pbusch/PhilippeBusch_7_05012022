@@ -10,9 +10,28 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   public form: FormGroup = this.fb.group({
-    email: ['', Validators.required],
-    name: ['', Validators.required],
-    password: ['', Validators.required],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+      ],
+    ],
+    name: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+        Validators.pattern(
+          "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$"
+        ),
+      ],
+    ],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(8), Validators.maxLength(50)],
+    ],
   });
   public error?: string;
   public valid = false;

@@ -18,7 +18,10 @@ export class PostDialogComponent implements OnInit {
   public post?: Post;
   public file!: File;
   public form: FormGroup = this.fb.group({
-    title: ['', Validators.required],
+    title: [
+      '',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(25)],
+    ],
     imgUrl: [''],
   });
   public error?: string;
@@ -40,7 +43,14 @@ export class PostDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
-      firstCtrl: ['', Validators.required],
+      firstCtrl: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(20),
+        ],
+      ],
     });
     this.secondFormGroup = this.fb.group({
       secondCtrl: ['', Validators.required],

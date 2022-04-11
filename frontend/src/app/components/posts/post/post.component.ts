@@ -17,7 +17,10 @@ export class PostComponent implements OnInit {
   public onEdit = false;
   public commentsShow!: boolean;
   public form: FormGroup = this.fb.group({
-    newTitle: ['', Validators.required],
+    newTitle: [
+      '',
+      [Validators.required, Validators.minLength(1), Validators.maxLength(20)],
+    ],
   });
 
   constructor(
@@ -55,26 +58,26 @@ export class PostComponent implements OnInit {
 
   // Modification du nom du Post
   public submit() {
-    this.postService
-      .updatePost(this.post?.id, this.form.controls.newTitle.value)
-      .subscribe({
-        next: (res) => {
-          this.post = res;
-          console.log(res);
-        },
-        error: (error) => {
-          console.log(error.error);
-          alert('Modification impossible pour le moment');
-        },
-        complete: () => {
-          this.onEdit = false;
-        },
-      });
+    if (this.form.valid) {
+      this.postService
+        .updatePost(this.post?.id, this.form.controls.newTitle.value)
+        .subscribe({
+          next: (res) => {
+            this.post = res;
+          },
+          error: (error) => {
+            console.log(error.error);
+            alert('Modification impossible pour le moment');
+          },
+          complete: () => {
+            this.onEdit = false;
+          },
+        });
+    }
   }
 
   // Supression du Post via output du composant enfant (post-actions)
   public doDelete(data: any) {
-    console.log(data);
     this.postService.deletePost(this.post?.id).subscribe({
       next: () => {
         this.post = undefined;

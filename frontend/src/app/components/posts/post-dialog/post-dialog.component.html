@@ -3,17 +3,24 @@
     <mat-step [stepControl]="firstFormGroup">
       <form autocomplete="off" [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Titre</ng-template>
-        <mat-form-field appearance="fill">
+        <mat-form-field>
           <mat-label>Titre</mat-label>
           <input
             matInput
+            type="text"
             formControlName="firstCtrl"
             placeholder="Titre"
             required
           />
+          <mat-error> Entre 2 et 20 caractères </mat-error>
         </mat-form-field>
         <div>
-          <button mat-button aria-label="Suivant" matStepperNext>
+          <button
+            [disabled]="firstFormGroup.invalid"
+            mat-button
+            aria-label="Suivant"
+            matStepperNext
+          >
             Suivant
           </button>
         </div>

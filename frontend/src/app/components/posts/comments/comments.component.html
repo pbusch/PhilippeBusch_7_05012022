@@ -84,6 +84,12 @@
           title="Choisissez votre emoji"
         ></emoji-mart>
         <mat-hint>Appuyez sur Entrée pour publier</mat-hint>
+        <mat-error *ngIf="form.get('commentText')?.hasError('minlength')">
+          1 caractère minimum
+        </mat-error>
+        <mat-error *ngIf="form.get('commentText')?.hasError('maxlength')">
+          25 caractères maximum
+        </mat-error>
       </mat-form-field>
     </form>
   </div>

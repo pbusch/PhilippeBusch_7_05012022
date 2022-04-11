@@ -31,7 +31,7 @@ module.exports = (req, res, next) => {
   }
 
   const schema = new passwordValidator();
-  schema.is().min(8).is().max(100).has().uppercase().has().digits();
+  schema.is().min(8).is().max(50).has().uppercase().has().digits();
 
   if (!admin && !schema.validate(req.body.password)) {
     return res.status(400).json({
